@@ -15,6 +15,10 @@ All content comes from the crawl in `../reference/ii-th`.
 | ![Japanese home page, version B](docs/screenshots/07-japanese-version-b.jpg) | ![Thai BOI service page](docs/screenshots/08-thai-boi-page.jpg) |
 | ![BOI guide: sampling calculator](docs/screenshots/09-boi-guide-sampling.jpg) | ![Client portal demo](docs/screenshots/10-portal-demo.jpg) |
 
+## Clients at the top
+
+Clients show at the start of the home page. On screens 1400 px wide and up, two slow vertical rails fill the empty space on the left and right of the page. On narrower screens, one strip runs under the nav. The "Selected clients" section further down shows the same clients as tiles.
+
 ## Two versions for review
 
 The hero comes in two versions. Use the **Review** switch in the top bar to change between them. The rest of the page is the same.
@@ -167,7 +171,7 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 | Marks | `/follow-up-inspection-services` |
 | BOI four steps | Thai page การตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า, and the BOI scrap conditions PDF (3 working days notice) |
 | What we inspect | `/our-expertise` |
-| Clients | `/machine-and-scrap-inspection`, `/`, Thai BOI page |
+| Clients | `/machine-and-scrap-inspection`, `/`, Thai BOI page. Sony, Panasonic and DuPont logos from the old site's images. |
 | Documents | The 9 public PDFs. Links go to the original files on ii-th.com. |
 | Contact | `/contact` |
 
@@ -187,7 +191,8 @@ The live site could not be reached from the build environment, so the crawl is t
 
 - A Chinese version. The old site has one BOI page in Chinese; it redirects to the English BOI page.
 - The real II logo. The liquid-metal "II" is a placeholder mark.
-- Client and certification-mark logos. Use them only with permission. The concept shows names as text.
+- More client logos. II's old site shows logos for only three clients (Sony, Panasonic, DuPont); the concept uses those three files as they are and shows the other names as text. Add more logos to `CLIENT_LOGOS` in `src/content.ts` when II has files it may use.
+- Certification-mark logos and II's real logo. The old site has image files for both (now in `reference/ii-th/images/clients/`). The concept still uses text stamps and a placeholder "II" mark.
 - Photos of inspectors and factories. Only the hero photo is in this concept.
 - A backend for the form. The form opens the visitor's email app, with a copy fallback.
 - Phase 2 needs input from II: fee model or "from" prices, a sample report and certificate, team photos and bios, case studies, proof of approvals, the list of industrial estates served, and review of the Thai and Japanese translations.

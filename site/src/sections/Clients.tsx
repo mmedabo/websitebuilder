@@ -1,3 +1,4 @@
+import ClientTile from '../components/ClientTile'
 import { clients, ui } from '../content'
 
 export default function Clients() {
@@ -10,7 +11,9 @@ export default function Clients() {
         </h2>
         <ul className="client-list">
           {clients.map((c) => (
-            <li key={c}>{c}</li>
+            <li key={c.name}>
+              <ClientTile c={c} />
+            </li>
           ))}
         </ul>
       </div>

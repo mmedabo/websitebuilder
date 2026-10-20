@@ -4,6 +4,7 @@ import Glass from '../effects/Glass'
 import { useInView, webglSupported } from '../hooks'
 import { focusOrb, orb, releaseOrb } from '../state'
 import CountUp from '../components/CountUp'
+import ClientRails from './ClientRails'
 import { serviceHref } from '../routing'
 import type { Variant } from '../variant'
 
@@ -113,6 +114,7 @@ export default function Hero({ still, variant }: { still: boolean; variant: Vari
           </div>
         ))}
       </dl>
+      <ClientRails />
     </section>
   )
 }

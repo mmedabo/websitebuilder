@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { representedBodies, services, stats } from '../content'
+import { representedBodies, services, stats, ui } from '../content'
 import Glass from '../effects/Glass'
 import { useInView, webglSupported } from '../hooks'
 import { focusOrb, orb, releaseOrb } from '../state'
@@ -51,29 +51,26 @@ export default function Hero({ still, variant }: { still: boolean; variant: Vari
 
       <div className="hero-inner container">
         <h1 className="display">
-          Quality is our <mark>priority.</mark>
+          {ui.heroTitle}
+          <mark>{ui.heroMark}</mark>
         </h1>
 
         <div className="hero-grid">
-          <p className="hero-intro">
-            International Inspection (II) is a third-party inspection company in Bangkok. We started in 1989 as the
-            representative of Underwriters Laboratories (UL) in Thailand. Today we inspect for UL, DEMKO and DEKRA,
-            for the Board of Investment, and to your own specifications, in all ten ASEAN countries.
-          </p>
+          <p className="hero-intro">{ui.heroIntro}</p>
 
           <div className="hero-actions">
             <a className="btn" href="#contact">
-              Request an inspection
+              {ui.heroRequest}
             </a>
             <a className="btn btn-line" href="#services">
-              Our services
+              {ui.heroServices}
             </a>
             <p className="represents">
-              Representative inspector for{' '}
+              {ui.represents}{' '}
               {representedBodies.map((b, i) => (
                 <span key={b}>
                   <strong>{b}</strong>
-                  {i < representedBodies.length - 2 ? ', ' : i === representedBodies.length - 2 ? ' and ' : ''}
+                  {i < representedBodies.length - 2 ? ui.listSep : i === representedBodies.length - 2 ? ui.and : ''}
                 </span>
               ))}
             </p>
@@ -81,7 +78,7 @@ export default function Hero({ still, variant }: { still: boolean; variant: Vari
         </div>
 
         <div className="hero-focus" onPointerLeave={release}>
-          <ul aria-label="Services">
+          <ul aria-label={ui.servicesAria}>
             {services.map((s) => (
               <li key={s.id}>
                 <Glass
@@ -100,7 +97,7 @@ export default function Hero({ still, variant }: { still: boolean; variant: Vari
             ))}
           </ul>
           <p className={`orb-note ${current ? 'is-on' : ''}`} aria-live="polite">
-            {current ? current.short : 'Point at a service to see what it covers.'}
+            {current ? current.short : ui.orbHint}
           </p>
         </div>
       </div>

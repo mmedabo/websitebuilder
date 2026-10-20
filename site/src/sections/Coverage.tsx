@@ -1,4 +1,5 @@
 import SectionHead from '../components/SectionHead'
+import { countryName, ui } from '../content'
 import { useReveal } from '../hooks'
 
 // Capital cities, real coordinates, plotted equirectangular.
@@ -29,14 +30,12 @@ export default function Coverage({ n = '04' }: { n?: string }) {
   return (
     <section id="coverage" className="section coverage">
       <div className="container coverage-layout">
-        <SectionHead n={n} label="Coverage" title="Ten ASEAN countries from one Bangkok office.">
-          Bangkok is at the centre of Southeast Asia, so our inspectors reach factories across the region quickly.
-          This saves you inspection and transport cost. Our engineers speak Thai and English, which removes the language
-          barrier of working offshore.
+        <SectionHead n={n} label={ui.coverageLabel} title={ui.coverageTitle}>
+          {ui.coverageLead}
         </SectionHead>
 
         <div className="map reveal" ref={ref}>
-          <svg viewBox={`-90 -10 ${W + 110} ${H + 40}`} role="img" aria-label="Map of the ten ASEAN countries II covers, with Bangkok at the centre">
+          <svg viewBox={`-90 -10 ${W + 110} ${H + 40}`} role="img" aria-label={ui.mapAria}>
             <defs>
               <radialGradient id="hub" r="50%">
                 <stop offset="0" stopColor="#ff6a3d" stopOpacity="0.55" />
@@ -67,7 +66,7 @@ export default function Coverage({ n = '04' }: { n?: string }) {
                   <path className="map-pulse" d={`M${bkk.x},${bkk.y} Q${cx},${cy} ${x},${y}`} pathLength={1} />
                   <circle cx={x} cy={y} r="4.5" className="map-dot" />
                   <text x={lx} y={ly} textAnchor={c.anchor} className="map-label">
-                    {c.country}
+                    {countryName(c.country)}
                   </text>
                 </g>
               )
@@ -75,7 +74,7 @@ export default function Coverage({ n = '04' }: { n?: string }) {
             <circle cx={bkk.x} cy={bkk.y} r="46" fill="url(#hub)" className="map-hub-glow" />
             <circle cx={bkk.x} cy={bkk.y} r="7" className="map-hub" />
             <text x={bkk.x - 14} y={bkk.y + 4} textAnchor="end" className="map-label is-hub">
-              Bangkok
+              {ui.bangkok}
             </text>
           </svg>
         </div>

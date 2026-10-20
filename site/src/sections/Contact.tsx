@@ -2,15 +2,18 @@ import { useRef, useState, type FormEvent } from 'react'
 import { track } from '../analytics'
 import {
   BOI_NOTICE_WORKING_DAYS,
-  aseanCountries,
   chat,
   company,
+  countries,
   earliestBoiDate,
   formFields,
   isoDate,
+  serviceEmailTitle,
   services,
+  ui,
   type Field,
 } from '../content'
+import { langInfo } from '../i18n'
 import Glass from '../effects/Glass'
 import LiquidLogo from '../effects/LiquidLogo'
 import { pageHref } from '../routing'
@@ -26,10 +29,12 @@ function FieldInput({ f, service }: { f: Field; service: string }) {
     return (
       <select name={f.name} required={f.required} defaultValue="">
         <option value="" disabled>
-          Choose…
+          {ui.fChoose}
         </option>
-        {f.options!.map((o) => (
-          <option key={o}>{o}</option>
+        {f.choices!.map((c) => (
+          <option key={c.value} value={c.value}>
+            {c.label}
+          </option>
         ))}
       </select>
     )
@@ -45,13 +50,13 @@ export default function Contact({ n = '09', service, setService, still }: Props)
   const [sent, setSent] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const textRef = useRef<HTMLTextAreaElement>(null)
-  const fields = formFields[service] ?? formFields['']
-  const svc = services.find((s) => s.id === service)
+  const fields = formFields(service)
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const f = new FormData(e.currentTarget)
-    const title = svc?.title ?? 'General enquiry'
+    // The email is always in English, whatever the page language.
+    const title = serviceEmailTitle(service)
     const header = [
       `Name: ${f.get('name')}`,
       `Company: ${f.get('company')}`,
@@ -59,7 +64,7 @@ export default function Contact({ n = '09', service, setService, still }: Props)
       f.get('phone') ? `Phone: ${f.get('phone')}` : '',
       `Service: ${title}`,
       `Factory country: ${f.get('country')}`,
-      ...fields.map((fd) => (f.get(fd.name) ? `${fd.label}: ${f.get(fd.name)}` : '')),
+      ...fields.map((fd) => (f.get(fd.name) ? `${fd.emailLabel}: ${f.get(fd.name)}` : '')),
     ].filter(Boolean)
     const message = String(f.get('message') ?? '').trim()
     const subject = `Inspection request: ${title}`
@@ -87,17 +92,18 @@ export default function Contact({ n = '09', service, setService, still }: Props)
       <div className="container contact-layout">
         <div className="contact-info">
           <p className="label">
-            <span className="label-n">{n}</span>Contact
+            <span className="label-n">{n}</span>
+            {ui.contactLabel}
           </p>
           <LiquidLogo size={120} still={still} />
-          <h2 className="h2">Contact us.</h2>
+          <h2 className="h2">{ui.contactTitle}</h2>
           <address>
             <strong>{company.name}</strong>
             {company.address.map((l) => (
               <span key={l}>{l}</span>
             ))}
             <a href={company.mapsUrl} target="_blank" rel="noreferrer" className="link">
-              Open in Maps ↗
+              {ui.openMaps}
             </a>
           </address>
           <div className="contact-lines">
@@ -109,7 +115,9 @@ export default function Contact({ n = '09', service, setService, still }: Props)
                 {p.label}
               </a>
             ))}
-            <span>Fax {company.fax}</span>
+            <span>
+              {ui.fax} {company.fax}
+            </span>
           </div>
 
           <div className="chat-buttons">
@@ -118,8 +126,8 @@ export default function Contact({ n = '09', service, setService, still }: Props)
                 LINE
               </a>
             ) : (
-              <span className="chat line is-pending" title="Add II's LINE Official Account ID in content.ts">
-                LINE <small>ID needed</small>
+              <span className="chat line is-pending" title={ui.chatLineTitle}>
+                LINE <small>{ui.chatIdNeeded}</small>
               </span>
             )}
             {chat.whatsapp ? (
@@ -127,8 +135,8 @@ export default function Contact({ n = '09', service, setService, still }: Props)
                 WhatsApp
               </a>
             ) : (
-              <span className="chat whatsapp is-pending" title="Add II's WhatsApp number in content.ts">
-                WhatsApp <small>number needed</small>
+              <span className="chat whatsapp is-pending" title={ui.chatWhatsappTitle}>
+                WhatsApp <small>{ui.chatNumberNeeded}</small>
               </span>
             )}
           </div>
@@ -137,18 +145,20 @@ export default function Contact({ n = '09', service, setService, still }: Props)
             {company.extensions.map((x) => (
               <div key={x.service}>
                 <dt>{x.service}</dt>
-                <dd>ext. {x.ext}</dd>
+                <dd>
+                  {ui.ext} {x.ext}
+                </dd>
               </div>
             ))}
           </dl>
         </div>
 
         <Glass as="form" className="contact-form" radius={10} strength={24} onSubmit={submit}>
-          <h3 className="h3">Request an inspection</h3>
-          <p className="form-note">We reply by email. Fields marked * are required.</p>
+          <h3 className="h3">{ui.formTitle}</h3>
+          <p className="form-note">{ui.formNote}</p>
 
           <label>
-            <span>Service *</span>
+            <span>{ui.fService} *</span>
             <select
               name="service"
               value={service}
@@ -156,7 +166,7 @@ export default function Contact({ n = '09', service, setService, still }: Props)
               onFocus={() => focusOrb(0.1)}
               onBlur={releaseOrb}
             >
-              <option value="">General enquiry</option>
+              <option value="">{ui.fGeneral}</option>
               {services.map((s) => (
                 <option key={s.id} value={s.id}>
                   {s.title}
@@ -167,31 +177,33 @@ export default function Contact({ n = '09', service, setService, still }: Props)
 
           <div className="field-row">
             <label>
-              <span>Name *</span>
+              <span>{ui.fName} *</span>
               <input name="name" required autoComplete="name" />
             </label>
             <label>
-              <span>Company *</span>
+              <span>{ui.fCompany} *</span>
               <input name="company" required autoComplete="organization" />
             </label>
           </div>
           <div className="field-row">
             <label>
-              <span>Email *</span>
+              <span>{ui.fEmail} *</span>
               <input name="email" type="email" required autoComplete="email" />
             </label>
             <label>
-              <span>Phone</span>
+              <span>{ui.fPhone}</span>
               <input name="phone" type="tel" autoComplete="tel" />
             </label>
           </div>
           <label>
-            <span>Factory country</span>
+            <span>{ui.fCountry}</span>
             <select name="country" defaultValue="Thailand">
-              {aseanCountries.map((c) => (
-                <option key={c}>{c}</option>
+              {countries.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
               ))}
-              <option>Outside ASEAN</option>
+              <option value="Outside ASEAN">{ui.fOutsideAsean}</option>
             </select>
           </label>
 
@@ -209,42 +221,42 @@ export default function Contact({ n = '09', service, setService, still }: Props)
           </div>
           {service === 'boi' && (
             <p className="form-hint">
-              BOI inspections need at least {BOI_NOTICE_WORKING_DAYS} working days notice, so the first date you can pick
-              is {earliestBoiDate().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}.
-              Thai public holidays are not counted here; we confirm the date with you.
+              {ui.boiHint(
+                BOI_NOTICE_WORKING_DAYS,
+                earliestBoiDate().toLocaleDateString(langInfo.locale, { weekday: 'short', day: 'numeric', month: 'short' }),
+              )}
             </p>
           )}
 
           <label>
-            <span>Message</span>
-            <textarea name="message" rows={4} placeholder="Quantities, standards, marks, or anything else we should know" />
+            <span>{ui.fMessage}</span>
+            <textarea name="message" rows={4} placeholder={ui.fMessagePh} />
           </label>
 
           <label className="consent">
             <input type="checkbox" name="consent" required />
             <span>
-              I agree that II may use these details to reply to my request. See the{' '}
+              {ui.consentBefore}
               <a href={pageHref('privacy/')} target="_blank" rel="noreferrer">
-                privacy notice
+                {ui.consentLink}
               </a>
-              . *
+              {ui.consentAfter} *
             </span>
           </label>
 
           <button className="btn btn-block" type="submit">
-            Send request by email
+            {ui.submit}
           </button>
 
           {sent && (
             <div className="sent" role="status">
               <p>
-                <strong>Your email app should now open with this message.</strong> If it did not, copy the text and send
-                it to <a href={`mailto:${company.email}`}>{company.email}</a>. You can attach drawings or specifications to
-                the email.
+                <strong>{ui.sentStrong}</strong> {ui.sentBody} <a href={`mailto:${company.email}`}>{company.email}</a>.{' '}
+                {ui.sentAttach}
               </p>
-              <textarea ref={textRef} readOnly value={sent} rows={8} aria-label="Your request" />
+              <textarea ref={textRef} readOnly value={sent} rows={8} aria-label={ui.requestAria} />
               <button type="button" className="btn btn-line btn-small" onClick={copy}>
-                {copied ? 'Copied' : 'Copy request'}
+                {copied ? ui.copied : ui.copy}
               </button>
             </div>
           )}

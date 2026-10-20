@@ -1,4 +1,4 @@
-import { whyUs } from '../content'
+import { ui, whyUs } from '../content'
 import SectionHead from '../components/SectionHead'
 import { useReveal } from '../hooks'
 
@@ -7,9 +7,8 @@ export default function WhyUs({ n = '07' }: { n?: string }) {
   return (
     <section id="why" className="section why">
       <div className="container">
-        <SectionHead n={n} label="Why II" title="Why manufacturers choose II.">
-          Inspection or sourcing offshore is not as easy as it seems. These are the reasons clients have worked with us
-          for more than three decades.
+        <SectionHead n={n} label={ui.whyLabel} title={ui.whyTitle}>
+          {ui.whyLead}
         </SectionHead>
         <ol className="why-list reveal-stagger" ref={ref}>
           {whyUs.map((w, i) => (

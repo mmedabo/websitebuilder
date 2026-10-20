@@ -1,5 +1,5 @@
 import type { PointerEvent as RPointerEvent } from 'react'
-import { services } from '../content'
+import { services, ui } from '../content'
 import Glass from '../effects/Glass'
 import SectionHead from '../components/SectionHead'
 import { useReveal } from '../hooks'
@@ -51,9 +51,8 @@ export default function Services() {
     <section id="services" className="section services">
       <Blueprint />
       <div className="container">
-        <SectionHead n="02" label="Services" title="What we do for manufacturers, importers and investors.">
-          Choose a service to see what it includes, how booking works and the common questions. Every inspection ends
-          with a detailed report within 24 hours.
+        <SectionHead n="02" label={ui.servicesLabel} title={ui.servicesTitle}>
+          {ui.servicesLead}
         </SectionHead>
 
         <div className="svc-grid reveal-stagger" ref={grid}>
@@ -73,7 +72,7 @@ export default function Services() {
               <span className="svc-title">{s.title}</span>
               <span className="svc-short">{s.short}</span>
               <span className="svc-more">
-                Details <span aria-hidden>→</span>
+                {ui.details} <span aria-hidden>→</span>
               </span>
             </Glass>
           ))}

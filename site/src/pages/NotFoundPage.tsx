@@ -1,15 +1,15 @@
-import { services } from '../content'
+import { services, ui } from '../content'
 import { pageHref, serviceHref } from '../routing'
 
 export default function NotFoundPage() {
   return (
     <section className="section legal">
       <div className="container legal-inner">
-        <h1 className="page-title">Page not found.</h1>
-        <p className="lead">The page you are looking for has moved or does not exist. These pages may help:</p>
+        <h1 className="page-title">{ui.nfTitle}</h1>
+        <p className="lead">{ui.nfLead}</p>
         <ul className="nf-links">
           <li>
-            <a href={pageHref('')}>Home</a>
+            <a href={pageHref('')}>{ui.nfHome}</a>
           </li>
           {services.map((s) => (
             <li key={s.id}>
@@ -17,7 +17,7 @@ export default function NotFoundPage() {
             </li>
           ))}
           <li>
-            <a href={pageHref('#contact')}>Contact us</a>
+            <a href={pageHref('#contact')}>{ui.nfContact}</a>
           </li>
         </ul>
       </div>

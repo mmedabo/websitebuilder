@@ -1,4 +1,4 @@
-import { company, services } from '../content'
+import { company, locale, services, ui } from '../content'
 import { homeHref, pageHref, serviceHref } from '../routing'
 
 export default function Footer() {
@@ -7,15 +7,15 @@ export default function Footer() {
       <div className="container footer-grid">
         <div>
           <p className="footer-word">International Inspection</p>
-          <p className="footer-tag">Quality is our priority.</p>
+          <p className="footer-tag">{ui.footerTag}</p>
           <address>
             {company.address.map((l) => (
               <span key={l}>{l}</span>
             ))}
           </address>
         </div>
-        <nav aria-label="Services">
-          <h3 className="h4">Services</h3>
+        <nav aria-label={ui.footerServices}>
+          <h3 className="h4">{ui.footerServices}</h3>
           <ul>
             {services.map((s) => (
               <li key={s.id}>
@@ -24,27 +24,28 @@ export default function Footer() {
             ))}
           </ul>
         </nav>
-        <nav aria-label="Company">
-          <h3 className="h4">Company</h3>
+        <nav aria-label={ui.footerCompany}>
+          <h3 className="h4">{ui.footerCompany}</h3>
           <ul>
-            <li><a href={homeHref('#about')}>About II</a></li>
-            <li><a href={homeHref('#expertise')}>Products we inspect</a></li>
-            <li><a href={homeHref('#why')}>Why II</a></li>
-            <li><a href={homeHref('#documents')}>ISO/IEC 17020 documents</a></li>
-            <li><a href={homeHref('#contact')}>Contact</a></li>
-            <li><a href={pageHref('privacy/')}>Privacy notice</a></li>
+            <li><a href={homeHref('#about')}>{ui.footerAbout}</a></li>
+            <li><a href={homeHref('#expertise')}>{ui.footerProducts}</a></li>
+            <li><a href={homeHref('#why')}>{ui.footerWhy}</a></li>
+            <li><a href={homeHref('#documents')}>{ui.footerDocs}</a></li>
+            <li><a href={homeHref('#contact')}>{ui.footerContact}</a></li>
+            <li><a href={pageHref('privacy/')}>{ui.footerPrivacy}</a></li>
           </ul>
         </nav>
       </div>
       <div className="container footer-base">
-        <span>© {new Date().getFullYear()} {company.name} All rights reserved.</span>
-        <span>Design concept. This is not the official website.</span>
+        <span>© {new Date().getFullYear()} {company.name} {ui.rights}</span>
+        <span>{ui.footerConcept}</span>
+        {locale.machineTranslated && <span>{ui.mtTitle}</span>}
         <span className="photo-credit">
-          Hero photo:{' '}
+          {ui.photoCredit}{' '}
           <a href="https://commons.wikimedia.org/wiki/File:Chao_Phraya_et_Bang_Rak_vus_de_l%27Iconsiam.jpg" target="_blank" rel="noreferrer">
             Chao Phraya et Bang Rak vus de l’Iconsiam
           </a>
-          , Wikimedia Commons, CC0.
+          {ui.photoLicense}
         </span>
       </div>
     </footer>

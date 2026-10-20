@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { langInfo } from '../i18n'
 
 export default function CountUp({ to, still, ms = 1600 }: { to: number; still: boolean; ms?: number }) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -27,5 +28,5 @@ export default function CountUp({ to, still, ms = 1600 }: { to: number; still: b
     }
   }, [to, still, ms])
 
-  return <span ref={ref}>{v.toLocaleString('en-US')}</span>
+  return <span ref={ref}>{v.toLocaleString(langInfo.locale)}</span>
 }

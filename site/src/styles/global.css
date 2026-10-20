@@ -2532,12 +2532,127 @@ html[data-page='home'][data-variant='photo'] .photo-credit {
 }
 
 @media (max-width: 640px) {
-  .switcher-label {
+  .switcher-label,
+  .switcher-text {
     display: none;
   }
   .switcher button {
     padding: 4px 7px;
     font-size: 12px;
+  }
+  .switcher button strong {
+    margin-right: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Thai and Japanese                                                   */
+/* ------------------------------------------------------------------ */
+/* IBM Plex in the matching script. Archivo has no Thai or Japanese
+   glyphs, and its width axis and tight tracking suit Latin only. */
+html[lang='th'] {
+  --display: 'IBM Plex Sans Thai', 'IBM Plex Sans Variable', 'Leelawadee UI', 'Thonburi', sans-serif;
+  --sans: 'IBM Plex Sans Thai', 'IBM Plex Sans Variable', 'Leelawadee UI', 'Thonburi', system-ui, sans-serif;
+}
+
+html[lang='ja'] {
+  --display: 'IBM Plex Sans JP', 'IBM Plex Sans Variable', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  --sans: 'IBM Plex Sans JP', 'IBM Plex Sans Variable', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', system-ui, sans-serif;
+}
+
+/* Thai stacks vowels and tone marks above and below the line: give it room. */
+html[lang='th'] body {
+  line-height: 1.75;
+}
+
+html[lang='ja'] body {
+  line-height: 1.8;
+}
+
+html:is([lang='th'], [lang='ja']) :is(.display, .h2, .h3, .page-title, .svc-title, .fold-n, .fold-card h3, .stamp-mark,
+    .footer-word, .brand-text strong, .stat dd, .why-list h3, .exp-grid h3, .steps h3, .faq-list summary,
+    .keyfacts li, .clients-title, .os-title, .tl-year, .contact-lines) {
+  letter-spacing: 0;
+  font-stretch: normal;
+}
+
+html:is([lang='th'], [lang='ja']) .display {
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+html:is([lang='th'], [lang='ja']) :is(.h2, .page-title) {
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* Widths in ch suit Latin; Thai and Japanese need their own measures. */
+html[lang='th'] .display {
+  max-width: 13em;
+}
+
+html[lang='th'] .h2 {
+  max-width: 28em;
+}
+
+html[lang='th'] .page-title {
+  max-width: 22em;
+}
+
+html[lang='ja'] .display {
+  max-width: 9em;
+}
+
+html[lang='ja'] .h2 {
+  max-width: 20em;
+}
+
+html[lang='ja'] .page-title {
+  max-width: 14em;
+}
+
+html[lang='ja'] .lead {
+  max-width: 36em;
+}
+
+/* Keep the highlighted phrase whole: "最優先。" must not split. */
+html:is([lang='th'], [lang='ja']) .display mark {
+  white-space: nowrap;
+}
+
+/* Language links in the top bar, and the note on machine translations. */
+.langs {
+  display: flex;
+  gap: 2px;
+}
+
+.langs a {
+  padding: 1px 7px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.langs a[aria-current='true'] {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.mt-note {
+  padding: 1px 8px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px currentColor;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+/* Phones: the footer repeats the machine-translation note. */
+@media (max-width: 640px) {
+  .topbar {
+    gap: 12px;
+  }
+  .mt-note {
+    display: none;
   }
 }
 

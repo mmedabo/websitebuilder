@@ -1,4 +1,4 @@
-import type { Faq as FaqItem } from '../content'
+import { ui, type Faq as FaqItem } from '../content'
 import { track } from '../analytics'
 import SectionHead from './SectionHead'
 
@@ -6,7 +6,7 @@ export default function Faq({ n, items, service }: { n: string; items: FaqItem[]
   return (
     <section id="faq" className="section faq">
       <div className="container">
-        <SectionHead n={n} label="Questions" title="Frequently asked questions." />
+        <SectionHead n={n} label={ui.faqLabel} title={ui.faqTitle} />
         <div className="faq-list">
           {items.map((f) => (
             <details

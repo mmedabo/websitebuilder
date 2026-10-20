@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { Step } from '../content'
+import { ui, type Step } from '../content'
 import SectionHead from './SectionHead'
 import { useReveal } from '../hooks'
 
@@ -8,7 +8,7 @@ export default function BookingSteps({ n, steps, title, children }: { n: string;
   return (
     <section id="booking" className="section booking">
       <div className="container">
-        <SectionHead n={n} label="How booking works" title={title}>
+        <SectionHead n={n} label={ui.bookingLabel} title={title}>
           {children}
         </SectionHead>
         <ol className="steps reveal-stagger" ref={ref}>

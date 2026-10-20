@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { boiSteps } from '../content'
+import { boiSteps, ui } from '../content'
 import FoldChain from '../effects/FoldChain'
 import { useScrollProgress } from '../hooks'
 
@@ -34,15 +34,12 @@ export default function BoiProcess({ still, n = '05' }: { still: boolean; n?: st
       <div className="boi-sticky">
         <div className="container section-head boi-head">
           <p className="label">
-            <span className="label-n">{n}</span>BOI inspection
+            <span className="label-n">{n}</span>
+            {ui.boiLabel}
           </p>
           <div>
-            <h2 className="h2">How a BOI scrap write-off works.</h2>
-            <p className="lead">
-              Projects with Board of Investment privileges must certify scrap and used imported machinery. Without a
-              certificate, leftover raw materials stay in your stock account, and import duty becomes due when the
-              privilege ends.
-            </p>
+            <h2 className="h2">{ui.boiTitle}</h2>
+            <p className="lead">{ui.boiLead}</p>
           </div>
         </div>
         <FoldChain panels={panels} angle={angle} vertical={vertical} />
@@ -51,8 +48,7 @@ export default function BoiProcess({ still, n = '05' }: { still: boolean; n?: st
             <span style={{ transform: `scaleX(${t})` }} />
           </div>
           <p>
-            <strong>Used machinery:</strong> we certify refurbishment or remaining life, year of manufacture, test-run
-            results, and environmental and safety impact. Certificates are issued in 1–2 weeks.
+            <strong>{ui.boiMachineryStrong}</strong> {ui.boiMachinery}
           </p>
         </div>
       </div>

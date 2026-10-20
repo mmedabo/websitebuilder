@@ -1,4 +1,4 @@
-import { marks } from '../content'
+import { marks, ui } from '../content'
 import SectionHead from '../components/SectionHead'
 import { useReveal } from '../hooks'
 
@@ -10,9 +10,8 @@ export default function Marks({ n = '03' }: { n?: string }) {
   return (
     <section id="marks" className="section marks">
       <div className="container">
-        <SectionHead n={n} label="Certification marks" title="Follow-up inspection for UL, DEMKO and DEKRA.">
-          We inspect products and raw materials for the safety marks below. Because we work for several marks, we can
-          combine many inspections in one factory visit and save you time.
+        <SectionHead n={n} label={ui.marksLabel} title={ui.marksTitle}>
+          {ui.marksLead}
         </SectionHead>
 
         <ul className="stamps reveal-stagger" ref={ref}>

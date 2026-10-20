@@ -1,5 +1,5 @@
 import type { PointerEvent as RPointerEvent } from 'react'
-import { expertise, yearsInService } from '../content'
+import { expertise, ui, yearsInService } from '../content'
 import SectionHead from '../components/SectionHead'
 import { useReveal } from '../hooks'
 
@@ -14,9 +14,8 @@ export default function Expertise({ n = '06' }: { n?: string }) {
   return (
     <section id="expertise" className="section expertise">
       <div className="container">
-        <SectionHead n={n} label="Products" title="Products we inspect.">
-          {yearsInService()} years as a third-party inspector have given our team deep knowledge of product quality.
-          These are some of the product types we inspect. The list is not complete.
+        <SectionHead n={n} label={ui.productsLabel} title={ui.productsTitle}>
+          {ui.productsLead(yearsInService())}
         </SectionHead>
         <ul className="exp-grid reveal-stagger" ref={ref}>
           {expertise.map((x, i) => (

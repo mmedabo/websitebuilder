@@ -12,53 +12,114 @@
     "addressCountry": "TH",
     "areaServed": ["Thailand", "Myanmar", "Cambodia", "Laos", "Vietnam", "Malaysia", "Singapore", "Brunei", "Philippines", "Indonesia"]
   },
+  "langs": [
+    { "id": "en", "prefix": "", "html": "en", "og": "en_GB" },
+    { "id": "th", "prefix": "th/", "html": "th", "og": "th_TH" },
+    { "id": "ja", "prefix": "ja/", "html": "ja", "og": "ja_JP" }
+  ],
   "pages": [
     {
       "path": "",
       "kind": "home",
-      "title": "International Inspection Co., Ltd. | Product inspection in Thailand and ASEAN",
-      "description": "Third-party product safety inspection, commercial inspection and testing, BOI machine and scrap inspection, and sourcing in all ten ASEAN countries. Bangkok, established 1989."
+      "title": {
+        "en": "International Inspection Co., Ltd. | Product inspection in Thailand and ASEAN",
+        "th": "บริษัท อินเตอร์เนชั่นแนล อินสเป็คชั่น จำกัด | บริการตรวจสอบสินค้าในประเทศไทยและอาเซียน",
+        "ja": "International Inspection Co., Ltd. | タイ・ASEANの製品検査"
+      },
+      "description": {
+        "en": "Third-party product safety inspection, commercial inspection and testing, BOI machine and scrap inspection, and sourcing in all ten ASEAN countries. Bangkok, established 1989.",
+        "th": "บริการตรวจสอบมาตรฐานความปลอดภัยของสินค้า ตรวจสอบสินค้าและวัตถุดิบตามข้อกำหนด ทดสอบผลิตภัณฑ์ ตรวจสอบส่วนสูญเสียและเครื่องจักรเก่านำเข้าโดยใช้สิทธิ BOI และจัดหาสินค้าและวัตถุดิบ ในทั้ง 10 ประเทศอาเซียน ก่อตั้งเมื่อ พ.ศ. 2532",
+        "ja": "第三者機関として、製品安全検査、商業検査・試験、BOIの機械・スクラップ検査、調達支援をASEAN全10か国で提供しています。1989年バンコク創業。"
+      }
     },
     {
       "path": "services/follow-up-inspection/",
       "kind": "service",
       "service": "follow-up",
-      "title": "Follow-up inspection for UL, DEMKO and DEKRA marks in Thailand | II",
-      "description": "Representative inspector for UL, DEMKO and DEKRA. Follow-up inspection of products and raw materials in all ten ASEAN countries, with a report within 24 hours."
+      "title": {
+        "en": "Follow-up inspection for UL, DEMKO and DEKRA marks in Thailand | II",
+        "th": "การตรวจสอบมาตรฐานความปลอดภัยของสินค้า สำหรับ UL, DEMKO และ DEKRA | II",
+        "ja": "UL・DEMKO・DEKRA認証マークのフォローアップ検査（タイ） | II"
+      },
+      "description": {
+        "en": "Representative inspector for UL, DEMKO and DEKRA. Follow-up inspection of products and raw materials in all ten ASEAN countries, with a report within 24 hours.",
+        "th": "ตัวแทนตรวจสอบของ UL, DEMKO และ DEKRA ติดตามตรวจสอบคุณภาพและความปลอดภัยของสินค้าและวัตถุดิบในทั้ง 10 ประเทศอาเซียน พร้อมรายงานภายใน 24 ชั่วโมง",
+        "ja": "UL、DEMKO、DEKRAの代理検査機関として、ASEAN全10か国で製品・原材料のフォローアップ検査を実施します。報告書は24時間以内に提出します。"
+      }
     },
     {
       "path": "services/commercial-inspection/",
       "kind": "service",
       "service": "commercial",
-      "title": "Pre-shipment and production inspection in Thailand | II",
-      "description": "Independent first article, during production, pre-shipment, factory audit and container loading inspections to your own requirements. Report within 24 hours."
+      "title": {
+        "en": "Pre-shipment and production inspection in Thailand | II",
+        "th": "การตรวจสอบสินค้าและวัตถุดิบตามข้อกำหนดของลูกค้า | II",
+        "ja": "タイでの出荷前検査・生産中検査 | II"
+      },
+      "description": {
+        "en": "Independent first article, during production, pre-shipment, factory audit and container loading inspections to your own requirements. Report within 24 hours.",
+        "th": "ตรวจสอบสินค้าโดยบุคคลที่สามที่เป็นอิสระ ตั้งแต่เริ่มการผลิต ระหว่างการผลิต ก่อนขนส่ง ตรวจสอบระบบโรงงาน และตรวจสอบการโหลดสินค้า ตามข้อกำหนดของท่าน พร้อมรายงานภายใน 24 ชั่วโมง",
+        "ja": "初期生産検査、生産中検査、出荷前最終検査、工場監査、コンテナ積み込み検査を、お客様の要求事項に沿って第三者として実施します。報告書は24時間以内に提出します。"
+      }
     },
     {
       "path": "services/product-testing/",
       "kind": "service",
       "service": "testing",
-      "title": "Product testing to UL, CE, CCC, PSE, FCC and other standards | II",
-      "description": "Safety, EMC and RF testing through accredited laboratories for electrical, electronic, lighting, communications and medical products."
+      "title": {
+        "en": "Product testing to UL, CE, CCC, PSE, FCC and other standards | II",
+        "th": "การทดสอบผลิตภัณฑ์ตามมาตรฐาน UL, CE, CCC, PSE, FCC และอื่น ๆ | II",
+        "ja": "UL・CE・CCC・PSE・FCC等の規格に基づく製品試験 | II"
+      },
+      "description": {
+        "en": "Safety, EMC and RF testing through accredited laboratories for electrical, electronic, lighting, communications and medical products.",
+        "th": "ทดสอบด้านความปลอดภัย EMC และ RF ผ่านห้องปฏิบัติการที่ได้รับการรับรอง สำหรับผลิตภัณฑ์ไฟฟ้าและอิเล็กทรอนิกส์ ผลิตภัณฑ์แสงสว่าง อุปกรณ์สื่อสาร และอุปกรณ์การแพทย์",
+        "ja": "電気・電子製品、照明、通信機器、医療機器を対象に、認定試験所で安全・EMC・RF試験を実施します。"
+      }
     },
     {
       "path": "services/boi-machine-scrap-inspection/",
       "kind": "service",
       "service": "boi",
-      "title": "BOI scrap and used machinery inspection in Thailand | II",
-      "description": "BOI-approved Type A inspection body for scrap write-off and used imported machinery. Book 3 working days ahead; certificate in 1 to 2 weeks."
+      "title": {
+        "en": "BOI scrap and used machinery inspection in Thailand | II",
+        "th": "การตรวจสอบส่วนสูญเสียและเครื่องจักรเก่านำเข้าโดยใช้สิทธิ BOI | II",
+        "ja": "タイBOIのスクラップ・中古機械検査 | II"
+      },
+      "description": {
+        "en": "BOI-approved Type A inspection body for scrap write-off and used imported machinery. Book 3 working days ahead; certificate in 1 to 2 weeks.",
+        "th": "หน่วยตรวจประเภท A (บุคคลที่สาม) ที่ได้รับอนุมัติจาก BOI สำหรับการตัดบัญชีส่วนสูญเสียและการตรวจสอบเครื่องจักรเก่านำเข้า แจ้งล่วงหน้าอย่างน้อย 3 วันทำการ และได้รับใบรับรองภายใน 1–2 สัปดาห์",
+        "ja": "BOI承認のタイプA（第三者）検査機関として、スクラップの償却と中古輸入機械の検査を実施します。3営業日前までにご予約ください。証明書は1〜2週間で発行します。"
+      }
     },
     {
       "path": "services/sourcing/",
       "kind": "service",
       "service": "sourcing",
-      "title": "Product sourcing in Thailand with quality control | II",
-      "description": "Find, negotiate and quality-check Thai suppliers. Sourcing to your specifications with first article, pre-shipment and container loading inspection."
+      "title": {
+        "en": "Product sourcing in Thailand with quality control | II",
+        "th": "การจัดหาสินค้าและวัตถุดิบในประเทศไทย พร้อมการควบคุมคุณภาพ | II",
+        "ja": "品質管理付きのタイ調達代行 | II"
+      },
+      "description": {
+        "en": "Find, negotiate and quality-check Thai suppliers. Sourcing to your specifications with first article, pre-shipment and container loading inspection.",
+        "th": "จัดหาผู้ผลิต ต่อรองราคา และตรวจสอบคุณภาพสินค้าจากผู้ผลิตไทยตามข้อกำหนดของท่าน พร้อมการตรวจประเมินสินค้าเบื้องต้น การตรวจสอบก่อนขนส่ง และการตรวจสอบการโหลดสินค้า",
+        "ja": "タイのサプライヤー選定、価格交渉、品質確認を代行します。ご指定の仕様に基づき、初品検査、出荷前検査、コンテナ積み込み検査も行います。"
+      }
     },
     {
       "path": "privacy/",
       "kind": "privacy",
-      "title": "Privacy notice | International Inspection Co., Ltd.",
-      "description": "How International Inspection Co., Ltd. uses the personal data you send through this website."
+      "title": {
+        "en": "Privacy notice | International Inspection Co., Ltd.",
+        "th": "ประกาศความเป็นส่วนตัว | บริษัท อินเตอร์เนชั่นแนล อินสเป็คชั่น จำกัด",
+        "ja": "プライバシーに関するお知らせ | International Inspection Co., Ltd."
+      },
+      "description": {
+        "en": "How International Inspection Co., Ltd. uses the personal data you send through this website.",
+        "th": "วิธีที่บริษัท อินเตอร์เนชั่นแนล อินสเป็คชั่น จำกัด ใช้ข้อมูลส่วนบุคคลที่ท่านส่งผ่านเว็บไซต์นี้",
+        "ja": "本ウェブサイトを通じてお送りいただいた個人情報の取り扱いについて。"
+      }
     }
   ],
   "redirects": {
@@ -74,17 +135,17 @@
     "testing-services": "services/product-testing/",
     "machine-and-scrap-inspection": "services/boi-machine-scrap-inspection/",
     "sourcing-services": "services/sourcing/",
-    "th-หน้าแรก": "",
-    "th-เกี่ยวกับเรา": "#about",
-    "th-ทำไมต้องเรา": "#why",
-    "th-บริการของเรา": "#services",
-    "untitled-cl0h": "#expertise",
-    "th-ติดต่อเรา": "#contact",
-    "th-ตรวจสอบมาตรฐานความปลอดภัยของสินค้า": "services/follow-up-inspection/",
-    "th-ตรวจสอบสินค้าและวัตถุดิบตามข้อกำหนด": "services/commercial-inspection/",
-    "th-ตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า": "services/boi-machine-scrap-inspection/",
-    "นโยบายการตรวจส่วนสูญเสียและเครื่องจักร": "services/boi-machine-scrap-inspection/",
-    "th-บริการจัดหาสินค้าและวัตถุดิบ": "services/sourcing/",
+    "th-หน้าแรก": "th/",
+    "th-เกี่ยวกับเรา": "th/#about",
+    "th-ทำไมต้องเรา": "th/#why",
+    "th-บริการของเรา": "th/#services",
+    "untitled-cl0h": "th/#expertise",
+    "th-ติดต่อเรา": "th/#contact",
+    "th-ตรวจสอบมาตรฐานความปลอดภัยของสินค้า": "th/services/follow-up-inspection/",
+    "th-ตรวจสอบสินค้าและวัตถุดิบตามข้อกำหนด": "th/services/commercial-inspection/",
+    "th-ตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า": "th/services/boi-machine-scrap-inspection/",
+    "นโยบายการตรวจส่วนสูญเสียและเครื่องจักร": "th/services/boi-machine-scrap-inspection/",
+    "th-บริการจัดหาสินค้าและวัตถุดิบ": "th/services/sourcing/",
     "zh-bu-he-ge-yuan-cai-liao-jian-yan-fu-wu": "services/boi-machine-scrap-inspection/"
   }
 }

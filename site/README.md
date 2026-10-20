@@ -60,7 +60,7 @@ Build settings (environment variables):
 
 Each page is a real HTML file with its own title, description, canonical link, social preview and structured data (schema.org `ProfessionalService` on the home page, `Service` on each service page). Pages, titles and redirects are defined in `src/pages.json`; `scripts/build-pages.mjs` writes them after `vite build`.
 
-Each service page has: key facts, what we provide, a service-specific section (marks, products, or the BOI fold and documents), **how booking works**, an **FAQ**, and the request form preset to that service. FAQ answers use only facts from II's pages and PDFs (`src/content.ts`, `faqs`).
+Each service page has: key facts, what we provide, a service-specific section (marks, products, or the BOI fold and documents), **how booking works**, an **FAQ**, and the request form preset to that service. FAQ answers use only facts from II's pages and PDFs (`src/locales/en.ts`, `faqs`).
 
 **Request form**
 - Fields change with the service (for example inspection type for commercial inspection, factory location and planned date for BOI).
@@ -71,21 +71,39 @@ Each service page has: key facts, what we provide, a service-specific section (m
 
 **Old addresses:** every page of the old Wix site (English, Thai and Chinese) redirects to its new page. On a static host a small redirect page per old address does this; `dist/_redirects` gives the same list as real 301 redirects for Netlify or Cloudflare Pages. This keeps existing Google rankings when the domain moves.
 
-**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click` and `faq_open`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
+**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open` and `language_switch`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
+
+## Languages (Phase 2)
+
+| Language | Address | Text |
+| --- | --- | --- |
+| English | `/` | `src/locales/en.ts` (source) |
+| Thai | `/th/` | `src/locales/th.ts` |
+| Japanese | `/ja/` | `src/locales/ja.ts` |
+
+Every page exists in all three languages (7 pages × 3 = 21 HTML files). The top bar has a language switch. It keeps the page, the hero version and the section.
+
+- **Machine translation.** The Thai and Japanese text is machine translated and not yet reviewed. Each Thai and Japanese page says so in the top bar (desktop) and the footer. Set `machineTranslated: false` in a locale file when a native speaker has approved it.
+- **Thai wording.** Where II's old Thai pages and PDFs have a term, the Thai version uses it: service names, the BOI terms, the Thai address, the phone format and the PDF titles.
+- **One set of keys.** `th.ts` and `ja.ts` have the type `Locale` from `en.ts`. The build fails if a key is missing.
+- **Fonts.** Thai pages load IBM Plex Sans Thai; Japanese pages load IBM Plex Sans JP. Other pages do not download them.
+- **Request emails stay in English.** Labels, the service name and the option values in the email are English in every language, so II receives one format.
+- **Search engines.** Each page has `hreflang` links to its other languages, `og:locale`, and a translated title and description (`src/pages.json`). Old Thai Wix addresses redirect to the Thai pages.
 
 ### Launch checklist
 1. Confirm the content audit below and the draft privacy notice with II.
-2. Add II's LINE and WhatsApp IDs.
-3. Add analytics, and update the privacy notice to cover it.
-4. Replace the email-based form with a form service (for example Formspree) or the host's own forms.
-5. Remove the review switch and the "Design concept" tag; keep the photo credit if version B is chosen.
-6. Build with `SITE_URL=https://www.ii-th.com ALLOW_INDEXING=1`, point the domain at the new host, and submit `sitemap.xml` in Google Search Console.
+2. Have a native speaker review `th.ts` and `ja.ts`, then set `machineTranslated: false`.
+3. Add II's LINE and WhatsApp IDs.
+4. Add analytics, and update the privacy notice to cover it.
+5. Replace the email-based form with a form service (for example Formspree) or the host's own forms.
+6. Remove the review switch and the "Design concept" tag; keep the photo credit if version B is chosen.
+7. Build with `SITE_URL=https://www.ii-th.com ALLOW_INDEXING=1`, point the domain at the new host, and submit `sitemap.xml` in Google Search Console.
 
 ## Stack
 
 - Vite, React 19, TypeScript
 - three.js and `@react-three/fiber` for the hero scene. This chunk loads after first paint.
-- Self-hosted fonts (`@fontsource`): Archivo (variable width, set semi-expanded for headings) and IBM Plex Sans (body). IBM Plex Sans Thai is the matching face for a later Thai version.
+- Self-hosted fonts (`@fontsource`): Archivo (variable width, set semi-expanded for headings) and IBM Plex Sans (body). IBM Plex Sans Thai and IBM Plex Sans JP for the Thai and Japanese pages.
 
 ## Visual language
 
@@ -105,14 +123,13 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 | Thinking orb | Hero | A noise-displaced, candy-glass sphere with a scan ring. It rests in signal blue. Point at a service chip and the orb "thinks": it pulses, speeds up and changes to that service's colour (`Orb`, `src/state.ts`). |
 | react-three-fiber | Hero | Renders the field and the orb. It pauses when the hero is off-screen. |
 | liquid-logo (paper-design) | Nav and contact | Raw WebGL liquid-metal "II" mark in the brand colours. A canvas mask becomes a height field, and the shader reflects a flowing environment (`src/effects/LiquidLogo.tsx`). |
-| liquidglass.js | Nav, chips, service cards, drawer, form | Per-element edge-displacement map through an SVG `feDisplacementMap` in `backdrop-filter` (`src/effects/Glass.tsx`). The service cards refract the blueprint lines, and the form refracts the shapes behind it. Chromium desktop gets refraction. Other browsers get frosted glass. |
+| liquidglass.js | Nav, chips, service cards, form | Per-element edge-displacement map through an SVG `feDisplacementMap` in `backdrop-filter` (`src/effects/Glass.tsx`). The service cards refract the blueprint lines, and the form refracts the shapes behind it. Chromium desktop gets refraction. Other browsers get frosted glass. |
 | Screen-fold illusion | BOI section | A nested accordion of panels that folds like paper and unfolds as you scroll (`src/effects/FoldChain.tsx`). |
 
 ## Accessibility and performance
 
 - `prefers-reduced-motion`: the WebGL scenes render one still frame, the fold stays flat, and CSS animations stop.
 - No WebGL: the hero shows a CSS gradient.
-- The service drawer is a modal dialog. It closes with Esc and moves focus to its close button.
 - No horizontal scroll at 390 px or 1440 px wide (checked with Playwright).
 
 ## Content sources
@@ -143,9 +160,9 @@ The live site could not be reached from the build environment, so the crawl is t
 
 ## Not in this concept (next steps)
 
-- Thai and Chinese versions. The old site has both. Thai copy for the BOI pages already exists in the crawl.
+- A Chinese version. The old site has one BOI page in Chinese; it redirects to the English BOI page.
 - The real II logo. The liquid-metal "II" is a placeholder mark.
 - Client and certification-mark logos. Use them only with permission. The concept shows names as text.
 - Photos of inspectors and factories. Only the hero photo is in this concept.
 - A backend for the form. The form opens the visitor's email app, with a copy fallback.
-- Phase 2 needs input from II: fee model or "from" prices, a sample report and certificate, team photos and bios, case studies, proof of approvals, the list of industrial estates served, and Thai and Japanese copy.
+- Phase 2 needs input from II: fee model or "from" prices, a sample report and certificate, team photos and bios, case studies, proof of approvals, the list of industrial estates served, and review of the Thai and Japanese translations.

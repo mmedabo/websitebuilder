@@ -1,12 +1,12 @@
-import { clients } from '../content'
+import { clients, ui } from '../content'
 
 export default function Clients() {
   return (
     <section className="clients" aria-labelledby="clients-title">
       <div className="container clients-layout">
         <h2 id="clients-title" className="clients-title">
-          Selected clients
-          <small>from more than 1,000 manufacturers</small>
+          {ui.clientsTitle}
+          <small>{ui.clientsSmall}</small>
         </h2>
         <ul className="client-list">
           {clients.map((c) => (

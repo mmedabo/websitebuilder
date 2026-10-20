@@ -1,5 +1,5 @@
 import BookingSteps from '../components/BookingSteps'
-import { bookingSteps } from '../content'
+import { bookingSteps, ui } from '../content'
 import BoiProcess from '../sections/BoiProcess'
 import Clients from '../sections/Clients'
 import Contact from '../sections/Contact'
@@ -21,9 +21,8 @@ export default function HomePage({ still, variant, service, setService }: Props)
       <Hero still={still} variant={variant} />
       <Story />
       <Services />
-      <BookingSteps n="03" steps={bookingSteps} title="From request to report in five steps.">
-        The same simple process for every inspection. BOI scrap and machinery inspections need 3 working days notice;
-        see the BOI page for details.
+      <BookingSteps n="03" steps={bookingSteps} title={ui.bookingTitle}>
+        {ui.bookingHomeLead}
       </BookingSteps>
       <Marks n="04" />
       <Coverage n="05" />

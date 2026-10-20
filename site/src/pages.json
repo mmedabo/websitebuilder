@@ -1,0 +1,90 @@
+{
+  "org": {
+    "name": "International Inspection Co., Ltd.",
+    "alternateName": "II",
+    "email": "info@ii-th.com",
+    "telephone": "+66-2-711-4934",
+    "foundingDate": "1989",
+    "streetAddress": "87/109 Modern Town Building, 12th Fl., Sukhumvit 63 Rd.",
+    "addressLocality": "Khlong Tan Nuea, Watthana",
+    "addressRegion": "Bangkok",
+    "postalCode": "10110",
+    "addressCountry": "TH",
+    "areaServed": ["Thailand", "Myanmar", "Cambodia", "Laos", "Vietnam", "Malaysia", "Singapore", "Brunei", "Philippines", "Indonesia"]
+  },
+  "pages": [
+    {
+      "path": "",
+      "kind": "home",
+      "title": "International Inspection Co., Ltd. | Product inspection in Thailand and ASEAN",
+      "description": "Third-party product safety inspection, commercial inspection and testing, BOI machine and scrap inspection, and sourcing in all ten ASEAN countries. Bangkok, established 1989."
+    },
+    {
+      "path": "services/follow-up-inspection/",
+      "kind": "service",
+      "service": "follow-up",
+      "title": "Follow-up inspection for UL, DEMKO and DEKRA marks in Thailand | II",
+      "description": "Representative inspector for UL, DEMKO and DEKRA. Follow-up inspection of products and raw materials in all ten ASEAN countries, with a report within 24 hours."
+    },
+    {
+      "path": "services/commercial-inspection/",
+      "kind": "service",
+      "service": "commercial",
+      "title": "Pre-shipment and production inspection in Thailand | II",
+      "description": "Independent first article, during production, pre-shipment, factory audit and container loading inspections to your own requirements. Report within 24 hours."
+    },
+    {
+      "path": "services/product-testing/",
+      "kind": "service",
+      "service": "testing",
+      "title": "Product testing to UL, CE, CCC, PSE, FCC and other standards | II",
+      "description": "Safety, EMC and RF testing through accredited laboratories for electrical, electronic, lighting, communications and medical products."
+    },
+    {
+      "path": "services/boi-machine-scrap-inspection/",
+      "kind": "service",
+      "service": "boi",
+      "title": "BOI scrap and used machinery inspection in Thailand | II",
+      "description": "BOI-approved Type A inspection body for scrap write-off and used imported machinery. Book 3 working days ahead; certificate in 1 to 2 weeks."
+    },
+    {
+      "path": "services/sourcing/",
+      "kind": "service",
+      "service": "sourcing",
+      "title": "Product sourcing in Thailand with quality control | II",
+      "description": "Find, negotiate and quality-check Thai suppliers. Sourcing to your specifications with first article, pre-shipment and container loading inspection."
+    },
+    {
+      "path": "privacy/",
+      "kind": "privacy",
+      "title": "Privacy notice | International Inspection Co., Ltd.",
+      "description": "How International Inspection Co., Ltd. uses the personal data you send through this website."
+    }
+  ],
+  "redirects": {
+    "about-ii": "#about",
+    "about1": "",
+    "why-us": "#why",
+    "services": "#services",
+    "our-expertise": "#expertise",
+    "news": "",
+    "contact": "#contact",
+    "follow-up-inspection-services": "services/follow-up-inspection/",
+    "commercial-inspection-and-testing": "services/commercial-inspection/",
+    "testing-services": "services/product-testing/",
+    "machine-and-scrap-inspection": "services/boi-machine-scrap-inspection/",
+    "sourcing-services": "services/sourcing/",
+    "th-หน้าแรก": "",
+    "th-เกี่ยวกับเรา": "#about",
+    "th-ทำไมต้องเรา": "#why",
+    "th-บริการของเรา": "#services",
+    "untitled-cl0h": "#expertise",
+    "th-ติดต่อเรา": "#contact",
+    "th-ตรวจสอบมาตรฐานความปลอดภัยของสินค้า": "services/follow-up-inspection/",
+    "th-ตรวจสอบสินค้าและวัตถุดิบตามข้อกำหนด": "services/commercial-inspection/",
+    "th-ตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า": "services/boi-machine-scrap-inspection/",
+    "นโยบายการตรวจส่วนสูญเสียและเครื่องจักร": "services/boi-machine-scrap-inspection/",
+    "th-บริการจัดหาสินค้าและวัตถุดิบ": "services/sourcing/",
+    "zh-bu-he-ge-yuan-cai-liao-jian-yan-fu-wu": "services/boi-machine-scrap-inspection/"
+  }
+}

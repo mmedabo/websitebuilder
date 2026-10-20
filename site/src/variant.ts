@@ -19,7 +19,8 @@ function initial(): Variant {
 }
 
 // The URL (?v=photo) makes a version shareable; storage remembers the last choice.
-export function useVariant() {
+// Only the home page has the two versions, so other pages leave the URL alone.
+export function useVariant(syncUrl = true) {
   const [variant, setVariant] = useState<Variant>(initial)
   useEffect(() => {
     document.documentElement.dataset.variant = variant
@@ -28,9 +29,10 @@ export function useVariant() {
     } catch {
       // storage blocked: the URL still carries the choice
     }
+    if (!syncUrl) return
     const url = new URL(window.location.href)
     url.searchParams.set('v', variant)
     window.history.replaceState(null, '', url)
-  }, [variant])
+  }, [variant, syncUrl])
   return [variant, setVariant] as const
 }

@@ -9,12 +9,12 @@ function spot(e: RPointerEvent<HTMLElement>) {
   e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
 }
 
-export default function Expertise() {
+export default function Expertise({ n = '06' }: { n?: string }) {
   const ref = useReveal<HTMLUListElement>()
   return (
     <section id="expertise" className="section expertise">
       <div className="container">
-        <SectionHead n="06" label="Products" title="Products we inspect.">
+        <SectionHead n={n} label="Products" title="Products we inspect.">
           {yearsInService()} years as a third-party inspector have given our team deep knowledge of product quality.
           These are some of the product types we inspect. The list is not complete.
         </SectionHead>

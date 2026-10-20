@@ -297,3 +297,135 @@ export const documents = [
   { group: 'BOI regulation', title: 'Announcement Por. 5/2543 (Section 36(1))', href: PDF + '97a516_5630f986451e4151aa9b00e6239801e9.pdf' },
   { group: 'BOI regulation', title: 'Order Nor. 9/2547 (scrap inspection)', href: PDF + '97a516_78410a11336b46f396db7190db6cf0a5.pdf' },
 ]
+
+// ------------------------------------------------------------------
+// Phase 1: booking, FAQs and request-form fields.
+// Every fact below is from II's own pages or PDFs in reference/ii-th.
+// ------------------------------------------------------------------
+
+// Chat channels. Left empty on purpose: II must supply its real IDs.
+export const chat = {
+  line: '', // LINE Official Account ID, e.g. '@iithailand'
+  whatsapp: '', // number in international format, digits only
+}
+
+// BOI scrap inspection conditions PDF, clause 3.1.
+export const BOI_NOTICE_WORKING_DAYS = 3
+
+export type Step = { title: string; body: string }
+
+export const bookingSteps: Step[] = [
+  { title: 'Send your request', body: 'Use the form, call or email. Tell us the product, the factory location and your preferred date.' },
+  { title: 'Receive a quotation', body: 'We confirm the scope with you and send a quotation.' },
+  { title: 'Confirm the date', body: 'We agree the date and assign one of our degreed engineers.' },
+  { title: 'On-site inspection', body: 'Our inspector follows your requirements or the standard procedure with integrity.' },
+  { title: 'Report in 24 hours', body: 'You receive a detailed report within 24 hours after the inspection.' },
+]
+
+export const boiBookingSteps: Step[] = [
+  { title: 'Send your request', body: 'Tell us the factory location, the scrap or machinery to inspect and your planned date.' },
+  { title: 'Receive a quotation', body: 'The quotation or work order shows the fee and any travel cost. Payment is due within 30 days of the invoice.' },
+  { title: 'Book 3 working days ahead', body: 'Give at least 3 working days notice. To move or cancel, tell us at least 1 working day before.' },
+  { title: 'On-site inspection', body: 'The inspector checks type, quantity, condition and destruction method, and photographs the destruction.' },
+  { title: 'Certificate in 1 to 2 weeks', body: 'You receive the signed certificate to file your write-off with BOI.' },
+]
+
+export type Faq = { q: string; a: string }
+
+export const faqs: Record<string, Faq[]> = {
+  'follow-up': [
+    { q: 'Which certification marks do you inspect for?', a: 'We are a representative inspector of UL, DEMKO and DEKRA. Marks include UL (US and Canada), UL-GS (Germany), D-Mark (Denmark), KEMA-KEUR (Netherlands), ENEC (Europe), S-UL-AR (Argentina), BR-UL (Brazil), PSE and UL-Apex S (Japan), NOM (Mexico) and GOST-R (Russia).' },
+    { q: 'Can you inspect for several marks in one visit?', a: 'Yes. Because we inspect for many marks, we can combine several inspections in one factory visit. This saves the manufacturer time.' },
+    { q: 'Which countries do you cover?', a: 'Thailand, Myanmar, Cambodia, Laos, Vietnam, Malaysia, Singapore, Brunei, the Philippines and Indonesia.' },
+    { q: 'Who carries out the inspection?', a: 'Our inspectors and supervisors are degreed engineers who specialise in product and raw-material inspection and in safety standards. All speak Thai and English.' },
+    { q: 'When do we get the report?', a: 'Within 24 hours after the inspection is complete.' },
+  ],
+  commercial: [
+    { q: 'Which inspection types do you offer?', a: 'First article inspection, during production inspection, final pre-shipment inspection, supplier or factory audit, and container loading inspection. We also collect samples and arrange external testing.' },
+    { q: 'Whose checklist do you use?', a: 'Yours. We design a quality checklist that meets your requirements, and our inspectors follow your procedures with integrity.' },
+    { q: 'Which products can you inspect?', a: 'Appliances, lighting, wire and cable, plumbing, plastics, high-tech products, textiles and footwear, toys, life safety equipment, energy systems, building materials and licensed goods. The list is not complete; ask us about your product.' },
+    { q: 'When do we get the report?', a: 'Within 24 hours after the inspection is complete.' },
+    { q: 'Do you inspect outside Thailand?', a: 'Yes, in all ten ASEAN countries. Bangkok is central, so our inspectors reach the region quickly and you save travel cost and time.' },
+  ],
+  testing: [
+    { q: 'What can be tested?', a: 'Electrical and electronic products, lighting, communications and medical equipment. Tests cover safety, electromagnetic compatibility (EMC) and radio frequency (RF).' },
+    { q: 'Which standards?', a: 'UL, CE, CCC/CQC, PSE, ENERGY STAR, DLC, FCC, KC, KS and other standards.' },
+    { q: 'Where is the testing done?', a: 'In accredited laboratories. Ask us which laboratory suits your product and target market.' },
+    { q: 'Can you combine testing with inspection?', a: 'Yes. During commercial inspection we can collect samples and arrange external testing, so you deal with one team.' },
+  ],
+  boi: [
+    { q: 'What is scrap inspection?', a: 'Scrap means raw materials, production waste or products that are defective, below standard or no longer usable for their purpose. BOI-promoted companies can write off scrap against their raw-material account, so they do not pay import duty on it when the import privilege ends. A certificate from an approved inspector is required.' },
+    { q: 'How much notice do you need?', a: 'At least 3 working days before the inspection. To move or cancel, tell us at least 1 working day before; otherwise agreed costs may apply.' },
+    { q: 'What should we prepare?', a: 'All related documents, such as the request to sell or destroy scrap, tax documents and production or inventory reports. Prepare a safe work area, and have a responsible member of your staff present during the inspection.' },
+    { q: 'How does the inspector check the quantity?', a: 'The inspector samples about 10% of the items against the data you provide and photographs the destruction as evidence, for example crushing, melting or landfill.' },
+    { q: 'How long until we get the certificate?', a: 'About 1 to 2 weeks after the inspection.' },
+    { q: 'What do you check on used imported machinery?', a: 'The refurbishment status or remaining-life analysis, the year of manufacture, the test-run results, and the environmental and safety impact. The report states the date and place of inspection.' },
+    { q: 'We sell our scrap instead of destroying it. Is that different?', a: 'If you sell the scrap, you do not need destruction evidence, but tax applies.' },
+    { q: 'What happens if we do not follow the BOI rules?', a: 'Leftover raw materials stay in your stock account, and you must pay import duty on them when the import privilege ends.' },
+    { q: 'Is our information kept confidential?', a: 'Yes. Information from the inspection is confidential. We disclose it only with your written permission or when the law requires it.' },
+  ],
+  sourcing: [
+    { q: 'Who is this service for?', a: 'Importers, wholesalers and distributors around the world who want to buy Thai products or raw materials.' },
+    { q: 'What is included?', a: 'Sourcing to your specifications, price negotiation, first article check, final pre-shipment check, container loading inspection and on-going quality control.' },
+    { q: 'How do you find suppliers?', a: 'Through a large network of Thai suppliers and manufacturers built over many years.' },
+    { q: 'How do you avoid misunderstandings with suppliers?', a: 'Our team speaks Thai and English and follows your requirements with integrity, so language and culture do not get in the way.' },
+  ],
+}
+
+// Request-form fields that change with the selected service.
+export type Field = {
+  name: string
+  label: string
+  type: 'text' | 'select' | 'number' | 'date'
+  options?: string[]
+  placeholder?: string
+  required?: boolean
+}
+
+export const formFields: Record<string, Field[]> = {
+  '': [
+    { name: 'product', label: 'Product or topic', type: 'text', placeholder: 'What do you need help with?' },
+  ],
+  'follow-up': [
+    { name: 'mark', label: 'Certification mark', type: 'select', options: ['UL', 'UL-GS', 'D-Mark', 'KEMA-KEUR', 'ENEC', 'S-UL-AR', 'BR-UL', 'PSE', 'UL-Apex S', 'NOM', 'GOST-R', 'Other'] },
+    { name: 'product', label: 'Product', type: 'text', placeholder: 'e.g. power supply, wiring harness' },
+    { name: 'date', label: 'Preferred date', type: 'date' },
+  ],
+  commercial: [
+    { name: 'inspectionType', label: 'Inspection type', type: 'select', options: ['First article inspection', 'During production inspection', 'Final pre-shipment inspection', 'Supplier / factory audit', 'Container loading inspection', 'Not sure yet'] },
+    { name: 'product', label: 'Product', type: 'text', placeholder: 'e.g. LED luminaires' },
+    { name: 'quantity', label: 'Order quantity', type: 'text', placeholder: 'e.g. 12,000 pcs' },
+    { name: 'date', label: 'Preferred date', type: 'date' },
+  ],
+  testing: [
+    { name: 'product', label: 'Product', type: 'text', placeholder: 'e.g. Bluetooth speaker' },
+    { name: 'standard', label: 'Target standard or market', type: 'select', options: ['UL', 'CE', 'CCC / CQC', 'PSE', 'ENERGY STAR', 'DLC', 'FCC', 'KC / KS', 'Other / not sure'] },
+  ],
+  boi: [
+    { name: 'boiType', label: 'Inspection', type: 'select', options: ['Scrap inspection', 'Used imported machinery', 'Both'], required: true },
+    { name: 'site', label: 'Factory location', type: 'text', placeholder: 'Province or industrial estate', required: true },
+    { name: 'items', label: 'Approx. number of items', type: 'text', placeholder: 'e.g. 35 scrap items, or 4 machines' },
+    { name: 'date', label: 'Planned inspection date', type: 'date', required: true },
+  ],
+  sourcing: [
+    { name: 'product', label: 'Product and key specifications', type: 'text', placeholder: 'e.g. natural latex gloves, size M, AQL 1.5' },
+    { name: 'quantity', label: 'Target quantity', type: 'text', placeholder: 'e.g. 2 containers per month' },
+    { name: 'destination', label: 'Destination country', type: 'text' },
+  ],
+}
+
+// Earliest date allowed for a BOI booking: today plus N working days (Mon–Fri).
+// Thai public holidays are not counted; the form says so.
+export function earliestBoiDate(from = new Date(), days = BOI_NOTICE_WORKING_DAYS) {
+  const d = new Date(from.getFullYear(), from.getMonth(), from.getDate())
+  let left = days
+  while (left > 0) {
+    d.setDate(d.getDate() + 1)
+    const wd = d.getDay()
+    if (wd !== 0 && wd !== 6) left--
+  }
+  return d
+}
+
+export const isoDate = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`

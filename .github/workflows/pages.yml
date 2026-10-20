@@ -32,8 +32,13 @@ jobs:
           cache: npm
           cache-dependency-path: site/package-lock.json
       - run: npm ci
+      # Read the site's path and URL from Pages, so a custom domain needs no code change.
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm run build
-      - uses: actions/configure-pages@v5
+        env:
+          BASE: ${{ steps.pages.outputs.base_path }}/
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site/dist

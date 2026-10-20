@@ -24,12 +24,12 @@ const px = (lon: number) => ((lon - LON0) / (LON1 - LON0)) * W
 const py = (lat: number) => ((LAT1 - lat) / (LAT1 - LAT0)) * H
 const bkk = { x: px(100.5), y: py(13.75) }
 
-export default function Coverage() {
+export default function Coverage({ n = '04' }: { n?: string }) {
   const ref = useReveal<HTMLDivElement>()
   return (
     <section id="coverage" className="section coverage">
       <div className="container coverage-layout">
-        <SectionHead n="04" label="Coverage" title="Ten ASEAN countries from one Bangkok office.">
+        <SectionHead n={n} label="Coverage" title="Ten ASEAN countries from one Bangkok office.">
           Bangkok is at the centre of Southeast Asia, so our inspectors reach factories across the region quickly.
           This saves you inspection and transport cost. Our engineers speak Thai and English, which removes the language
           barrier of working offshore.

@@ -2,12 +2,12 @@ import { whyUs } from '../content'
 import SectionHead from '../components/SectionHead'
 import { useReveal } from '../hooks'
 
-export default function WhyUs() {
+export default function WhyUs({ n = '07' }: { n?: string }) {
   const ref = useReveal<HTMLOListElement>()
   return (
     <section id="why" className="section why">
       <div className="container">
-        <SectionHead n="07" label="Why II" title="Why manufacturers choose II.">
+        <SectionHead n={n} label="Why II" title="Why manufacturers choose II.">
           Inspection or sourcing offshore is not as easy as it seems. These are the reasons clients have worked with us
           for more than three decades.
         </SectionHead>

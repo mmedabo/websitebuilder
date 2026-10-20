@@ -16,7 +16,7 @@ function photoUrl() {
   const dpr = Math.min(window.devicePixelRatio || 1, 1.75)
   const need = Math.max(window.innerWidth, window.innerHeight * IMG_ASPECT) * dpr
   const w = SIZES.find((s) => s >= need) ?? SIZES[SIZES.length - 1]
-  return `./img/bangkok-night-${w}.jpg`
+  return `${import.meta.env.BASE_URL}img/bangkok-night-${w}.jpg`
 }
 
 const vert = /* glsl */ `

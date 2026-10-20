@@ -1,4 +1,5 @@
 import { company, services } from '../content'
+import { homeHref, pageHref, serviceHref } from '../routing'
 
 export default function Footer() {
   return (
@@ -18,7 +19,7 @@ export default function Footer() {
           <ul>
             {services.map((s) => (
               <li key={s.id}>
-                <a href={`#svc-${s.id}`}>{s.title}</a>
+                <a href={serviceHref(s.id)}>{s.title}</a>
               </li>
             ))}
           </ul>
@@ -26,11 +27,12 @@ export default function Footer() {
         <nav aria-label="Company">
           <h3 className="h4">Company</h3>
           <ul>
-            <li><a href="#about">About II</a></li>
-            <li><a href="#expertise">Products we inspect</a></li>
-            <li><a href="#why">Why II</a></li>
-            <li><a href="#documents">ISO/IEC 17020 documents</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href={homeHref('#about')}>About II</a></li>
+            <li><a href={homeHref('#expertise')}>Products we inspect</a></li>
+            <li><a href={homeHref('#why')}>Why II</a></li>
+            <li><a href={homeHref('#documents')}>ISO/IEC 17020 documents</a></li>
+            <li><a href={homeHref('#contact')}>Contact</a></li>
+            <li><a href={pageHref('privacy/')}>Privacy notice</a></li>
           </ul>
         </nav>
       </div>

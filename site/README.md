@@ -32,11 +32,54 @@ The choice is kept in the URL, so you can send a link to one version. The browse
 cd site
 npm install
 npm run dev        # local dev server
-npm run build      # type-check and build to site/dist
+npm run build      # type-check, build to site/dist, then write one HTML file per page
 npm run preview    # serve the build
 ```
 
-The build is static (`base: './'`). You can host `dist/` on any static host, for example Vercel, Netlify, GitHub Pages or Cloudflare Pages.
+The build is static. You can host `dist/` on any static host, for example GitHub Pages, Netlify, Cloudflare Pages or Vercel.
+
+Build settings (environment variables):
+
+| Variable | Default | Use |
+| --- | --- | --- |
+| `BASE` | `/` | Site path. The Pages workflow sets it to the repository sub-path (`/websitebuilder/`). |
+| `SITE_URL` | `https://www.ii-th.com` | Used for canonical links, social previews and the sitemap. |
+| `ALLOW_INDEXING` | off | Set to `1` at launch to remove the concept's `noindex` tag. |
+
+## Pages and enquiries (Phase 1)
+
+| Address | Page |
+| --- | --- |
+| `/` | Home, with the two hero versions |
+| `/services/follow-up-inspection/` | Follow-up inspection (UL, DEMKO, DEKRA) |
+| `/services/commercial-inspection/` | Commercial inspection |
+| `/services/product-testing/` | Product testing |
+| `/services/boi-machine-scrap-inspection/` | BOI machine and scrap inspection |
+| `/services/sourcing/` | Sourcing |
+| `/privacy/` | Privacy notice (**draft**) |
+
+Each page is a real HTML file with its own title, description, canonical link, social preview and structured data (schema.org `ProfessionalService` on the home page, `Service` on each service page). Pages, titles and redirects are defined in `src/pages.json`; `scripts/build-pages.mjs` writes them after `vite build`.
+
+Each service page has: key facts, what we provide, a service-specific section (marks, products, or the BOI fold and documents), **how booking works**, an **FAQ**, and the request form preset to that service. FAQ answers use only facts from II's pages and PDFs (`src/content.ts`, `faqs`).
+
+**Request form**
+- Fields change with the service (for example inspection type for commercial inspection, factory location and planned date for BOI).
+- BOI dates start at today + 3 working days, from clause 3.1 of II's BOI scrap conditions. Thai public holidays are not counted; the form says so.
+- A consent box links to the privacy notice and must be ticked.
+- Sending opens the visitor's email app. The full request is also shown with a **Copy request** button, so webmail users can still send it.
+- LINE and WhatsApp buttons show "ID needed" until II's IDs are added to `chat` in `src/content.ts`.
+
+**Old addresses:** every page of the old Wix site (English, Thai and Chinese) redirects to its new page. On a static host a small redirect page per old address does this; `dist/_redirects` gives the same list as real 301 redirects for Netlify or Cloudflare Pages. This keeps existing Google rankings when the domain moves.
+
+**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click` and `faq_open`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
+
+### Launch checklist
+1. Confirm the content audit below and the draft privacy notice with II.
+2. Add II's LINE and WhatsApp IDs.
+3. Add analytics, and update the privacy notice to cover it.
+4. Replace the email-based form with a form service (for example Formspree) or the host's own forms.
+5. Remove the review switch and the "Design concept" tag; keep the photo credit if version B is chosen.
+6. Build with `SITE_URL=https://www.ii-th.com ALLOW_INDEXING=1`, point the domain at the new host, and submit `sitemap.xml` in Google Search Console.
 
 ## Stack
 
@@ -104,4 +147,5 @@ The live site could not be reached from the build environment, so the crawl is t
 - The real II logo. The liquid-metal "II" is a placeholder mark.
 - Client and certification-mark logos. Use them only with permission. The concept shows names as text.
 - Photos of inspectors and factories. Only the hero photo is in this concept.
-- A backend for the form. The form now opens the visitor's email app with a prepared message to info@ii-th.com.
+- A backend for the form. The form opens the visitor's email app, with a copy fallback.
+- Phase 2 needs input from II: fee model or "from" prices, a sample report and certificate, team photos and bios, case studies, proof of approvals, the list of industrial estates served, and Thai and Japanese copy.

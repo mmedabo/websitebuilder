@@ -4,13 +4,14 @@ import Glass from '../effects/Glass'
 import { useInView, webglSupported } from '../hooks'
 import { focusOrb, orb, releaseOrb } from '../state'
 import CountUp from '../components/CountUp'
+import { serviceHref } from '../routing'
 import type { Variant } from '../variant'
 
 const HeroScene = lazy(() => import('../effects/HeroScene'))
 const PhotoScene = lazy(() => import('../effects/PhotoScene'))
 
 // Shown under the WebGL photo while it loads, and on its own without WebGL.
-const PHOTO_FALLBACK = './img/bangkok-night-1600.jpg'
+const PHOTO_FALLBACK = `${import.meta.env.BASE_URL}img/bangkok-night-1600.jpg`
 
 export default function Hero({ still, variant }: { still: boolean; variant: Variant }) {
   const photo = variant === 'photo'
@@ -85,7 +86,7 @@ export default function Hero({ still, variant }: { still: boolean; variant: Vari
               <li key={s.id}>
                 <Glass
                   as="a"
-                  href={`#svc-${s.id}`}
+                  href={serviceHref(s.id)}
                   className={`chip ${active === s.id ? 'is-active' : ''}`}
                   radius={6}
                   strength={14}

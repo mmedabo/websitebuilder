@@ -5,7 +5,7 @@ import { useScrollProgress } from '../hooks'
 
 const ease = (t: number) => 1 - Math.pow(1 - t, 3)
 
-export default function BoiProcess({ still }: { still: boolean }) {
+export default function BoiProcess({ still, n = '05' }: { still: boolean; n?: string }) {
   const [vertical, setVertical] = useState(() => window.innerWidth < 860)
   // Wide screens pin the section and unfold while it scrolls; narrow
   // screens are too short to pin four panels, so they unfold on entry.
@@ -34,7 +34,7 @@ export default function BoiProcess({ still }: { still: boolean }) {
       <div className="boi-sticky">
         <div className="container section-head boi-head">
           <p className="label">
-            <span className="label-n">05</span>BOI inspection
+            <span className="label-n">{n}</span>BOI inspection
           </p>
           <div>
             <h2 className="h2">How a BOI scrap write-off works.</h2>

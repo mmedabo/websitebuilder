@@ -12,6 +12,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 # One deployment at a time; let an in-progress deploy finish.
 concurrency:
@@ -50,5 +51,25 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # If Pages is still set to "Deploy from a branch", GitHub also runs a
+      # branch build that publishes the README over the site. Switch the source
+      # to GitHub Actions; if that is not allowed, wait for the branch build of
+      # this commit to finish, so this deploy is always the last one.
+      - name: Use GitHub Actions as the Pages source
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/pages" -f build_type=workflow
+      - name: Wait for the branch build to finish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 30); do
+            busy=$(gh api "repos/${{ github.repository }}/actions/runs?head_sha=${{ github.sha }}" \
+              --jq '[.workflow_runs[] | select(.name == "pages build and deployment" and .status != "completed")] | length')
+            echo "branch builds still running: $busy"
+            [ "$busy" = "0" ] && exit 0
+            sleep 10
+          done
       - id: deployment
         uses: actions/deploy-pages@v4

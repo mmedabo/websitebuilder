@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { services, stats, yearsInService } from '../content'
+import { representedBodies, services, stats } from '../content'
 import Glass from '../effects/Glass'
 import { useInView, webglSupported } from '../hooks'
 import { focusOrb, orb, releaseOrb } from '../state'
@@ -22,6 +22,14 @@ export default function Hero({ still }: { still: boolean }) {
   }, [])
 
   const current = services.find((s) => s.id === active)
+  const focus = (id: string, hue: number) => {
+    setActive(id)
+    focusOrb(hue)
+  }
+  const release = () => {
+    setActive(null)
+    releaseOrb()
+  }
 
   return (
     <section id="top" className="hero" ref={ref}>
@@ -34,73 +42,72 @@ export default function Hero({ still }: { still: boolean }) {
       </div>
 
       <div className="hero-inner container">
-        <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="dot" /> Third-party inspection · Bangkok · ASEAN
+        <h1 className="display">
+          Quality is our <mark>priority.</mark>
+        </h1>
+
+        <div className="hero-grid">
+          <p className="hero-intro">
+            International Inspection (II) is a third-party inspection company in Bangkok. We started in 1989 as the
+            representative of Underwriters Laboratories (UL) in Thailand. Today we inspect for UL, DEMKO and DEKRA,
+            for the Board of Investment, and to your own specifications, in all ten ASEAN countries.
           </p>
-          <h1 className="display">
-            Quality,
-            <br />
-            <em>inspected</em> since 1989.
-          </h1>
-          <p className="lead">
-            International Inspection (“II”) was Thailand’s first product-safety inspection company. For{' '}
-            {yearsInService()} years our engineers have inspected for UL, DEMKO and DEKRA, for the Board of
-            Investment, and to your own specifications in all ten ASEAN countries.
-          </p>
-          <div className="hero-ctas">
+
+          <div className="hero-actions">
             <a className="btn" href="#contact">
               Request an inspection
             </a>
-            <a className="btn btn-ghost" href="#services">
-              Explore services
+            <a className="btn btn-line" href="#services">
+              Our services
             </a>
-          </div>
-
-          <div className="hero-focus" onPointerLeave={() => { setActive(null); releaseOrb() }}>
-            <p className="mono-label">Point at a service — the lens focuses</p>
-            <ul>
-              {services.map((s) => (
-                <li key={s.id}>
-                  <Glass
-                    as="a"
-                    href={`#svc-${s.id}`}
-                    className={`chip ${active === s.id ? 'is-active' : ''}`}
-                    radius={999}
-                    strength={18}
-                    onPointerEnter={() => { setActive(s.id); focusOrb(s.hue) }}
-                    onFocus={() => { setActive(s.id); focusOrb(s.hue) }}
-                    onBlur={() => { setActive(null); releaseOrb() }}
-                  >
-                    {s.title}
-                  </Glass>
-                </li>
+            <p className="represents">
+              Representative inspector for{' '}
+              {representedBodies.map((b, i) => (
+                <span key={b}>
+                  <strong>{b}</strong>
+                  {i < representedBodies.length - 2 ? ', ' : i === representedBodies.length - 2 ? ' and ' : ''}
+                </span>
               ))}
-            </ul>
+            </p>
           </div>
         </div>
 
-        <div className={`orb-readout ${current ? 'is-on' : ''}`} aria-live="polite">
-          <span className="mono-label">{current ? `Scanning · ${current.index}` : 'Lens idle'}</span>
-          <strong>{current ? current.title : 'Ready to inspect'}</strong>
-          <span className="readout-body">{current ? current.short : 'Product · Process · Machine · Supplier'}</span>
+        <div className="hero-focus" onPointerLeave={release}>
+          <ul aria-label="Services">
+            {services.map((s) => (
+              <li key={s.id}>
+                <Glass
+                  as="a"
+                  href={`#svc-${s.id}`}
+                  className={`chip ${active === s.id ? 'is-active' : ''}`}
+                  radius={6}
+                  strength={14}
+                  onPointerEnter={() => focus(s.id, s.hue)}
+                  onFocus={() => focus(s.id, s.hue)}
+                  onBlur={release}
+                >
+                  {s.title}
+                </Glass>
+              </li>
+            ))}
+          </ul>
+          <p className={`orb-note ${current ? 'is-on' : ''}`} aria-live="polite">
+            {current ? current.short : 'Point at a service to see what it covers.'}
+          </p>
         </div>
       </div>
 
-      <div className="hero-stats container">
+      <dl className="hero-stats container">
         {stats.map((s) => (
           <div className="stat" key={s.label}>
-            <span className="stat-value">
+            <dt>{s.label}</dt>
+            <dd>
               {s.format === 'year' ? s.value : <CountUp to={s.value} still={still} />}
               {s.suffix}
-            </span>
-            <span className="stat-label">{s.label}</span>
+            </dd>
           </div>
         ))}
-      </div>
-      <a className="scroll-cue" href="#story" aria-label="Scroll to our story">
-        <span />
-      </a>
+      </dl>
     </section>
   )
 }

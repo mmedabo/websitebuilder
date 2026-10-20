@@ -21,8 +21,8 @@ export default function BoiProcess({ still }: { still: boolean }) {
   const t = vertical ? ease(p) : ease(Math.min(1, Math.max(0, (p - 0.04) / 0.66)))
   const angle = still ? 0 : (1 - t) * 78
 
-  const panels = boiSteps.map((s) => (
-    <article className="fold-card" key={s.n}>
+  const panels = boiSteps.map((s, i) => (
+    <article className={`fold-card tone-${i + 1}`} key={s.n}>
       <span className="fold-n">{s.n}</span>
       <h3>{s.title}</h3>
       <p>{s.body}</p>
@@ -32,15 +32,18 @@ export default function BoiProcess({ still }: { still: boolean }) {
   return (
     <section id="boi" className={`boi ${vertical ? 'is-vertical' : ''}`} ref={ref}>
       <div className="boi-sticky">
-        <div className="container boi-head">
-          <p className="eyebrow">BOI machine &amp; scrap inspection</p>
-          <h2 className="h2">
-            Your scrap write-off, <em>unfolded</em> in four steps.
-          </h2>
-          <p className="lead">
-            Projects with Board of Investment privileges must certify scrap and used imported machinery. Without it,
-            leftover raw materials stay in your stock account, and import duty becomes due when the privilege ends.
+        <div className="container section-head boi-head">
+          <p className="label">
+            <span className="label-n">05</span>BOI inspection
           </p>
+          <div>
+            <h2 className="h2">How a BOI scrap write-off works.</h2>
+            <p className="lead">
+              Projects with Board of Investment privileges must certify scrap and used imported machinery. Without a
+              certificate, leftover raw materials stay in your stock account, and import duty becomes due when the
+              privilege ends.
+            </p>
+          </div>
         </div>
         <FoldChain panels={panels} angle={angle} vertical={vertical} />
         <div className="container boi-foot">

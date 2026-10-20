@@ -31,10 +31,10 @@ export const company = {
 }
 
 export const stats = [
-  { value: FOUNDED, label: 'Founded in Bangkok', format: 'year' as const },
+  { value: FOUNDED, label: 'Established', format: 'year' as const },
   { value: 1000, label: 'Manufacturers served', suffix: '+' },
-  { value: 10, label: 'ASEAN countries covered' },
-  { value: 24, label: 'Hours to your report', suffix: 'h' },
+  { value: 10, label: 'ASEAN countries' },
+  { value: 24, label: 'Hours to your report', suffix: ' h' },
 ]
 
 export const aseanCountries = [
@@ -59,7 +59,7 @@ export type Service = {
   provide: string[]
   benefits: { title: string; body: string }[]
   ext: string
-  hue: number // drives the orb colour when this service is active
+  hue: number // drives the orb colour when this service is active; the orb rests at 0.55 (blue)
 }
 
 export const services: Service[] = [
@@ -81,7 +81,7 @@ export const services: Service[] = [
       { title: 'Report in 24 hours', body: 'You receive the inspection report within 24 hours of completion.' },
     ],
     ext: '35',
-    hue: 0.55,
+    hue: 0.7, // sky
   },
   {
     id: 'commercial',
@@ -105,7 +105,7 @@ export const services: Service[] = [
       { title: 'Report in 24 hours', body: 'You receive the inspection report within 24 hours of completion.' },
     ],
     ext: '17',
-    hue: 0.08,
+    hue: 0.1, // yellow
   },
   {
     id: 'testing',
@@ -125,7 +125,7 @@ export const services: Service[] = [
       { title: 'Market knowledge', body: 'We know what each regional market requires and advise you on the route.' },
     ],
     ext: '17',
-    hue: 0.75,
+    hue: 0.3, // orange
   },
   {
     id: 'boi',
@@ -145,7 +145,7 @@ export const services: Service[] = [
       { title: 'Faster tax exemption', body: 'A quick certificate makes your tax-exemption process more efficient.' },
     ],
     ext: '20',
-    hue: 0.12,
+    hue: 0.42, // orange into blue
   },
   {
     id: 'sourcing',
@@ -168,7 +168,7 @@ export const services: Service[] = [
       { title: 'Always available', body: 'We work around the clock by phone, email and social media.' },
     ],
     ext: '17',
-    hue: 0.38,
+    hue: 0.86, // ice
   },
 ]
 
@@ -213,7 +213,7 @@ export const whyUs = [
     body: 'Our entire inspection team are degreed engineers, specialised in product and raw-material inspection and in local and international standards. All are fluent in Thai and English.',
   },
   {
-    title: 'Integrity, then speed',
+    title: 'High-quality service',
     body: 'Every inspection follows standard procedures and your requirements with absolute integrity. A full report reaches you within 24 hours.',
   },
   {
@@ -221,7 +221,7 @@ export const whyUs = [
     body: 'We work around the clock by phone, email and social media to understand your requirements and solve any issue.',
   },
   {
-    title: 'At the centre of Southeast Asia',
+    title: 'Cost-effective and efficient',
     body: 'From Bangkok our inspectors reach the whole region quickly. You save inspection and transport cost, and time.',
   },
 ]
@@ -233,18 +233,18 @@ export const timeline = [
     body: 'II begins as an authorised representative inspection and assessment centre of Underwriters Laboratories (UL).',
   },
   {
-    year: 'Growth',
+    year: 'Expansion',
     title: 'Inspector and quality-system auditor',
     body: 'II builds its reputation in product inspection and quality-system audit, and adds more safety marks from around the world.',
   },
   {
-    year: 'BOI',
+    year: 'BOI approval',
     title: 'One of the longest-standing BOI inspectors',
     body: 'II becomes an approved inspector of scrap and used imported machinery for the Thailand Board of Investment.',
   },
   {
-    year: 'ASEAN',
-    title: 'Ten countries, one partner',
+    year: 'Today',
+    title: 'Inspection across ASEAN',
     body: 'Inspection services extend to all ten ASEAN countries, for more than 1,000 manufacturers.',
   },
   {
@@ -273,7 +273,7 @@ export const boiSteps = [
   },
   {
     n: '04',
-    title: 'Certificate & write-off',
+    title: 'Certificate and write-off',
     body: 'Receive the quantity certificate in 1–2 weeks. File the write-off with BOI using the certificate and destruction evidence.',
   },
 ]

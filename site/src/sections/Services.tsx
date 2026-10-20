@@ -38,7 +38,7 @@ function Drawer({ service, onClose, onRequest }: { service: Service; onClose: ()
       <Glass
         as="aside"
         className="drawer"
-        radius={28}
+        radius={10}
         role="dialog"
         aria-modal="true"
         aria-labelledby="drawer-title"
@@ -47,20 +47,22 @@ function Drawer({ service, onClose, onRequest }: { service: Service; onClose: ()
         <button ref={closeRef} className="drawer-close" onClick={onClose} aria-label="Close">
           ×
         </button>
-        <p className="eyebrow">Service {service.index}</p>
+        <p className="label">
+          <span className="label-n">{service.index}</span>Service
+        </p>
         <h3 id="drawer-title" className="h3">
           {service.title}
         </h3>
         <p className="drawer-lead">{service.lead}</p>
 
-        <h4 className="mono-label">What we provide</h4>
+        <h4 className="h4">What we provide</h4>
         <ul className="check-list">
           {service.provide.map((p) => (
             <li key={p}>{p}</li>
           ))}
         </ul>
 
-        <h4 className="mono-label">The benefits of working with II</h4>
+        <h4 className="h4">Why work with II</h4>
         <div className="benefits">
           {service.benefits.map((b) => (
             <div key={b.title}>
@@ -90,22 +92,27 @@ export default function Services({ onRequest }: { onRequest: (id: string) => voi
 
   return (
     <section id="services" className="section services">
-      <div className="blob-field" aria-hidden>
-        <span className="blob b1" />
-        <span className="blob b2" />
-        <span className="blob b3" />
+      {/* Blueprint backdrop: gives the glass cards something to refract. */}
+      <div className="blueprint" aria-hidden>
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+          <g className="bp-lines">
+            <circle cx="930" cy="250" r="190" />
+            <circle cx="930" cy="250" r="120" />
+            <line x1="700" y1="250" x2="1160" y2="250" />
+            <line x1="930" y1="20" x2="930" y2="480" />
+            <rect x="80" y="470" width="420" height="250" />
+            <line x1="80" y1="740" x2="500" y2="740" />
+            <line x1="80" y1="730" x2="80" y2="750" />
+            <line x1="500" y1="730" x2="500" y2="750" />
+            <path d="M560 700 L760 560 L980 640 L1140 520" />
+          </g>
+          <text x="290" y="768" className="bp-text">420.00</text>
+          <text x="1128" y="242" className="bp-text">Ø 380</text>
+        </svg>
       </div>
       <div className="container">
-        <SectionHead
-          kicker="Services"
-          title={
-            <>
-              Five services. <em>One</em> trusted inspector.
-            </>
-          }
-        >
-          Find the right service and see how it meets your needs. Every inspection ends with a detailed report within
-          24 hours.
+        <SectionHead n="02" label="Services" title="What we do for manufacturers, importers and investors.">
+          Choose a service to see what it includes. Every inspection ends with a detailed report within 24 hours.
         </SectionHead>
 
         <div className="svc-grid reveal-stagger" ref={grid}>
@@ -115,8 +122,8 @@ export default function Services({ onRequest }: { onRequest: (id: string) => voi
               as="button"
               id={`svc-${s.id}`}
               className={`svc-card ${i === 0 ? 'is-wide' : ''}`}
-              radius={28}
-              style={{ ['--i' as string]: i, ['--hue' as string]: Math.round(s.hue * 360) }}
+              radius={8}
+              style={{ ['--i' as string]: i }}
               onPointerMove={tilt}
               onPointerLeave={untilt}
               onClick={() => setOpen(s)}
@@ -126,7 +133,7 @@ export default function Services({ onRequest }: { onRequest: (id: string) => voi
               <span className="svc-title">{s.title}</span>
               <span className="svc-short">{s.short}</span>
               <span className="svc-more">
-                Explore <span aria-hidden>→</span>
+                Details <span aria-hidden>→</span>
               </span>
             </Glass>
           ))}

@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
+import { brandRamp } from './glsl'
 
 // Liquid-metal "II" mark in raw WebGL, after paper-design/liquid-logo.
 // A 2D canvas draws the mark; R holds the sharp mask and G a blurred
 // height field. The shader derives a normal from G and reflects a
-// flowing, striped environment with a little chromatic dispersion.
+// flowing, striped environment tinted with the brand colours.
 
 const SIZE = 256
 
@@ -79,6 +80,7 @@ varying vec2 vUv;
 uniform sampler2D uTex;
 uniform float uTime;
 uniform vec2 uPointer;
+${brandRamp}
 
 float env(vec3 r, float t){
   // Flowing stripes, bent by the reflection vector — the liquid-metal look.
@@ -101,17 +103,13 @@ void main(){
   vec3 r = reflect(vec3(uPointer * 0.25, -1.0), n);
 
   float t = uTime;
-  float disp = 0.035;
-  vec3 col = vec3(
-    env(r + vec3(disp, 0.0, 0.0), t),
-    env(r, t),
-    env(r - vec3(disp, 0.0, 0.0), t)
-  );
-  // Cool steel body with a warm amber lift in the highlights.
-  col = mix(vec3(0.36, 0.44, 0.64), vec3(0.97, 0.98, 1.0), col);
-  col += vec3(0.95, 0.72, 0.38) * pow(col.g, 6.0) * 0.3;
+  float e = env(r, t);
+  // Colour metal: the reflection picks a brand colour, then shades it.
+  vec3 col = brandRamp(e * 0.55 + r.x * 0.25 + t * 0.04) * (0.5 + 0.62 * e);
+  // White glints on the brightest bands.
+  col = mix(col, vec3(1.0), pow(e, 7.0) * 0.7);
   // Darken the rim so each bar reads as a rounded, solid form.
-  col *= mix(0.45, 1.0, smoothstep(0.0, 0.45, h));
+  col *= mix(0.55, 1.0, smoothstep(0.0, 0.45, h));
   gl_FragColor = vec4(col * mask, mask);
 }
 `

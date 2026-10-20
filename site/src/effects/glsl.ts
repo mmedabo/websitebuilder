@@ -45,9 +45,21 @@ float snoise(vec3 v){
 }
 `
 
-// Cosine palette (Inigo Quilez) used for the thin-film iridescence.
-export const palette = /* glsl */ `
-vec3 iriPalette(float t){
-  return 0.5+0.5*cos(6.28318*(vec3(0.0,0.33,0.67)+t));
+// Brand ramp: signal blue → sky → ice → safety yellow → stamp orange, looping.
+// Shared by the hero field, the orb and the liquid logo so colours match.
+export const brandRamp = /* glsl */ `
+vec3 brandRamp(float t){
+  vec3 c0 = vec3(0.137, 0.251, 0.961);
+  vec3 c1 = vec3(0.420, 0.600, 1.000);
+  vec3 c2 = vec3(0.900, 0.925, 1.000);
+  vec3 c3 = vec3(1.000, 0.839, 0.040);
+  vec3 c4 = vec3(1.000, 0.353, 0.122);
+  float x = fract(t) * 5.0;
+  float f = smoothstep(0.0, 1.0, fract(x));
+  if (x < 1.0) return mix(c0, c1, f);
+  if (x < 2.0) return mix(c1, c2, f);
+  if (x < 3.0) return mix(c2, c3, f);
+  if (x < 4.0) return mix(c3, c4, f);
+  return mix(c4, c0, f);
 }
 `

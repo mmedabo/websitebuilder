@@ -3,7 +3,7 @@
 A concept redesign of [ii-th.com](https://www.ii-th.com/) for International Inspection Co., Ltd.
 All content comes from the crawl in `../reference/ii-th`.
 
-> This is a proposal. It is not the official website. A "Concept" tag shows in the navigation bar and the footer.
+> This is a proposal. It is not the official website. A "Design concept" tag shows in the top bar, and the footer says so too.
 
 ## Screenshots
 
@@ -29,7 +29,16 @@ The build is static (`base: './'`). You can host `dist/` on any static host, for
 
 - Vite, React 19, TypeScript
 - three.js and `@react-three/fiber` for the hero scene. This chunk loads after first paint.
-- Self-hosted fonts (`@fontsource`): Inter Tight, Instrument Serif, JetBrains Mono
+- Self-hosted fonts (`@fontsource`): Archivo (variable width, set semi-expanded for headings) and IBM Plex Sans (body). IBM Plex Sans Thai is the matching face for a later Thai version.
+
+## Visual language
+
+The design avoids the usual "AI template" look (gradient text, serif italic accent words, mono uppercase labels, pill buttons, blurred colour blobs). Instead:
+
+- **Palette:** paper `#f5f3ee`, ink `#12131a`, signal blue `#2340f5`, safety yellow `#ffd60a`, stamp orange `#ff5a1f`. No gradient text.
+- **Grid:** Swiss-style. Each section has a numbered label in a left column and a full-width rule above.
+- **Devices from inspection work:** a yellow highlighter stroke on the hero tagline, rubber-stamp badges for the certification marks, a blueprint grid behind the services, and report-style stat rows.
+- **Copy:** plain company language, with II's own tagline "Quality is our priority."
 
 ## Design references and where they are used
 
@@ -37,10 +46,10 @@ The build is static (`base: './'`). You can host `dist/` on any static host, for
 | --- | --- | --- |
 | Custom shaders | Hero background | GLSL domain-warped simplex noise with an inspection grid and film grain (`src/effects/HeroScene.tsx`, `Field`) |
 | ShaderGradient | Hero background | The same soft, liquid gradient look. It is written as a custom shader, with no extra dependency. |
-| Thinking orb | Hero | A noise-displaced, iridescent glass sphere with a scan ring. Point at a service chip and the orb "thinks": it pulses, speeds up and shifts colour (`Orb`, `src/state.ts`). |
+| Thinking orb | Hero | A noise-displaced, candy-glass sphere with a scan ring. It rests in signal blue. Point at a service chip and the orb "thinks": it pulses, speeds up and changes to that service's colour (`Orb`, `src/state.ts`). |
 | react-three-fiber | Hero | Renders the field and the orb. It pauses when the hero is off-screen. |
-| liquid-logo (paper-design) | Nav and contact | Raw WebGL liquid-metal "II" mark. A canvas mask becomes a height field, and the shader reflects a flowing environment (`src/effects/LiquidLogo.tsx`). |
-| liquidglass.js | Nav, chips, service cards, drawer, form | Per-element edge-displacement map through an SVG `feDisplacementMap` in `backdrop-filter` (`src/effects/Glass.tsx`). Chromium desktop gets refraction. Other browsers get frosted glass. |
+| liquid-logo (paper-design) | Nav and contact | Raw WebGL liquid-metal "II" mark in the brand colours. A canvas mask becomes a height field, and the shader reflects a flowing environment (`src/effects/LiquidLogo.tsx`). |
+| liquidglass.js | Nav, chips, service cards, drawer, form | Per-element edge-displacement map through an SVG `feDisplacementMap` in `backdrop-filter` (`src/effects/Glass.tsx`). The service cards refract the blueprint lines, and the form refracts the shapes behind it. Chromium desktop gets refraction. Other browsers get frosted glass. |
 | Screen-fold illusion | BOI section | A nested accordion of panels that folds like paper and unfolds as you scroll (`src/effects/FoldChain.tsx`). |
 
 ## Accessibility and performance

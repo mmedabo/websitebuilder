@@ -13,7 +13,7 @@ export default function Contact({ service, setService, still }: { service: strin
     e.preventDefault()
     const f = new FormData(e.currentTarget)
     const svc = services.find((s) => s.id === f.get('service'))?.title ?? 'General enquiry'
-    const subject = `Inspection request — ${svc}`
+    const subject = `Inspection request: ${svc}`
     const body = [
       `Name: ${f.get('name')}`,
       `Company: ${f.get('company')}`,
@@ -32,11 +32,11 @@ export default function Contact({ service, setService, still }: { service: strin
     <section id="contact" className="section contact">
       <div className="container contact-layout">
         <div className="contact-info">
-          <LiquidLogo size={132} still={still} />
-          <p className="eyebrow">Contact</p>
-          <h2 className="h2">
-            Let’s inspect <em>together</em>.
-          </h2>
+          <p className="label">
+            <span className="label-n">09</span>Contact
+          </p>
+          <LiquidLogo size={120} still={still} />
+          <h2 className="h2">Contact us.</h2>
           <address>
             <strong>{company.name}</strong>
             {company.address.map((l) => (
@@ -65,9 +65,9 @@ export default function Contact({ service, setService, still }: { service: strin
           </dl>
         </div>
 
-        <Glass as="form" className="contact-form" radius={32} strength={28} onSubmit={submit}>
+        <Glass as="form" className="contact-form" radius={10} strength={24} onSubmit={submit}>
           <h3 className="h3">Request an inspection</h3>
-          <p className="form-note">This opens your email app with a ready-to-send message to {company.email}.</p>
+          <p className="form-note">The form opens your email app with a message to {company.email}.</p>
           <div className="field-row">
             <label>
               <span>Name</span>
@@ -119,7 +119,7 @@ export default function Contact({ service, setService, still }: { service: strin
             <textarea name="message" rows={4} placeholder="Dates, quantities, standards or marks…" />
           </label>
           <button className="btn btn-block" type="submit">
-            Compose email
+            Continue in email
           </button>
           {sent && (
             <p className="form-note" role="status">

@@ -29,27 +29,21 @@ export default function Coverage() {
   return (
     <section id="coverage" className="section coverage">
       <div className="container coverage-layout">
-        <SectionHead
-          kicker="Coverage"
-          title={
-            <>
-              Bangkok sits at the <em>centre</em> of Southeast Asia. So do we.
-            </>
-          }
-        >
-          Our inspectors reach factories in all ten ASEAN countries quickly. This saves you inspection and transport
-          cost and time. Our bilingual engineers also remove the language and culture barriers of working offshore.
+        <SectionHead n="04" label="Coverage" title="Ten ASEAN countries from one Bangkok office.">
+          Bangkok is at the centre of Southeast Asia, so our inspectors reach factories across the region quickly.
+          This saves you inspection and transport cost. Our engineers speak Thai and English, which removes the language
+          barrier of working offshore.
         </SectionHead>
 
         <div className="map reveal" ref={ref}>
           <svg viewBox={`-90 -10 ${W + 110} ${H + 40}`} role="img" aria-label="Map of the ten ASEAN countries II covers, with Bangkok at the centre">
             <defs>
               <radialGradient id="hub" r="50%">
-                <stop offset="0" stopColor="#f2c879" stopOpacity="0.9" />
-                <stop offset="1" stopColor="#f2c879" stopOpacity="0" />
+                <stop offset="0" stopColor="#ff6a3d" stopOpacity="0.55" />
+                <stop offset="1" stopColor="#ff6a3d" stopOpacity="0" />
               </radialGradient>
               <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
-                <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.07)" />
+                <circle cx="1" cy="1" r="1" fill="rgba(14,19,48,0.12)" />
               </pattern>
             </defs>
             <rect width={W} height={H} fill="url(#dots)" />
@@ -81,7 +75,7 @@ export default function Coverage() {
             <circle cx={bkk.x} cy={bkk.y} r="46" fill="url(#hub)" className="map-hub-glow" />
             <circle cx={bkk.x} cy={bkk.y} r="7" className="map-hub" />
             <text x={bkk.x - 14} y={bkk.y + 4} textAnchor="end" className="map-label is-hub">
-              Bangkok · II
+              Bangkok
             </text>
           </svg>
         </div>

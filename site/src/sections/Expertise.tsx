@@ -14,16 +14,9 @@ export default function Expertise() {
   return (
     <section id="expertise" className="section expertise">
       <div className="container">
-        <SectionHead
-          kicker="What we inspect"
-          title={
-            <>
-              {yearsInService()} years of eyes on <em>almost everything</em> made.
-            </>
-          }
-        >
-          As a trusted third-party inspector since 1989, our team has deep expertise in product quality. Here are some
-          of the product types we inspect. The list is not complete.
+        <SectionHead n="06" label="Products" title="Products we inspect.">
+          {yearsInService()} years as a third-party inspector have given our team deep knowledge of product quality.
+          These are some of the product types we inspect. The list is not complete.
         </SectionHead>
         <ul className="exp-grid reveal-stagger" ref={ref}>
           {expertise.map((x, i) => (

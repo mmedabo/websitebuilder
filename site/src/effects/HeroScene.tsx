@@ -1,8 +1,8 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { orb } from '../state'
-import { palette, simplex3 } from './glsl'
+import { brandRamp, simplex3 } from './glsl'
 
 const { lerp, damp } = THREE.MathUtils
 
@@ -27,6 +27,7 @@ uniform vec2 uMouse;
 uniform float uHue;
 uniform float uThink;
 ${simplex3}
+${brandRamp}
 
 void main(){
   vec2 uv = vUv;
@@ -41,51 +42,60 @@ void main(){
   );
   float f = snoise(vec3(p * 1.1 + r * 1.2, t * 0.7));
 
-  vec3 ink    = vec3(0.020, 0.027, 0.059);
-  vec3 indigo = vec3(0.090, 0.130, 0.380);
-  vec3 cyan   = vec3(0.180, 0.700, 0.820);
-  vec3 amber  = vec3(0.960, 0.660, 0.300);
+  vec3 paper = vec3(0.969, 0.961, 0.941);
 
-  // Shift the accent toward the active service colour.
-  vec3 accent = mix(cyan, 0.55 + 0.45 * cos(6.28318 * (uHue + vec3(0.0, 0.33, 0.67))), 0.35);
+  // Colour lives on the right and lower edge; the left stays pale for the copy.
+  float w = smoothstep(-0.65, 0.55, p.x) * 0.85 + smoothstep(0.1, 0.55, -p.y) * 0.25;
+  w = clamp(w, 0.0, 1.0);
 
-  vec3 col = mix(ink, indigo, smoothstep(-0.6, 0.7, f));
-  col = mix(col, accent, smoothstep(0.25, 0.95, f + q.x * 0.35) * 0.55);
-  col = mix(col, amber, smoothstep(0.55, 1.0, r.y * 0.9 + f * 0.4) * 0.28);
+  // Each band picks a brand colour; the active service nudges the ramp.
+  vec3 a = brandRamp(0.00 + uHue * 0.35 + q.x * 0.08);
+  vec3 b = brandRamp(0.42 + uHue * 0.35 + r.y * 0.08);
+  vec3 c = brandRamp(0.62 + uHue * 0.35);
 
-  // Faint inspection grid that only shows inside the bright bands.
+  vec3 col = paper;
+  col = mix(col, a, smoothstep(0.05, 0.85, f + q.y * 0.3) * w * 0.85);
+  col = mix(col, b, smoothstep(0.25, 0.95, r.x + f * 0.3) * w * 0.8);
+  col = mix(col, c, smoothstep(0.45, 1.0, q.x * 0.8 - f * 0.4) * w * 0.7);
+
+  // Faint inspection grid, strongest where the colour is.
   vec2 g = abs(fract(p * 9.0) - 0.5);
   float grid = smoothstep(0.485, 0.5, max(g.x, g.y));
-  col += grid * 0.035 * smoothstep(0.0, 0.8, f) * (1.0 + uThink);
-
-  // Vignette that keeps the left side darker for legible copy.
-  float vig = smoothstep(1.25, 0.2, length(p * vec2(0.85, 1.1)));
-  col *= mix(0.35, 1.0, vig);
-  col *= mix(0.55, 1.0, smoothstep(-0.9, 0.4, p.x));
+  col -= grid * 0.045 * (0.3 + w) * (1.0 + uThink);
 
   // Film grain.
   float n = fract(sin(dot(uv * uRes + uTime, vec2(12.9898, 78.233))) * 43758.5453);
-  col += (n - 0.5) * 0.035;
+  col += (n - 0.5) * 0.03;
 
   gl_FragColor = vec4(col, 1.0);
 }
 `
 
+// Materials are built once and attached as primitives, so the uniforms
+// updated every frame are guaranteed to be the material's own objects.
+function useShader(params: THREE.ShaderMaterialParameters) {
+  const mat = useMemo(() => new THREE.ShaderMaterial(params), [])
+  useEffect(() => () => mat.dispose(), [mat])
+  return mat
+}
+
 function Field() {
-  const mat = useRef<THREE.ShaderMaterial>(null)
   const { size } = useThree()
-  const uniforms = useMemo(
-    () => ({
+  const mat = useShader({
+    vertexShader: fieldVert,
+    fragmentShader: fieldFrag,
+    uniforms: {
       uTime: { value: 0 },
       uRes: { value: new THREE.Vector2(1, 1) },
       uMouse: { value: new THREE.Vector2() },
       uHue: { value: orb.hue },
       uThink: { value: 0 },
-    }),
-    [],
-  )
+    },
+    depthWrite: false,
+    depthTest: false,
+  })
   useFrame((_, dt) => {
-    const u = uniforms
+    const u = mat.uniforms
     u.uTime.value += dt * (1 + orb.think * 1.5)
     u.uRes.value.set(size.width, size.height)
     u.uMouse.value.x = lerp(u.uMouse.value.x, orb.pointer.x, 0.04)
@@ -96,14 +106,7 @@ function Field() {
   return (
     <mesh renderOrder={-1} frustumCulled={false}>
       <planeGeometry args={[2, 2]} />
-      <shaderMaterial
-        ref={mat}
-        vertexShader={fieldVert}
-        fragmentShader={fieldFrag}
-        uniforms={uniforms}
-        depthWrite={false}
-        depthTest={false}
-      />
+      <primitive object={mat} attach="material" />
     </mesh>
   )
 }
@@ -155,38 +158,37 @@ uniform float uThink;
 varying vec3 vNormal;
 varying vec3 vView;
 varying float vDisp;
-${palette}
+${brandRamp}
 
 void main(){
   vec3 n = normalize(vNormal);
   vec3 v = normalize(vView);
   float ndv = clamp(dot(n, v), 0.0, 1.0);
-  float fres = pow(1.0 - ndv, 2.2);
+  float fres = pow(1.0 - ndv, 2.0);
 
-  // Thin-film colour, held close to a pearl tone so it reads as glass.
-  vec3 iri = iriPalette(uHue + fres * 0.6 + vDisp * 2.0 + uTime * 0.02);
-  vec3 film = mix(vec3(0.62, 0.72, 0.95), iri, 0.5);
+  // Candy-glass body: brand colours flow across the surface.
+  // Narrow ramp span: a smooth two-colour gradient, not a patchwork.
+  // +0.5 puts the resting hue (0.55) on signal blue.
+  float t = uHue + 0.5 + n.y * 0.09 + n.x * 0.04 + vDisp * 0.5 + sin(uTime * 0.2) * 0.03;
+  vec3 body = brandRamp(t);
 
-  // Fake studio environment: cool sky above, warm floor bounce below.
-  vec3 r = reflect(-v, n);
-  vec3 env = mix(vec3(0.03, 0.04, 0.1), vec3(0.6, 0.86, 1.0), smoothstep(-0.1, 1.0, r.y));
-  env += vec3(0.95, 0.7, 0.35) * smoothstep(0.2, -0.9, r.y) * 0.4;
-
+  // Soft key light from the top-left; the underside stays rich, not grey.
   vec3 l = normalize(vec3(-0.6, 0.8, 0.7));
-  vec3 h = normalize(l + v);
-  float spec = pow(max(dot(n, h), 0.0), 120.0);
+  float diff = 0.62 + 0.38 * dot(n, l);
+  vec3 col = body * diff * 1.08;
 
-  // Body tint: light seems to scatter inside the glass, brighter at the top.
-  vec3 core = mix(vec3(0.03, 0.04, 0.12), vec3(0.08, 0.2, 0.32), 0.5 + 0.5 * n.y);
-  core += iri * 0.06;
-  vec3 col = core;
-  col += env * (0.12 + fres * 1.1);
-  col += film * pow(fres, 1.1) * (0.9 + uThink * 0.6);
-  col += spec * vec3(1.0, 0.97, 0.92) * 1.6;
+  // Glass: a pale sky reflection at the top and a bright white rim.
+  vec3 r = reflect(-v, n);
+  col += vec3(1.0) * smoothstep(0.55, 1.0, r.y) * 0.22;
+  col = mix(col, vec3(1.0), fres * 0.6);
+
+  vec3 h = normalize(l + v);
+  float spec = pow(max(dot(n, h), 0.0), 110.0);
+  col += spec * 1.2;
 
   // Inner pulse while thinking.
   float pulse = 0.5 + 0.5 * sin(uTime * 3.0);
-  col += film * (1.0 - fres) * uThink * pulse * 0.08;
+  col += brandRamp(t + 0.4) * (1.0 - fres) * uThink * pulse * 0.12;
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -197,12 +199,13 @@ precision highp float;
 varying vec2 vUv;
 uniform float uHue;
 uniform float uThink;
-${palette}
+${brandRamp}
 void main(){
+  // A soft coloured halo; normal blending so it tints, not washes out, on paper.
   float d = length(vUv - 0.5) * 2.0;
-  float a = smoothstep(1.0, 0.25, d);
-  a = a * a * (0.42 + uThink * 0.3);
-  gl_FragColor = vec4(iriPalette(uHue + 0.1) * a, a);
+  float a = smoothstep(1.0, 0.2, d);
+  a = a * a * (0.32 + uThink * 0.2);
+  gl_FragColor = vec4(brandRamp(uHue + 0.6), a);
 }
 `
 
@@ -218,16 +221,23 @@ function Orb() {
   const ringB = useRef<THREE.Mesh>(null)
   const { viewport, size } = useThree()
 
-  const uniforms = useMemo(
-    () => ({
+  const orbMat = useShader({
+    vertexShader: orbVert,
+    fragmentShader: orbFrag,
+    uniforms: {
       uTime: { value: 0 },
-      uAmp: { value: 0.12 },
+      uAmp: { value: 0.035 },
       uHue: { value: orb.hue },
       uThink: { value: 0 },
-    }),
-    [],
-  )
-  const glowUniforms = useMemo(() => ({ uHue: { value: orb.hue }, uThink: { value: 0 } }), [])
+    },
+  })
+  const glowMat = useShader({
+    vertexShader: glowVert,
+    fragmentShader: glowFrag,
+    uniforms: { uHue: { value: orb.hue }, uThink: { value: 0 } },
+    transparent: true,
+    depthWrite: false,
+  })
 
   const placed = useRef(false)
 
@@ -236,12 +246,13 @@ function Orb() {
     orb.hue = damp(orb.hue, orb.targetHue, 2.5, dt)
     const k = orb.think
 
-    uniforms.uTime.value += dt * (1 + k * 2.2)
-    uniforms.uAmp.value = 0.035 + k * 0.08
-    uniforms.uHue.value = orb.hue
-    uniforms.uThink.value = k
-    glowUniforms.uHue.value = orb.hue
-    glowUniforms.uThink.value = k
+    const u = orbMat.uniforms
+    u.uTime.value += dt * (1 + k * 2.2)
+    u.uAmp.value = 0.035 + k * 0.08
+    u.uHue.value = orb.hue
+    u.uThink.value = k
+    glowMat.uniforms.uHue.value = orb.hue
+    glowMat.uniforms.uThink.value = k
 
     const g = group.current
     if (!g) return
@@ -249,8 +260,8 @@ function Orb() {
     // the hero is taller than the screen, so place the orb in screen pixels.
     const wide = viewport.aspect > 1.05
     const upp = viewport.height / size.height
-    const s = wide ? viewport.height * 0.17 : Math.min(size.width * 0.27, window.innerHeight * 0.12) * upp
-    const x = wide ? viewport.width * 0.25 : viewport.width * 0.12
+    const s = wide ? viewport.height * 0.16 : Math.min(size.width * 0.27, window.innerHeight * 0.12) * upp
+    const x = wide ? viewport.width * 0.29 : viewport.width * 0.12
     const y = wide ? 0.05 : viewport.height / 2 - window.innerHeight * 0.25 * upp
     // Damping is frame-rate independent, and the first frame snaps into
     // place, so slow GPUs never show the orb drifting over the headline.
@@ -278,30 +289,23 @@ function Orb() {
     <group ref={group}>
       <mesh position={[0, 0, -0.6]} scale={4.6}>
         <planeGeometry />
-        <shaderMaterial
-          vertexShader={glowVert}
-          fragmentShader={glowFrag}
-          uniforms={glowUniforms}
-          transparent
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
+        <primitive object={glowMat} attach="material" />
       </mesh>
       <mesh>
         <icosahedronGeometry args={[1, 64]} />
-        <shaderMaterial vertexShader={orbVert} fragmentShader={orbFrag} uniforms={uniforms} />
+        <primitive object={orbMat} attach="material" />
       </mesh>
       <mesh ref={scan} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1, 0.004, 8, 160]} />
-        <meshBasicMaterial color="#bff6ff" transparent opacity={0.85} />
+        <torusGeometry args={[1, 0.006, 8, 160]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.95} />
       </mesh>
       <mesh ref={ringA} rotation={[1.25, 0.25, 0]}>
-        <torusGeometry args={[1.55, 0.0035, 8, 200]} />
-        <meshBasicMaterial color="#9fb4ff" transparent opacity={0.4} />
+        <torusGeometry args={[1.55, 0.005, 8, 200]} />
+        <meshBasicMaterial color="#2340f5" transparent opacity={0.55} />
       </mesh>
       <mesh ref={ringB} rotation={[1.05, -0.5, 0.4]}>
-        <torusGeometry args={[1.85, 0.0025, 8, 220]} />
-        <meshBasicMaterial color="#f2c879" transparent opacity={0.3} />
+        <torusGeometry args={[1.85, 0.004, 8, 220]} />
+        <meshBasicMaterial color="#ff5a1f" transparent opacity={0.5} />
       </mesh>
     </group>
   )

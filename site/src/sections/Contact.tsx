@@ -15,14 +15,13 @@ import {
 } from '../content'
 import { langInfo } from '../i18n'
 import Glass from '../effects/Glass'
-import LiquidLogo from '../effects/LiquidLogo'
 import { pageHref } from '../routing'
 import { focusOrb, releaseOrb } from '../state'
 
 // No backend on a static host: the form composes an email to info@ii-th.com.
 // After sending, the full text is shown with a copy button, so people whose
 // email app does not open (webmail users) can still send the request.
-type Props = { n?: string; service: string; setService: (id: string) => void; still: boolean }
+type Props = { n?: string; service: string; setService: (id: string) => void }
 
 function FieldInput({ f, service }: { f: Field; service: string }) {
   if (f.type === 'select') {
@@ -46,7 +45,7 @@ function FieldInput({ f, service }: { f: Field; service: string }) {
   return <input name={f.name} type={f.type} placeholder={f.placeholder} required={f.required} />
 }
 
-export default function Contact({ n = '09', service, setService, still }: Props) {
+export default function Contact({ n = '09', service, setService }: Props) {
   const [sent, setSent] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const textRef = useRef<HTMLTextAreaElement>(null)
@@ -95,7 +94,7 @@ export default function Contact({ n = '09', service, setService, still }: Props)
             <span className="label-n">{n}</span>
             {ui.contactLabel}
           </p>
-          <LiquidLogo size={120} still={still} />
+          <img className="contact-logo" src={`${import.meta.env.BASE_URL}img/ii-logo.png`} alt="" width={120} height={112} />
           <h2 className="h2">{ui.contactTitle}</h2>
           <address>
             <strong>{company.name}</strong>

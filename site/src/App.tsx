@@ -30,7 +30,7 @@ export default function App() {
       <a className="skip" href="#main">
         {ui.skip}
       </a>
-      <Nav still={still} variant={variant} onVariant={setVariant} />
+      <Nav variant={variant} onVariant={setVariant} />
       <main id="main">
         {page.kind === 'home' && <HomePage still={still} variant={variant} service={service} setService={setService} />}
         {page.kind === 'service' && <ServicePage id={page.service as ServiceId} still={still} service={service} setService={setService} />}

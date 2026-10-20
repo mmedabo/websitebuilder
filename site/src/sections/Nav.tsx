@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import VersionSwitcher from '../components/VersionSwitcher'
 import { company, locale, ui } from '../content'
 import Glass from '../effects/Glass'
-import LiquidLogo from '../effects/LiquidLogo'
 import type { Variant } from '../variant'
 import { track } from '../analytics'
 import { LANGS, lang } from '../i18n'
@@ -22,7 +21,7 @@ const navLinks = () => [
 // Home and service pages carry the request form; other pages link to the home one.
 const contactHref = () => (['home', 'service'].includes(currentPage().kind) ? '#contact' : homeHref('#contact'))
 
-export default function Nav({ still, variant, onVariant }: { still: boolean; variant: Variant; onVariant: (v: Variant) => void }) {
+export default function Nav({ variant, onVariant }: { variant: Variant; onVariant: (v: Variant) => void }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -77,7 +76,7 @@ export default function Nav({ still, variant, onVariant }: { still: boolean; var
       <div className="container">
         <Glass as="nav" className="nav" radius={10} aria-label={ui.navAria}>
           <a className="brand" href={pageHref('')} aria-label={ui.brandAria}>
-            <LiquidLogo size={36} still={still} />
+            <img className="brand-mark" src={`${import.meta.env.BASE_URL}img/ii-mark.png`} alt="" width={44} height={33} />
             <span className="brand-text">
               <strong>International Inspection</strong>
               <small>{ui.brandSmall}</small>

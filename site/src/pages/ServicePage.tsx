@@ -97,7 +97,7 @@ export default function ServicePage({ id, still, service, setService }: Props) {
 
       {boi && <Documents n={n()} />}
 
-      <Contact n={n()} service={service} setService={setService} still={still} />
+      <Contact n={n()} service={service} setService={setService} />
 
       <section className="other-services" aria-label={ui.otherServices}>
         <div className="container">

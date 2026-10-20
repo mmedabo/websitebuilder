@@ -66,8 +66,30 @@ export const isServiceId = (id: string): id is ServiceId => SERVICE_META.some((m
 
 export const representedBodies = ['UL', 'DEMKO', 'DEKRA']
 
-const MARKS = ['UL', 'UL-GS', 'D-Mark', 'KEMA-KEUR', 'ENEC', 'S-UL-AR', 'BR-UL', 'PSE', 'UL-Apex S', 'NOM', 'GOST-R']
-export const marks = MARKS.map((mark, i) => ({ mark, region: L.markRegions[i] }))
+// In the order of "Certification Marks We Currently Represent" on II's
+// follow-up inspection page, with its mark images (public/img/marks).
+// BR-UL is named in II's text but has no image there, so it comes last, as text.
+const MARKS: { mark: string; img?: string }[] = [
+  { mark: 'UL', img: 'ul' },
+  { mark: 'UL-Apex S', img: 'ul-apex-s' },
+  { mark: 'GOST-R', img: 'gost-r' },
+  { mark: 'KEMA-KEUR', img: 'kema-keur' },
+  { mark: 'D-Mark', img: 'd-mark' },
+  { mark: 'ENEC', img: 'enec' },
+  { mark: 'NOM', img: 'nom' },
+  { mark: 'PSE', img: 'pse' },
+  { mark: 'UL-GS', img: 'ul-gs' },
+  { mark: 'S-UL-AR', img: 's-ul-ar' },
+  { mark: 'UL Recognized', img: 'ul-recognized' },
+  { mark: 'UL-EU', img: 'ul-eu' },
+  { mark: 'RoHS', img: 'rohs' },
+  { mark: 'BR-UL' },
+]
+export const marks = MARKS.map((m, i) => ({
+  mark: m.mark,
+  region: L.markRegions[i],
+  img: m.img && `${import.meta.env.BASE_URL}img/marks/${m.img}.png`,
+}))
 
 export const expertise = L.expertise
 export const whyUs = L.whyUs

@@ -151,7 +151,7 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 | ShaderGradient | Hero background | The same soft, liquid gradient look. It is written as a custom shader, with no extra dependency. |
 | Thinking orb | Hero | A noise-displaced, candy-glass sphere with a scan ring. It rests in signal blue. Point at a service chip and the orb "thinks": it pulses, speeds up and changes to that service's colour (`Orb`, `src/state.ts`). |
 | react-three-fiber | Hero | Renders the field and the orb. It pauses when the hero is off-screen. |
-| liquid-logo (paper-design) | Nav and contact | Raw WebGL liquid-metal "II" mark in the brand colours. A canvas mask becomes a height field, and the shader reflects a flowing environment (`src/effects/LiquidLogo.tsx`). |
+| liquid-logo (paper-design) | Removed | An early version used a liquid-metal "II" placeholder mark. II's real logo replaced it: the logo is a large flat block, which the effect cannot show well. |
 | liquidglass.js | Nav, chips, service cards, form | Per-element edge-displacement map through an SVG `feDisplacementMap` in `backdrop-filter` (`src/effects/Glass.tsx`). The service cards refract the blueprint lines, and the form refracts the shapes behind it. Chromium desktop gets refraction. Other browsers get frosted glass. |
 | Screen-fold illusion | BOI section | A nested accordion of panels that folds like paper and unfolds as you scroll (`src/effects/FoldChain.tsx`). |
 
@@ -168,7 +168,8 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 | Hero, stats, why us | `/`, `/why-us` |
 | Story and timeline | `/about-ii`, Thai BOI page, ISO/IEC 17020 PDFs |
 | Services | `/services`, `/follow-up-inspection-services`, `/commercial-inspection-and-testing`, `/testing-services`, `/machine-and-scrap-inspection`, `/sourcing-services` |
-| Marks | `/follow-up-inspection-services` |
+| Marks | `/follow-up-inspection-services`: names, regions, and the 13 mark images under "Certification Marks We Currently Represent", in the same order (`public/img/marks/`). BR-UL has no image there, so it shows as text. |
+| Logo | II's original logo file from the old site (`public/img/ii-logo.png`); the nav and favicon use its blue-and-black block (`ii-mark.png`). |
 | BOI four steps | Thai page การตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า, and the BOI scrap conditions PDF (3 working days notice) |
 | What we inspect | `/our-expertise` |
 | Clients | `/machine-and-scrap-inspection`, `/`, Thai BOI page. Sony, Panasonic and DuPont logos from the old site's images. |
@@ -192,7 +193,6 @@ The live site could not be reached from the build environment, so the crawl is t
 - A Chinese version. The old site has one BOI page in Chinese; it redirects to the English BOI page.
 - The real II logo. The liquid-metal "II" is a placeholder mark.
 - More client logos. II's old site shows logos for only three clients (Sony, Panasonic, DuPont); the concept uses those three files as they are and shows the other names as text. Add more logos to `CLIENT_LOGOS` in `src/content.ts` when II has files it may use.
-- Certification-mark logos and II's real logo. The old site has image files for both (now in `reference/ii-th/images/clients/`). The concept still uses text stamps and a placeholder "II" mark.
 - Photos of inspectors and factories. Only the hero photo is in this concept.
 - A backend for the form. The form opens the visitor's email app, with a copy fallback.
 - Phase 2 needs input from II: fee model or "from" prices, a sample report and certificate, team photos and bios, case studies, proof of approvals, the list of industrial estates served, and review of the Thai and Japanese translations.

@@ -297,16 +297,19 @@ const en = {
   // Regions, in the order of the marks list in content.ts.
   markRegions: [
     'United States & Canada',
-    'Germany',
-    'Denmark (DEMKO)',
-    'Netherlands',
-    'Europe',
-    'Argentina',
-    'Brazil',
     'Japan',
-    'Japan',
-    'Mexico',
     'Russia',
+    'Netherlands',
+    'Denmark (DEMKO)',
+    'Europe',
+    'Mexico',
+    'Japan',
+    'Germany',
+    'Argentina',
+    'United States',
+    'Europe',
+    'European Union',
+    'Brazil',
   ],
 
   expertise: [

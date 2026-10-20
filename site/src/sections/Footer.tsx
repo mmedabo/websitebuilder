@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer-grid">
         <div>
-          <p className="footer-word">International Inspection</p>
+          <img className="footer-logo" src={`${import.meta.env.BASE_URL}img/ii-logo.png`} alt={company.name} width={142} height={132} />
           <p className="footer-tag">{ui.footerTag}</p>
           <address>
             {company.address.map((l) => (

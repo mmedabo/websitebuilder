@@ -360,6 +360,12 @@ mark {
   text-decoration: none;
 }
 
+.brand-mark {
+  display: block;
+  width: 44px;
+  height: auto;
+}
+
 .brand-text {
   display: flex;
   flex-direction: column;
@@ -900,66 +906,71 @@ mark {
 
 .stamps > li {
   display: grid;
-  place-items: center;
-  color: var(--blue);
 }
 
-.stamps > li.is-orange {
-  color: var(--orange-ink);
-}
-
-/* Stamps "press" into place instead of sliding up. */
+/* Cards "press" into place instead of sliding up. */
 .stamps.reveal-stagger > li {
-  transform: scale(1.25);
+  transform: scale(1.15);
 }
 
 .stamps.reveal-stagger.is-in > li {
   transform: none;
 }
 
-.stamp {
-  width: 148px;
-  height: 148px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  border: 3px solid currentColor;
-  box-shadow: inset 0 0 0 5px var(--paper), inset 0 0 0 7px currentColor;
+/* A certification mark: the image from II's site, the name and the region. */
+.mark-card {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 104px auto;
+  border-radius: 6px;
+  background: var(--white);
+  box-shadow: 0 0 0 1px rgba(18, 19, 26, 0.1), 0 10px 24px -16px rgba(18, 19, 26, 0.45);
   transform: rotate(var(--tilt));
-  text-align: center;
-  opacity: 0.92;
   transition: transform 0.3s var(--ease);
 }
 
-.stamp:hover {
-  transform: rotate(var(--tilt)) scale(1.05);
+.mark-card:hover {
+  transform: rotate(0deg) scale(1.04);
 }
 
-.stamp-mark {
+.mark-img {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+}
+
+.mark-img img {
+  max-width: 100%;
+  max-height: 76px;
+  object-fit: contain;
+}
+
+.mark-text {
   font-family: var(--display);
   font-stretch: 112%;
   font-weight: 800;
-  font-size: 21px;
-  line-height: 1;
-  text-transform: uppercase;
+  font-size: 26px;
 }
 
-.stamp.is-long .stamp-mark {
+.mark-card figcaption {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.mark-card figcaption strong {
+  font-family: var(--display);
+  font-weight: 800;
   font-size: 15px;
-  font-stretch: 100%;
-  white-space: nowrap;
+  color: var(--blue);
 }
 
-.stamp-region {
-  max-width: 104px;
-  font-size: 11px;
+.mark-card figcaption span {
+  font-size: 12px;
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* Coverage ---------------------------------------------------------- */
@@ -1565,8 +1576,11 @@ mark {
   padding-top: 18px;
 }
 
-.contact-info .liquid-logo {
-  margin: 20px 0 8px -14px;
+.contact-logo {
+  display: block;
+  width: 120px;
+  height: auto;
+  margin: 20px 0 8px;
 }
 
 .contact-info address {
@@ -1715,12 +1729,14 @@ mark {
   gap: 40px;
 }
 
-.footer-word {
-  font-family: var(--display);
-  font-stretch: 116%;
-  font-weight: 800;
-  font-size: clamp(28px, 3.6vw, 46px);
-  line-height: 1;
+/* II's original logo, on white as on its own site. */
+.footer-logo {
+  display: block;
+  width: 142px;
+  height: auto;
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--white);
 }
 
 .footer-tag {
@@ -2487,13 +2503,6 @@ mark {
   .stamps {
     grid-template-columns: repeat(2, 1fr);
     gap: 22px 10px;
-  }
-  .stamp {
-    width: 132px;
-    height: 132px;
-  }
-  .stamp-mark {
-    font-size: 18px;
   }
   .map-label {
     font-size: 22px;
@@ -3314,8 +3323,8 @@ html[lang='ja'] body {
   line-height: 1.8;
 }
 
-html:is([lang='th'], [lang='ja']) :is(.display, .h2, .h3, .page-title, .svc-title, .fold-n, .fold-card h3, .stamp-mark,
-    .footer-word, .brand-text strong, .stat dd, .why-list h3, .exp-grid h3, .steps h3, .faq-list summary,
+html:is([lang='th'], [lang='ja']) :is(.display, .h2, .h3, .page-title, .svc-title, .fold-n, .fold-card h3, .mark-card strong,
+    .brand-text strong, .stat dd, .why-list h3, .exp-grid h3, .steps h3, .faq-list summary,
     .keyfacts li, .clients-title, .os-title, .tl-year, .contact-lines) {
   letter-spacing: 0;
   font-stretch: normal;

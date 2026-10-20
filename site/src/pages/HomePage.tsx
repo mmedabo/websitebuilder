@@ -31,7 +31,7 @@ export default function HomePage({ still, variant, service, setService }: Props)
       <WhyUs n="08" />
       <Clients />
       <Documents n="09" />
-      <Contact n="10" service={service} setService={setService} still={still} />
+      <Contact n="10" service={service} setService={setService} />
     </>
   )
 }

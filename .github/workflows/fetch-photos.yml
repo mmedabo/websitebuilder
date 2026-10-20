@@ -1,0 +1,35 @@
+# Temporary: fetch photo candidates the authoring environment cannot download.
+# Remove this workflow and its script once the hero photo is chosen.
+name: Fetch photo candidates (temporary)
+
+on:
+  push:
+    branches: [claude/relaxed-heisenberg-c1bjir]
+    paths:
+      - '.github/scripts/fetch_photos.py'
+      - '.github/workflows/fetch-photos.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-photos
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: python3 .github/scripts/fetch_photos.py
+      - name: Commit results to this branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reference
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit"
+          else
+            git commit -m "Add fetched photo candidates (temporary)"
+            git push origin HEAD:${{ github.ref_name }}
+          fi

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useReducedMotion } from './hooks'
+import GuidePage from './pages/GuidePage'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
+import PortalPage from './pages/PortalPage'
 import PrivacyPage from './pages/PrivacyPage'
 import ServicePage from './pages/ServicePage'
 import { ui, type ServiceId } from './content'
@@ -32,6 +34,8 @@ export default function App() {
       <main id="main">
         {page.kind === 'home' && <HomePage still={still} variant={variant} service={service} setService={setService} />}
         {page.kind === 'service' && <ServicePage id={page.service as ServiceId} still={still} service={service} setService={setService} />}
+        {page.kind === 'guide' && <GuidePage />}
+        {page.kind === 'portal' && <PortalPage />}
         {page.kind === 'privacy' && <PrivacyPage />}
         {page.kind === 'notfound' && <NotFoundPage />}
       </main>

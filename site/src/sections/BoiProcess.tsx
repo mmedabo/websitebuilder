@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { boiSteps, ui } from '../content'
 import FoldChain from '../effects/FoldChain'
 import { useScrollProgress } from '../hooks'
+import { pageHref } from '../routing'
 
 const ease = (t: number) => 1 - Math.pow(1 - t, 3)
 
@@ -48,7 +49,10 @@ export default function BoiProcess({ still, n = '05' }: { still: boolean; n?: st
             <span style={{ transform: `scaleX(${t})` }} />
           </div>
           <p>
-            <strong>{ui.boiMachineryStrong}</strong> {ui.boiMachinery}
+            <strong>{ui.boiMachineryStrong}</strong> {ui.boiMachinery}{' '}
+            <a className="link" href={pageHref('guides/boi-scrap-write-off/')}>
+              {ui.footerGuide} →
+            </a>
           </p>
         </div>
       </div>

@@ -488,6 +488,141 @@ const en = {
     'Order Nor. 9/2547 (scrap inspection)',
   ],
 
+  // BOI scrap write-off guide. Facts only from BOI Announcements Por. 4/2543
+  // and Por. 5/2543, BOI Order Nor. 9/2547 and II's BOI scrap conditions.
+  guide: {
+    label: 'Guide',
+    title: 'BOI scrap write-off, step by step.',
+    lead: 'How a BOI-promoted company writes off scrap from its raw-material account, and what the inspector checks. A plain-language summary of the BOI documents that II publishes.',
+    disclaimer: 'This is a summary, not legal advice. The BOI documents below are the authority. If your case is not clear, ask BOI.',
+    basis: 'Based on BOI Announcements Por. 4/2543 and Por. 5/2543 (24 July 2000) and BOI Order Nor. 9/2547 (12 November 2004).',
+
+    ruleLabel: 'Your privilege',
+    ruleTitle: 'Which rule applies to you?',
+    ruleLead: 'The rule depends on the import privilege in your BOI promotion certificate. Choose one.',
+    freeTitle: 'Written off without import duty when',
+    payTitle: 'When duty is due',
+    rules: {
+      s36: {
+        tab: 'Section 36(1)',
+        name: 'Import duty exemption on raw materials for export products',
+        doc: 'Announcement Por. 5/2543',
+        free: [
+          'the scrap is destroyed by a method that BOI approves,',
+          'the scrap is exported out of Thailand, or',
+          'the scrap is donated to a government agency, a state organisation or a public charity that BOI approves.',
+        ],
+        pay: 'If you sell or transfer scrap with commercial value in Thailand, BOI writes it off only after you pay the duty. Duty is calculated on the tariff, condition and price of the raw material on the import date. For remains with commercial value, duty is on their condition at the current tariff.',
+      },
+      s30: {
+        tab: 'Section 30',
+        name: 'Import duty reduction on raw materials',
+        doc: 'Announcement Por. 4/2543',
+        free: [
+          'the scrap is leftover material or waste from production,',
+          'the scrap is defective or below-standard products or parts made from the raw materials,',
+          'the scrap is exported out of Thailand, or',
+          'the scrap is donated to a government agency, a state organisation or a public charity that BOI approves.',
+        ],
+        pay: 'Defective raw materials, before use or left over, that are not exported or donated pay duty on the tariff, condition and price on the import date, at the reduced Section 30 rate. BOI writes them off when it receives proof of payment.',
+      },
+    },
+
+    termsLabel: 'Terms',
+    termsTitle: 'What counts as scrap.',
+    scrapTerm: 'Scrap',
+    scrapIntro: 'Scrap (ส่วนสูญเสีย) is one of these:',
+    scrapTypes: [
+      'Raw materials, before use or left over from production, that are defective, below standard or no longer usable for their purpose.',
+      'Leftover raw materials or waste from the production process.',
+      'Products, parts or goods made from the raw materials that are defective, below standard or no longer usable for their purpose.',
+    ],
+    remainsTerm: 'Remains',
+    remains: 'Remains (เศษซาก) are scrap that has been destroyed so that it no longer has its original form.',
+
+    stepsLabel: 'Process',
+    stepsTitle: 'Five steps to the write-off.',
+    you: 'You',
+    inspector: 'Inspector',
+    steps: [
+      { inspector: false, title: 'Ask BOI for approval', body: 'Send BOI a request to destroy, export or donate the scrap, on the form attached to the announcement.' },
+      { inspector: false, title: 'List and store the scrap', body: 'For each item, list the type, quantity or weight, value and cause of the loss. Store the scrap or remains so that BOI or its inspector can check them.' },
+      { inspector: true, title: 'Quantity check', body: 'An approved inspector checks the type, condition, quantity and cause against your factory report, and photographs the scrap before destruction.' },
+      { inspector: true, title: 'Destruction', body: 'The inspector checks that destruction follows the approved method. The inspector records and photographs the process and the remains, by type.' },
+      { inspector: false, title: 'File the write-off', body: "Send BOI the details, with the inspector's certificate and the disposal certificate for the remains." },
+    ],
+
+    sampleLabel: 'Sampling',
+    sampleTitle: 'How much the inspector checks.',
+    sampleLead: 'Order Nor. 9/2547, clause 2.2: the inspector samples at least 10% of the scrap against your factory report. If the sample does not match, the inspector samples at least 30% of the rest. If it still does not match, you correct the report and book a new date.',
+    sampleInput: 'Total scrap quantity (items, pieces or kg)',
+    sampleFirst: 'First sample, at least',
+    sampleSecond: 'If it does not match, second sample, at least',
+    sampleTotal: 'Checked in total, at least',
+    sampleNote: 'If the factory report cannot be used for comparison, the inspector checks all of the scrap. If that is not possible, the inspector uses another reliable, standard method.',
+
+    afterTitle: 'After destruction',
+    after: [
+      'Only an agency or company that BOI approves can dispose of the remains.',
+      'The disposer issues a certificate with the type, quantity and disposal method. It is attached to the inspector’s certificate.',
+      'Disposal must not cause environmental problems.',
+      'If the inspector finds a more suitable destruction method, the inspector tells BOI.',
+    ],
+
+    checkLabel: 'Checklist',
+    checkTitle: 'Before inspection day.',
+    checkLead: 'From II’s BOI scrap inspection conditions and the BOI announcements. Tick each item when it is ready.',
+    checks: [
+      'Book II at least 3 working days before the inspection.',
+      'Prepare the BOI request to sell or destroy the scrap.',
+      'Prepare the tax documents.',
+      'Prepare the production report or the inventory report.',
+      'List each scrap item with its type, quantity or weight, value and cause.',
+      'Prepare a safe work area for the inspector.',
+      'Name a responsible member of staff to be present during the inspection.',
+      'To move or cancel, tell II at least 1 working day before.',
+    ],
+    checkDone: (done: number, total: number) => `${done} of ${total} ready`,
+    print: 'Print checklist',
+
+    sourcesLabel: 'Sources',
+    sourcesTitle: 'The original documents.',
+    sourcesLead: 'In Thai, as published on ii-th.com.',
+
+    ctaTitle: 'Ready to book?',
+    ctaBody: 'Book at least 3 working days ahead. You receive the certificate 1–2 weeks after the inspection.',
+    ctaButton: 'Request a BOI inspection',
+  },
+
+  // Client portal demo. All data is fictional and labelled as such.
+  portal: {
+    demoTag: 'Demo',
+    demoNote: 'Sample data. The company, bookings and dates are fictional. A real portal needs a login system and a database.',
+    signTitle: 'Client portal',
+    signLead: 'Follow your bookings, reports and BOI certificates in one place.',
+    signButton: 'Open the demo',
+    signNote: 'No account or password is needed. Nothing you do here is sent anywhere.',
+    hello: 'Welcome back',
+    company: 'Sample Manufacturing Co., Ltd. (fictional)',
+    signOut: 'Leave demo',
+    tiles: ['Open bookings', 'Reports ready', 'BOI certificates pending'],
+    bookingsTitle: 'Your bookings',
+    cols: ['Reference', 'Service', 'Site', 'Date', 'Status'],
+    statuses: ['Requested', 'Quoted', 'Scheduled', 'Inspected', 'Report ready'],
+    boiLast: 'Certificate ready',
+    items: ['LED luminaires, 12,000 pcs', 'Power supplies', '35 scrap items', 'Natural latex gloves, 2 containers', 'Bluetooth speaker'],
+    sites: ['Rayong', 'Chonburi', 'Ayutthaya', 'Songkhla', 'Pathum Thani'],
+    detailItem: 'Item: ',
+    reportDue: (date: string) => `Report due by ${date} (within 24 hours of the inspection).`,
+    download: 'Download report',
+    downloadNote: 'In the real portal the signed report downloads here. This demo has no reports.',
+    bookAgain: 'Book again',
+    certTitle: 'BOI certificate',
+    certWindow: (from: string, to: string) => `Expected between ${from} and ${to}.`,
+    certDays: (n: number) => `Day ${n} after the inspection`,
+    certNote: 'Certificates are issued 1–2 weeks after the inspection.',
+  },
+
   // Draft privacy notice. II and its legal adviser must review it before launch.
   privacy: {
     draftStrong: 'Draft for review.',

@@ -14,6 +14,7 @@ const navLinks = () => [
   { href: homeHref('#services'), label: ui.nav.services },
   { href: homeHref('#marks'), label: ui.nav.marks },
   { href: serviceHref('boi'), label: ui.nav.boi },
+  { href: pageHref('guides/boi-scrap-write-off/'), label: ui.nav.guide },
   { href: homeHref('#expertise'), label: ui.nav.products },
   { href: contactHref(), label: ui.nav.contact },
 ]
@@ -62,11 +63,14 @@ export default function Nav({ still, variant, onVariant }: { still: boolean; var
             </a>
           ))}
         </nav>
-        <span className="topbar-info">{ui.topbarAddress}</span>
+        <span className="topbar-info topbar-address">{ui.topbarAddress}</span>
         <a className="topbar-info" href={company.phones[0].href} onClick={() => track('phone_click', { place: 'topbar' })}>
           {ui.tel} {company.phones[0].label}
         </a>
-        <a className="topbar-info" href={`mailto:${company.email}`} onClick={() => track('email_click', { place: 'topbar' })}>
+        <a className="topbar-info" href={pageHref('portal/')}>
+          {ui.footerPortal}
+        </a>
+        <a className="topbar-info topbar-email" href={`mailto:${company.email}`} onClick={() => track('email_click', { place: 'topbar' })}>
           {company.email}
         </a>
       </div>

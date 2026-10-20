@@ -32,6 +32,8 @@ export default function Footer() {
             <li><a href={homeHref('#why')}>{ui.footerWhy}</a></li>
             <li><a href={homeHref('#documents')}>{ui.footerDocs}</a></li>
             <li><a href={homeHref('#contact')}>{ui.footerContact}</a></li>
+            <li><a href={pageHref('guides/boi-scrap-write-off/')}>{ui.footerGuide}</a></li>
+            <li><a href={pageHref('portal/')}>{ui.footerPortal}</a></li>
             <li><a href={pageHref('privacy/')}>{ui.footerPrivacy}</a></li>
           </ul>
         </nav>

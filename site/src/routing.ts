@@ -4,7 +4,7 @@ import { LANGS, lang, langInfo, sitePath, type Lang } from './i18n'
 
 // Every page is a real static HTML file (see scripts/build-pages.mjs), so
 // navigation is plain links; the app only reads which page it is on.
-export type PageKind = 'home' | 'service' | 'privacy' | 'notfound'
+export type PageKind = 'home' | 'service' | 'guide' | 'portal' | 'privacy' | 'notfound'
 type Text = Record<Lang, string>
 type PageDef = { path: string; kind: PageKind; service?: string; title: Text; description: Text }
 export type PageInfo = { path: string; kind: PageKind; service?: string; title: string; description: string }

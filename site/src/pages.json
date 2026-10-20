@@ -10,12 +10,38 @@
     "addressRegion": "Bangkok",
     "postalCode": "10110",
     "addressCountry": "TH",
-    "areaServed": ["Thailand", "Myanmar", "Cambodia", "Laos", "Vietnam", "Malaysia", "Singapore", "Brunei", "Philippines", "Indonesia"]
+    "areaServed": [
+      "Thailand",
+      "Myanmar",
+      "Cambodia",
+      "Laos",
+      "Vietnam",
+      "Malaysia",
+      "Singapore",
+      "Brunei",
+      "Philippines",
+      "Indonesia"
+    ]
   },
   "langs": [
-    { "id": "en", "prefix": "", "html": "en", "og": "en_GB" },
-    { "id": "th", "prefix": "th/", "html": "th", "og": "th_TH" },
-    { "id": "ja", "prefix": "ja/", "html": "ja", "og": "ja_JP" }
+    {
+      "id": "en",
+      "prefix": "",
+      "html": "en",
+      "og": "en_GB"
+    },
+    {
+      "id": "th",
+      "prefix": "th/",
+      "html": "th",
+      "og": "th_TH"
+    },
+    {
+      "id": "ja",
+      "prefix": "ja/",
+      "html": "ja",
+      "og": "ja_JP"
+    }
   ],
   "pages": [
     {
@@ -105,6 +131,35 @@
         "en": "Find, negotiate and quality-check Thai suppliers. Sourcing to your specifications with first article, pre-shipment and container loading inspection.",
         "th": "จัดหาผู้ผลิต ต่อรองราคา และตรวจสอบคุณภาพสินค้าจากผู้ผลิตไทยตามข้อกำหนดของท่าน พร้อมการตรวจประเมินสินค้าเบื้องต้น การตรวจสอบก่อนขนส่ง และการตรวจสอบการโหลดสินค้า",
         "ja": "タイのサプライヤー選定、価格交渉、品質確認を代行します。ご指定の仕様に基づき、初品検査、出荷前検査、コンテナ積み込み検査も行います。"
+      }
+    },
+    {
+      "path": "guides/boi-scrap-write-off/",
+      "kind": "guide",
+      "title": {
+        "en": "BOI scrap write-off: step-by-step guide | International Inspection Co., Ltd.",
+        "th": "คู่มือการตัดบัญชีส่วนสูญเสีย BOI ทีละขั้นตอน | บริษัท อินเตอร์เนชั่นแนล อินสเป็คชั่น จำกัด",
+        "ja": "BOIスクラップ償却ガイド | International Inspection Co., Ltd."
+      },
+      "description": {
+        "en": "How BOI-promoted companies write off scrap under Section 30 and Section 36(1): the rules, the steps, how the inspector samples, and a checklist for inspection day.",
+        "th": "วิธีตัดบัญชีส่วนสูญเสียของผู้ได้รับการส่งเสริม BOI ตามมาตรา 30 และมาตรา 36(1): หลักเกณฑ์ ขั้นตอน การสุ่มตรวจ และรายการเตรียมตัวก่อนวันตรวจสอบ",
+        "ja": "BOI奨励企業が第30条・第36条(1)に基づきスクラップを償却する方法。規則、手順、検査員の抜き取り方法、検査日のチェックリスト。"
+      }
+    },
+    {
+      "path": "portal/",
+      "kind": "portal",
+      "noindex": true,
+      "title": {
+        "en": "Client portal (demo) | International Inspection Co., Ltd.",
+        "th": "พอร์ทัลลูกค้า (ตัวอย่าง) | บริษัท อินเตอร์เนชั่นแนล อินสเป็คชั่น จำกัด",
+        "ja": "顧客ポータル（デモ） | International Inspection Co., Ltd."
+      },
+      "description": {
+        "en": "Demo of a client portal: bookings, inspection status, reports and BOI certificates. Sample data only.",
+        "th": "ตัวอย่างพอร์ทัลลูกค้า: การจอง สถานะการตรวจสอบ รายงาน และใบรับรอง BOI ข้อมูลตัวอย่างเท่านั้น",
+        "ja": "顧客ポータルのデモ：予約、検査状況、報告書、BOI証明書。サンプルデータのみ。"
       }
     },
     {

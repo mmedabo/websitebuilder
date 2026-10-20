@@ -12,6 +12,8 @@ All content comes from the crawl in `../reference/ii-th`.
 | ![Version A: shader and thinking orb](docs/screenshots/01-version-a-shader-orb.jpg) | ![Version B: Bangkok night photo](docs/screenshots/02-version-b-bangkok-photo.jpg) |
 | ![Services on the blueprint band](docs/screenshots/03-services-blueprint-glass.jpg) | ![Certification marks as stamps](docs/screenshots/04-certification-stamps.jpg) |
 | ![BOI screen fold](docs/screenshots/05-boi-screen-fold.jpg) | ![Mobile, version B](docs/screenshots/06-mobile-version-b.jpg) |
+| ![Japanese home page, version B](docs/screenshots/07-japanese-version-b.jpg) | ![Thai BOI service page](docs/screenshots/08-thai-boi-page.jpg) |
+| ![BOI guide: sampling calculator](docs/screenshots/09-boi-guide-sampling.jpg) | ![Client portal demo](docs/screenshots/10-portal-demo.jpg) |
 
 ## Two versions for review
 
@@ -56,6 +58,8 @@ Build settings (environment variables):
 | `/services/product-testing/` | Product testing |
 | `/services/boi-machine-scrap-inspection/` | BOI machine and scrap inspection |
 | `/services/sourcing/` | Sourcing |
+| `/guides/boi-scrap-write-off/` | BOI scrap write-off guide (Phase 3) |
+| `/portal/` | Client portal **demo** (Phase 3) |
 | `/privacy/` | Privacy notice (**draft**) |
 
 Each page is a real HTML file with its own title, description, canonical link, social preview and structured data (schema.org `ProfessionalService` on the home page, `Service` on each service page). Pages, titles and redirects are defined in `src/pages.json`; `scripts/build-pages.mjs` writes them after `vite build`.
@@ -71,7 +75,7 @@ Each service page has: key facts, what we provide, a service-specific section (m
 
 **Old addresses:** every page of the old Wix site (English, Thai and Chinese) redirects to its new page. On a static host a small redirect page per old address does this; `dist/_redirects` gives the same list as real 301 redirects for Netlify or Cloudflare Pages. This keeps existing Google rankings when the domain moves.
 
-**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open` and `language_switch`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
+**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open`, `language_switch`, `guide_print`, `guide_cta`, `portal_open`, `portal_download` and `portal_book_again`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
 
 ## Languages (Phase 2)
 
@@ -81,7 +85,7 @@ Each service page has: key facts, what we provide, a service-specific section (m
 | Thai | `/th/` | `src/locales/th.ts` |
 | Japanese | `/ja/` | `src/locales/ja.ts` |
 
-Every page exists in all three languages (7 pages × 3 = 21 HTML files). The top bar has a language switch. It keeps the page, the hero version and the section.
+Every page exists in all three languages (9 pages × 3 = 27 HTML files). The top bar has a language switch. It keeps the page, the hero version and the section.
 
 - **Machine translation.** The Thai and Japanese text is machine translated and not yet reviewed. Each Thai and Japanese page says so in the top bar (desktop) and the footer. Set `machineTranslated: false` in a locale file when a native speaker has approved it.
 - **Thai wording.** Where II's old Thai pages and PDFs have a term, the Thai version uses it: service names, the BOI terms, the Thai address, the phone format and the PDF titles.
@@ -90,6 +94,26 @@ Every page exists in all three languages (7 pages × 3 = 21 HTML files). The top
 - **Request emails stay in English.** Labels, the service name and the option values in the email are English in every language, so II receives one format.
 - **Search engines.** Each page has `hreflang` links to its other languages, `og:locale`, and a translated title and description (`src/pages.json`). Old Thai Wix addresses redirect to the Thai pages.
 
+## Phase 3: what a full site could do
+
+Two working demonstrations, in all three languages.
+
+**BOI scrap write-off guide** (`/guides/boi-scrap-write-off/`). A plain-language guide built only from the BOI documents II already publishes: Announcements Por. 4/2543 and Por. 5/2543, Order Nor. 9/2547, and II's BOI scrap conditions.
+- **Which rule applies?** A switch between Section 36(1) and Section 30 shows when scrap is written off without duty and when duty is due.
+- **Sampling calculator.** Enter the scrap quantity; it shows the minimum first sample (10%), the second sample if the report does not match (30% of the rest), and the total. From Order Nor. 9/2547, clause 2.2.
+- **Checklist** for inspection day, with progress and a print button.
+- Links to the four source PDFs, and a button to book a BOI inspection.
+- It is in the nav, the footer and the BOI section. A guide like this can rank in search for BOI questions and bring in enquiries.
+
+**Client portal demo** (`/portal/`). Shows what clients could see after they book.
+- No login: one button opens the demo. There are no password or email fields.
+- A fictional company with five sample bookings, one per service. Dates move with today's date.
+- Status timeline: Requested → Quoted → Scheduled → Inspected → Report ready (Certificate ready for BOI).
+- BOI certificate window: day count since the inspection, against the 1–2 week issue time.
+- "Download report" says plainly that the demo has no reports. "Book again" opens the request form for that service.
+- A "Demo" banner says the data is fictional. The page is `noindex` even at launch, and it is not in the sitemap.
+- A real portal needs a login system, a database and II's booking data. That is a separate project.
+
 ### Launch checklist
 1. Confirm the content audit below and the draft privacy notice with II.
 2. Have a native speaker review `th.ts` and `ja.ts`, then set `machineTranslated: false`.
@@ -97,7 +121,8 @@ Every page exists in all three languages (7 pages × 3 = 21 HTML files). The top
 4. Add analytics, and update the privacy notice to cover it.
 5. Replace the email-based form with a form service (for example Formspree) or the host's own forms.
 6. Remove the review switch and the "Design concept" tag; keep the photo credit if version B is chosen.
-7. Build with `SITE_URL=https://www.ii-th.com ALLOW_INDEXING=1`, point the domain at the new host, and submit `sitemap.xml` in Google Search Console.
+7. Remove the portal demo, or replace it with a real portal.
+8. Build with `SITE_URL=https://www.ii-th.com ALLOW_INDEXING=1`, point the domain at the new host, and submit `sitemap.xml` in Google Search Console.
 
 ## Stack
 

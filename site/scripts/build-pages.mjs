@@ -65,7 +65,8 @@ function render(page, lang) {
     .replace(/<html lang="[^"]*">/, `<html lang="${lang.html}">`)
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(page.title)}</title>`)
     .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(page.description)}" />`)
-  if (INDEXABLE) html = html.replace(/\s*<!--[^>]*-->\s*<meta name="robots"[^>]*>/, '')
+  // Demo pages (the portal) stay noindex even at launch.
+  if (INDEXABLE && !page.noindex) html = html.replace(/\s*<!--[^>]*-->\s*<meta name="robots"[^>]*>/, '')
   const ld = structuredData(page, url)
   const real = page.kind !== 'notfound'
   const head = [
@@ -135,7 +136,7 @@ write(
   'sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${langs.flatMap((l) => pages.map((p) => `  <url><loc>${abs(l.prefix + p.path)}</loc><lastmod>${today}</lastmod></url>`)).join('\n')}
+${langs.flatMap((l) => pages.filter((p) => !p.noindex).map((p) => `  <url><loc>${abs(l.prefix + p.path)}</loc><lastmod>${today}</lastmod></url>`)).join('\n')}
 </urlset>
 `,
 )

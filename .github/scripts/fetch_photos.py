@@ -12,9 +12,9 @@ import urllib.parse
 import urllib.request
 
 UA = 'ii-concept-asset-fetch/1.0 (https://github.com/mmedabo/websitebuilder)'
-CAND_DIR = 'reference/photo-candidates'
+CAND_DIR = 'reference/photo-candidates/pass2'
 MIN_WIDTH = 3800
-MAX_CANDIDATES = 24
+MAX_CANDIDATES = 30
 FREE_LICENSE = re.compile(r'^(cc0|cc[- ]by(-sa)?([- ][0-9.]+)?|public domain|pd\b)', re.I)
 
 
@@ -39,24 +39,25 @@ def plain(value):
 
 out = {'banner': None, 'candidates': [], 'errors': []}
 
-# 1. II's current home-page banner (original upload, for reference only).
-banner = 'https://static.wixstatic.com/media/97a516_2dea8491aee141319245536cccaaf94b.jpg'
-try:
-    n = save(banner, 'reference/ii-th/images/home-banner.jpg')
-    out['banner'] = {'url': banner, 'bytes': n, 'path': 'reference/ii-th/images/home-banner.jpg'}
-except Exception as e:  # keep going; the log says what failed
-    out['errors'].append(f'banner: {e}')
-
-seen = set()
+# 1. II's current home-page banner was fetched in pass 1
+#    (reference/ii-th/images/home-banner.jpg). Skip pass-1 candidates.
+with open('reference/photo-candidates/manifest.json', encoding='utf-8') as f:
+    seen = {c['title'] for c in json.load(f)['candidates']}
 cands = []
 
-# 2. Wikimedia Commons: free licences only.
-for q in ['Bangkok skyline night', 'Bangkok night cityscape', 'Bangkok night aerial', 'Chao Phraya river night',
-          'Sathorn night', 'Bangkok blue hour', 'Bangkok skyline']:
-    params = {
-        'action': 'query', 'format': 'json', 'generator': 'search', 'gsrsearch': q, 'gsrnamespace': 6,
-        'gsrlimit': 40, 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata|mime', 'iiurlwidth': 800,
-    }
+# 2. Wikimedia Commons: free licences only. Pass 2 targets II's banner scene:
+# the Chao Phraya river curving through the skyline at night.
+SEARCHES = ['Chao Phraya River night skyline', 'Chao Phraya River Bangkok night panorama', 'Bangkok river night',
+            'Chao Phraya night aerial', 'Bangkok skyline river dusk', 'Taksin bridge night', 'Sathorn river night']
+CATEGORIES = ['Chao Phraya River at night', 'Night views of Bangkok', 'Skylines of Bangkok at night',
+              'Panoramics of Bangkok', 'Chao Phraya River in Bangkok', 'Skylines of Bangkok']
+queries = [('search', q) for q in SEARCHES] + [('category', c) for c in CATEGORIES]
+for kind, q in queries:
+    params = {'action': 'query', 'format': 'json', 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata|mime', 'iiurlwidth': 800}
+    if kind == 'search':
+        params.update({'generator': 'search', 'gsrsearch': q, 'gsrnamespace': 6, 'gsrlimit': 50})
+    else:
+        params.update({'generator': 'categorymembers', 'gcmtitle': 'Category:' + q, 'gcmtype': 'file', 'gcmlimit': 100})
     try:
         data = json.loads(get('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(params)))
     except Exception as e:
@@ -111,9 +112,13 @@ for q in ['bangkok night skyline', 'bangkok night', 'bangkok cityscape night', '
     for p in data.get('results', []):
         unsplash_photo(p, q)
 
-# Prefer photos whose text mentions night or dusk, then the widest.
-night = re.compile(r'night|dusk|twilight|blue hour|evening|lights', re.I)
-cands.sort(key=lambda c: (not night.search(c['title'] + ' ' + c['description'] + ' ' + c['query']), -c['width']))
+# Prefer river + night photos, then night, then the widest.
+night = re.compile(r'night|dusk|twilight|blue hour|evening|lights|ราตรี|กลางคืน', re.I)
+river = re.compile(r'chao ?phraya|river|แม่น้ำ', re.I)
+def rank(c):
+    text = c['title'] + ' ' + c['description'] + ' ' + c['query']
+    return (not (night.search(text) and river.search(text)), not night.search(text), -c['width'])
+cands.sort(key=rank)
 cands = cands[:MAX_CANDIDATES]
 
 os.makedirs(CAND_DIR, exist_ok=True)

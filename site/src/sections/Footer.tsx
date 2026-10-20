@@ -37,6 +37,13 @@ export default function Footer() {
       <div className="container footer-base">
         <span>© {new Date().getFullYear()} {company.name} All rights reserved.</span>
         <span>Design concept. This is not the official website.</span>
+        <span className="photo-credit">
+          Hero photo:{' '}
+          <a href="https://commons.wikimedia.org/wiki/File:Chao_Phraya_et_Bang_Rak_vus_de_l%27Iconsiam.jpg" target="_blank" rel="noreferrer">
+            Chao Phraya et Bang Rak vus de l’Iconsiam
+          </a>
+          , Wikimedia Commons, CC0.
+        </span>
       </div>
     </footer>
   )

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useReducedMotion } from './hooks'
+import { useVariant } from './variant'
 import BoiProcess from './sections/BoiProcess'
 import Clients from './sections/Clients'
 import Contact from './sections/Contact'
@@ -17,6 +18,7 @@ import WhyUs from './sections/WhyUs'
 export default function App() {
   const still = useReducedMotion()
   const [service, setService] = useState('')
+  const [variant, setVariant] = useVariant()
 
   const request = (id: string) => {
     setService(id)
@@ -28,9 +30,9 @@ export default function App() {
       <a className="skip" href="#services">
         Skip to services
       </a>
-      <Nav still={still} />
+      <Nav still={still} variant={variant} onVariant={setVariant} />
       <main>
-        <Hero still={still} />
+        <Hero still={still} variant={variant} />
         <Story />
         <Services onRequest={request} />
         <Marks />

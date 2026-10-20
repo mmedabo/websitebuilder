@@ -9,9 +9,22 @@ All content comes from the crawl in `../reference/ii-th`.
 
 | | |
 | --- | --- |
-| ![Hero with thinking orb](docs/screenshots/01-hero-thinking-orb.jpg) | ![Services in liquid glass](docs/screenshots/02-services-liquid-glass.jpg) |
-| ![Service drawer](docs/screenshots/03-service-drawer.jpg) | ![ASEAN coverage map](docs/screenshots/04-asean-coverage.jpg) |
-| ![BOI screen fold](docs/screenshots/05-boi-screen-fold.jpg) | ![Mobile](docs/screenshots/06-mobile.jpg) |
+| ![Version A: shader and thinking orb](docs/screenshots/01-version-a-shader-orb.jpg) | ![Version B: Bangkok night photo](docs/screenshots/02-version-b-bangkok-photo.jpg) |
+| ![Services on the blueprint band](docs/screenshots/03-services-blueprint-glass.jpg) | ![Certification marks as stamps](docs/screenshots/04-certification-stamps.jpg) |
+| ![BOI screen fold](docs/screenshots/05-boi-screen-fold.jpg) | ![Mobile, version B](docs/screenshots/06-mobile-version-b.jpg) |
+
+## Two versions for review
+
+The hero comes in two versions. Use the **Review** switch in the top bar to change between them. The rest of the page is the same.
+
+| Version | Hero | Link |
+| --- | --- | --- |
+| A | Light shader gradient with the "thinking orb" | `?v=shader` |
+| B | Bangkok night photo of the Chao Phraya. The river shimmers and ripples under the pointer; the city stays still. | `?v=photo` |
+
+The choice is kept in the URL, so you can send a link to one version. The browser also remembers the last choice.
+
+**Photo:** "[Chao Phraya et Bang Rak vus de l'Iconsiam](https://commons.wikimedia.org/wiki/File:Chao_Phraya_et_Bang_Rak_vus_de_l%27Iconsiam.jpg)", Wikimedia Commons, **CC0** (public domain, no attribution needed; credited in the footer anyway). Original 4032 × 3024. It shows the same river-and-skyline scene as the banner on II's current home page (State Tower, King Power MahaNakhon, Mandarin Oriental, Old Customs House). The site serves 960, 1600, 2560 and 3840 px versions (`public/img/`) and picks one for the screen size. II's own banner (1600 × 600) is kept for reference in `reference/ii-th/images/home-banner.jpg`.
 
 ## Run it
 
@@ -90,5 +103,5 @@ The live site could not be reached from the build environment, so the crawl is t
 - Thai and Chinese versions. The old site has both. Thai copy for the BOI pages already exists in the crawl.
 - The real II logo. The liquid-metal "II" is a placeholder mark.
 - Client and certification-mark logos. Use them only with permission. The concept shows names as text.
-- Photos of inspectors and factories. Wix image hosting was blocked from the build environment.
+- Photos of inspectors and factories. Only the hero photo is in this concept.
 - A backend for the form. The form now opens the visitor's email app with a prepared message to info@ii-th.com.

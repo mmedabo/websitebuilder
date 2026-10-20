@@ -4,10 +4,16 @@ import Glass from '../effects/Glass'
 import { useInView, webglSupported } from '../hooks'
 import { focusOrb, orb, releaseOrb } from '../state'
 import CountUp from '../components/CountUp'
+import type { Variant } from '../variant'
 
 const HeroScene = lazy(() => import('../effects/HeroScene'))
+const PhotoScene = lazy(() => import('../effects/PhotoScene'))
 
-export default function Hero({ still }: { still: boolean }) {
+// Shown under the WebGL photo while it loads, and on its own without WebGL.
+const PHOTO_FALLBACK = './img/bangkok-night-1600.jpg'
+
+export default function Hero({ still, variant }: { still: boolean; variant: Variant }) {
+  const photo = variant === 'photo'
   const [ref, inView] = useInView<HTMLElement>('80px')
   const [gl] = useState(webglSupported)
   const [active, setActive] = useState<string | null>(null)
@@ -32,14 +38,15 @@ export default function Hero({ still }: { still: boolean }) {
   }
 
   return (
-    <section id="top" className="hero" ref={ref}>
-      <div className="hero-bg" aria-hidden>
+    <section id="top" className={`hero ${photo ? 'is-photo' : ''}`} ref={ref}>
+      <div className="hero-bg" aria-hidden style={photo ? { backgroundImage: `url(${PHOTO_FALLBACK})` } : undefined}>
         {gl && (
           <Suspense fallback={null}>
-            <HeroScene active={inView} still={still} />
+            {photo ? <PhotoScene active={inView} still={still} /> : <HeroScene active={inView} still={still} />}
           </Suspense>
         )}
       </div>
+      {photo && <div className="hero-shade" aria-hidden />}
 
       <div className="hero-inner container">
         <h1 className="display">

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import VersionSwitcher from '../components/VersionSwitcher'
 import { company } from '../content'
 import Glass from '../effects/Glass'
 import LiquidLogo from '../effects/LiquidLogo'
+import type { Variant } from '../variant'
 
 const links = [
   { href: '#about', label: 'About' },
@@ -12,7 +14,7 @@ const links = [
   { href: '#contact', label: 'Contact' },
 ]
 
-export default function Nav({ still }: { still: boolean }) {
+export default function Nav({ still, variant, onVariant }: { still: boolean; variant: Variant; onVariant: (v: Variant) => void }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -26,12 +28,15 @@ export default function Nav({ still }: { still: boolean }) {
   return (
     <header className={`nav-wrap ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="topbar container">
-        <span>Sukhumvit 63, Bangkok</span>
-        <a href={company.phones[0].href}>Tel {company.phones[0].label}</a>
-        <a href={`mailto:${company.email}`}>{company.email}</a>
-        <span className="concept-tag" title="This is a design proposal, not the official website">
-          Design concept
-        </span>
+        <div className="review">
+          <span className="concept-tag" title="This is a design proposal, not the official website">
+            Design concept
+          </span>
+          <VersionSwitcher variant={variant} onChange={onVariant} />
+        </div>
+        <span className="topbar-info">Sukhumvit 63, Bangkok</span>
+        <a className="topbar-info" href={company.phones[0].href}>Tel {company.phones[0].label}</a>
+        <a className="topbar-info" href={`mailto:${company.email}`}>{company.email}</a>
       </div>
       <div className="container">
         <Glass as="nav" className="nav" radius={10} aria-label="Main">

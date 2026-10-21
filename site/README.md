@@ -104,7 +104,7 @@ In GitHub Actions:
 
 - The **Tests** workflow runs on every branch push, in the official Playwright container.
 - The **Deploy** workflow runs the same tests on the build that will go live. If a test fails, nothing is deployed and the live site stays as it was.
-- The HTML report is attached to each run as `playwright-report`.
+- Each browser runs as its own parallel job. Its HTML report is attached to the run as `playwright-report-<browser>`.
 
 Screenshot baselines are in `tests/__screenshots__/chromium`. They come from the CI container, because local browsers render fonts slightly differently. A branch run commits any baseline that does not exist yet. After an intended design change, run the **Tests** workflow by hand on the branch with "update screenshots" ticked.
 

@@ -2,6 +2,7 @@ name: Tests
 
 # Runs the end-to-end tests on every branch push, before anything reaches main.
 # The deploy workflow runs the same tests again on main and deploys only if they pass.
+# One job per browser project, in parallel.
 #
 # Screenshot baselines: a branch run creates any baseline that does not exist yet and
 # commits it. After an intended design change, run this workflow by hand on the branch
@@ -30,6 +31,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, mobile-chrome, firefox, webkit, mobile-safari]
     # The official image has the three browsers and their fonts, so screenshots match run to run.
     container:
       image: mcr.microsoft.com/playwright:v1.64.1-noble
@@ -45,9 +50,10 @@ jobs:
           BASE: /websitebuilder/
           SITE_URL: https://mmedabo.github.io/websitebuilder
       - name: Run the tests
-        run: npx playwright test --update-snapshots=${{ inputs.update-screenshots && 'changed' || 'missing' }}
+        run: npx playwright test --project=${{ matrix.project }} --update-snapshots=${{ inputs.update-screenshots && 'changed' || 'missing' }}
+      # Baselines exist for desktop Chromium only.
       - name: Commit new screenshot baselines
-        if: success()
+        if: success() && matrix.project == 'chromium'
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git add tests/__screenshots__
@@ -58,6 +64,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.project }}
           path: site/playwright-report
           retention-days: 14

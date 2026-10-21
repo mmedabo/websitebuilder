@@ -35,7 +35,8 @@ export default defineConfig({
   testDir: 'tests',
   outputDir: 'test-results',
   snapshotPathTemplate: '{testDir}/__screenshots__/{projectName}/{arg}{ext}',
-  timeout: 60_000,
+  // CI runners are slower than a desk machine (software WebGL on 2 CPUs).
+  timeout: process.env.CI ? 120_000 : 60_000,
   expect: { timeout: 10_000, toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: 'disabled', caret: 'hide' } },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,

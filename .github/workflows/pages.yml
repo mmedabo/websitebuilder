@@ -22,8 +22,47 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    outputs:
+      base: ${{ steps.pages.outputs.base_path }}/
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      # Read the site's path and URL from Pages, so a custom domain needs no code change.
+      - id: pages
+        uses: actions/configure-pages@v5
+      - run: npm run build
+        env:
+          BASE: ${{ steps.pages.outputs.base_path }}/
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+      # The test jobs test this exact build.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-dist
+          path: site/dist
+          retention-days: 1
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/dist
+
+  # One job per browser project, in parallel. If any fails, nothing is deployed
+  # and the live site stays as it was.
+  test:
+    needs: build
+    runs-on: ubuntu-latest
     timeout-minutes: 30
-    # Same image as the Tests workflow: browsers and fonts for the tests below.
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, mobile-chrome, firefox, webkit, mobile-safari]
+    # Same image as the Tests workflow: browsers and fonts for the screenshot comparisons.
     container:
       image: mcr.microsoft.com/playwright:v1.64.1-noble
       options: --user 1001
@@ -33,30 +72,23 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: npm ci
-      # Read the site's path and URL from Pages, so a custom domain needs no code change.
-      - id: pages
-        uses: actions/configure-pages@v5
-      - run: npm run build
-        env:
-          BASE: ${{ steps.pages.outputs.base_path }}/
-          SITE_URL: ${{ steps.pages.outputs.base_url }}
-      # Test the exact build that will go live. A failure stops here: the live site stays as it was.
+      - uses: actions/download-artifact@v4
+        with:
+          name: site-dist
+          path: site/dist
       - name: Run the tests
-        run: npx playwright test
+        run: npx playwright test --project=${{ matrix.project }}
         env:
-          BASE: ${{ steps.pages.outputs.base_path }}/
+          BASE: ${{ needs.build.outputs.base }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.project }}
           path: site/playwright-report
           retention-days: 14
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: site/dist
 
   deploy:
-    needs: build
+    needs: [build, test]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

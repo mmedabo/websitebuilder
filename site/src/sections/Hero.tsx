@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { representedBodies, services, stats, ui } from '../content'
+import { locale, representedBodies, services, stats, ui } from '../content'
+import { openFinder } from '../components/ServiceFinder'
 import Glass from '../effects/Glass'
 import { useInView, webglSupported } from '../hooks'
 import { focusOrb, orb, releaseOrb } from '../state'
@@ -65,6 +66,12 @@ export default function Hero({ still, variant }: { still: boolean; variant: Vari
             <a className="btn btn-line" href="#services">
               {ui.heroServices}
             </a>
+            <button className="finder-cta" onClick={openFinder}>
+              <span className="finder-cta-dot" aria-hidden>
+                ?
+              </span>
+              {locale.finder.open}
+            </button>
             <p className="represents">
               {ui.represents}{' '}
               {representedBodies.map((b, i) => (

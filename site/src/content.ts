@@ -69,24 +69,38 @@ export const representedBodies = ['UL', 'DEMKO', 'DEKRA']
 // In the order of "Certification Marks We Currently Represent" on II's
 // follow-up inspection page, with its mark images (public/img/marks).
 // BR-UL is named in II's text but has no image there, so it comes last, as text.
-const MARKS: { mark: string; img?: string }[] = [
-  { mark: 'UL', img: 'ul' },
-  { mark: 'UL-Apex S', img: 'ul-apex-s' },
-  { mark: 'GOST-R', img: 'gost-r' },
-  { mark: 'KEMA-KEUR', img: 'kema-keur' },
-  { mark: 'D-Mark', img: 'd-mark' },
-  { mark: 'ENEC', img: 'enec' },
-  { mark: 'NOM', img: 'nom' },
-  { mark: 'PSE', img: 'pse' },
-  { mark: 'UL-GS', img: 'ul-gs' },
-  { mark: 'S-UL-AR', img: 's-ul-ar' },
-  { mark: 'UL Recognized', img: 'ul-recognized' },
-  { mark: 'UL-EU', img: 'ul-eu' },
-  { mark: 'RoHS', img: 'rohs' },
-  { mark: 'BR-UL' },
+const MARKS: { mark: string; market: MarketId; img?: string }[] = [
+  { mark: 'UL', market: 'na', img: 'ul' },
+  { mark: 'UL-Apex S', market: 'jp', img: 'ul-apex-s' },
+  { mark: 'GOST-R', market: 'ru', img: 'gost-r' },
+  { mark: 'KEMA-KEUR', market: 'eu', img: 'kema-keur' },
+  { mark: 'D-Mark', market: 'eu', img: 'd-mark' },
+  { mark: 'ENEC', market: 'eu', img: 'enec' },
+  { mark: 'NOM', market: 'mx', img: 'nom' },
+  { mark: 'PSE', market: 'jp', img: 'pse' },
+  { mark: 'UL-GS', market: 'eu', img: 'ul-gs' },
+  { mark: 'S-UL-AR', market: 'ar', img: 's-ul-ar' },
+  { mark: 'UL Recognized', market: 'na', img: 'ul-recognized' },
+  { mark: 'UL-EU', market: 'eu', img: 'ul-eu' },
+  { mark: 'RoHS', market: 'eu', img: 'rohs' },
+  { mark: 'BR-UL', market: 'br' },
 ]
+// Export markets for the globe: a point near the middle of each market.
+export type MarketId = keyof Locale['globe']['markets']
+export const MARKETS: { id: MarketId; lat: number; lon: number }[] = [
+  { id: 'na', lat: 41, lon: -98 },
+  { id: 'mx', lat: 23, lon: -102 },
+  { id: 'br', lat: -11, lon: -52 },
+  { id: 'ar', lat: -35, lon: -64 },
+  { id: 'eu', lat: 50, lon: 10 },
+  { id: 'ru', lat: 57, lon: 45 },
+  { id: 'jp', lat: 36, lon: 138 },
+]
+export const BANGKOK = { lat: 13.75, lon: 100.5 }
+
 export const marks = MARKS.map((m, i) => ({
   mark: m.mark,
+  market: m.market,
   region: L.markRegions[i],
   img: m.img && `${import.meta.env.BASE_URL}img/marks/${m.img}.png`,
 }))

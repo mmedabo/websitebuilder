@@ -23,10 +23,16 @@ import { focusOrb, releaseOrb } from '../state'
 // email app does not open (webmail users) can still send the request.
 type Props = { n?: string; service: string; setService: (id: string) => void }
 
+// Values passed in the URL by the service finder, e.g. ?country=Vietnam&inspectionType=…
+const prefill = (name: string, allowed: string[]) => {
+  const v = new URLSearchParams(window.location.search).get(name)
+  return v && allowed.includes(v) ? v : undefined
+}
+
 function FieldInput({ f, service }: { f: Field; service: string }) {
   if (f.type === 'select') {
     return (
-      <select name={f.name} required={f.required} defaultValue="">
+      <select name={f.name} required={f.required} defaultValue={prefill(f.name, f.choices!.map((c) => c.value)) ?? ''}>
         <option value="" disabled>
           {ui.fChoose}
         </option>
@@ -196,7 +202,7 @@ export default function Contact({ n = '09', service, setService }: Props) {
           </div>
           <label>
             <span>{ui.fCountry}</span>
-            <select name="country" defaultValue="Thailand">
+            <select name="country" defaultValue={prefill('country', [...countries.map((c) => c.value), 'Outside ASEAN']) ?? 'Thailand'}>
               {countries.map((c) => (
                 <option key={c.value} value={c.value}>
                   {c.label}

@@ -41,7 +41,7 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="guide-rule">
         <div className="container">
           <SectionHead n={n()} label={g.ruleLabel} title={g.ruleTitle}>
             {g.ruleLead}
@@ -79,7 +79,7 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <section className="section guide-terms">
+      <section className="section guide-terms" id="guide-terms">
         <div className="container">
           <SectionHead n={n()} label={g.termsLabel} title={g.termsTitle} />
           <dl className="terms">
@@ -104,7 +104,7 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <section className="section booking">
+      <section className="section booking" id="guide-steps">
         <div className="container">
           <SectionHead n={n()} label={g.stepsLabel} title={g.stepsTitle} />
           <ol className="steps">
@@ -120,7 +120,7 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="guide-sampling">
         <div className="container">
           <SectionHead n={n()} label={g.sampleLabel} title={g.sampleTitle}>
             {g.sampleLead}
@@ -168,7 +168,7 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <section className="section guide-check">
+      <section className="section guide-check" id="guide-checklist">
         <div className="container">
           <SectionHead n={n()} label={g.checkLabel} title={g.checkTitle}>
             {g.checkLead}
@@ -204,7 +204,7 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <section className="section documents">
+      <section className="section documents" id="guide-sources">
         <div className="container">
           <SectionHead n={n()} label={g.sourcesLabel} title={g.sourcesTitle}>
             {g.sourcesLead}

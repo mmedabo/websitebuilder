@@ -472,6 +472,61 @@ const ja: Locale = {
     'BOI命令 Nor. 9/2547（スクラップ検査）',
   ],
 
+  finder: {
+    open: '必要なサービスを探す',
+    title: 'サービスを探す',
+    step: (n: number, total: number) => `ステップ ${n}/${total}`,
+    q1: '何が必要ですか？',
+    needs: {
+      'follow-up': '安全マーク（UL、DEMKO、DEKRA）のための工場検査',
+      commercial: '自社の要求事項に基づく、出荷前または出荷中の検査',
+      testing: '安全、EMC、RF、エネルギーの試験',
+      boi: 'BOIのスクラップまたは輸入中古機械の検査',
+      sourcing: 'タイのサプライヤーを探して購入したい',
+    },
+    q2: '工場はどこにありますか？',
+    q3: {
+      'follow-up': 'どのマークですか？',
+      commercial: 'どの検査ですか？',
+      testing: 'どの規格・市場ですか？',
+      boi: '何を検査しますか？',
+    },
+    skip: 'わからない（スキップ）',
+    back: '戻る',
+    close: '閉じる',
+    resultLabel: 'おすすめのサービス',
+    outsideAsean: 'IIの検査員はASEAN 10か国で活動しています。ASEAN域外の工場については、まずIIにお問い合わせください。',
+    request: 'このサービスを依頼する',
+    details: '詳しく見る',
+    restart: '最初から',
+  },
+
+  globe: {
+    label: '輸出先はどこですか？',
+    lead: '輸出市場を選ぶと、その市場で当社が検査するマークが表示されます。',
+    all: 'すべての市場',
+    from: 'バンコクから',
+    hint: 'ドラッグして地球儀を回せます。',
+    count: (n: number) => `${n}マーク`,
+    markets: {
+      na: '米国・カナダ',
+      mx: 'メキシコ',
+      br: 'ブラジル',
+      ar: 'アルゼンチン',
+      eu: '欧州',
+      ru: 'ロシア',
+      jp: '日本',
+    },
+  },
+
+  search: {
+    open: '検索',
+    placeholder: 'サービス、質問、マーク、資料を検索…',
+    empty: '該当する結果がありません。別の言葉で検索するか、お問い合わせください。',
+    hint: '↑ ↓ 移動 · Enter 開く · Esc 閉じる',
+    groups: { page: 'ページ', service: 'サービス', faq: 'よくある質問', mark: 'マーク', doc: '資料', guide: 'BOIガイド' },
+  },
+
   guide: {
     label: 'ガイド',
     title: 'BOIスクラップ償却の手順。',

@@ -27,6 +27,12 @@ After the hero and the clients, the home page shows one topic at a time instead 
 
 Every section keeps its id, so links such as `#contact` (hero button, nav, footer, shared URLs) open the right tab and scroll to it. Arrow keys move between tabs.
 
+## Finding things fast
+
+- **"Which service do I need?"** (hero and Services): three taps, namely what you need, where the factory is, and one detail (mark, inspection type, standard or BOI scope). It recommends a service and opens that service's request form already filled in (`?country=…&inspectionType=…`). BOI and sourcing skip the country step. `src/components/ServiceFinder.tsx`.
+- **Export-market globe** (Marks tab): a dotted 3D globe of the land (Natural Earth data, generated once into `src/data/land-dots.json`). Choose a market and the globe turns to it, draws an arc from Bangkok, and the mark cards for that market come forward. Without WebGL the market buttons and card highlighting still work. `src/effects/MarketGlobe.tsx`.
+- **Quick search** (Ctrl+K / Cmd+K, "/", or the search button in the nav): one box across pages, services, FAQ answers, marks, BOI guide sections and the PDFs, in the visitor's language. FAQ results open the answer itself (`#faq-1`). `src/search.ts`, `src/components/QuickSearch.tsx`.
+
 ## Two versions for review
 
 The hero comes in two versions. Use the **Review** switch in the top bar to change between them. The rest of the page is the same.
@@ -87,7 +93,7 @@ Each service page has: key facts, what we provide, a service-specific section (m
 
 **Old addresses:** every page of the old Wix site (English, Thai and Chinese) redirects to its new page. On a static host a small redirect page per old address does this; `dist/_redirects` gives the same list as real 301 redirects for Netlify or Cloudflare Pages. This keeps existing Google rankings when the domain moves.
 
-**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open`, `tab_open`, `language_switch`, `guide_print`, `guide_cta`, `portal_open`, `portal_download` and `portal_book_again`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
+**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open`, `tab_open`, `finder_open`, `finder_need`, `finder_request`, `market_select`, `search_open`, `search_go`, `language_switch`, `guide_print`, `guide_cta`, `portal_open`, `portal_download` and `portal_book_again`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
 
 ## Languages (Phase 2)
 

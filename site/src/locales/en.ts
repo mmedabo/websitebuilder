@@ -494,6 +494,64 @@ const en = {
     'Order Nor. 9/2547 (scrap inspection)',
   ],
 
+  // "Which service do I need?" finder.
+  finder: {
+    open: 'Which service do I need?',
+    title: 'Find your service',
+    step: (n: number, total: number) => `Step ${n} of ${total}`,
+    q1: 'What do you need?',
+    needs: {
+      'follow-up': 'Factory inspections for a safety mark (UL, DEMKO, DEKRA)',
+      commercial: 'Inspection to my own requirements, before or during shipment',
+      testing: 'Laboratory testing for safety, EMC, RF or energy',
+      boi: 'BOI inspection of scrap or used imported machinery',
+      sourcing: 'Find and buy from Thai suppliers',
+    },
+    q2: 'Where is the factory?',
+    q3: {
+      'follow-up': 'Which mark?',
+      commercial: 'Which inspection?',
+      testing: 'Which standard or market?',
+      boi: 'What needs inspection?',
+    },
+    skip: 'Not sure, skip',
+    back: 'Back',
+    close: 'Close',
+    resultLabel: 'Our recommendation',
+    outsideAsean: "II's inspectors work in the ten ASEAN countries. For a factory outside ASEAN, contact II first.",
+    request: 'Request this service',
+    details: 'Read more',
+    restart: 'Start again',
+  },
+
+  // Export-market globe in the Marks section.
+  globe: {
+    label: 'Where do you sell?',
+    lead: 'Choose an export market to see the marks we inspect for there.',
+    all: 'All markets',
+    from: 'From Bangkok',
+    hint: 'Drag to turn the globe.',
+    count: (n: number) => (n === 1 ? '1 mark' : `${n} marks`),
+    markets: {
+      na: 'United States & Canada',
+      mx: 'Mexico',
+      br: 'Brazil',
+      ar: 'Argentina',
+      eu: 'Europe',
+      ru: 'Russia',
+      jp: 'Japan',
+    },
+  },
+
+  // Quick search (Ctrl+K).
+  search: {
+    open: 'Search',
+    placeholder: 'Search services, questions, marks, documents…',
+    empty: 'No results. Try another word, or contact us.',
+    hint: '↑ ↓ to move · Enter to open · Esc to close',
+    groups: { page: 'Pages', service: 'Services', faq: 'Questions', mark: 'Marks', doc: 'Documents', guide: 'BOI guide' },
+  },
+
   // BOI scrap write-off guide. Facts only from BOI Announcements Por. 4/2543
   // and Por. 5/2543, BOI Order Nor. 9/2547 and II's BOI scrap conditions.
   guide: {

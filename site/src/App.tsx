@@ -11,6 +11,8 @@ import { lang } from './i18n'
 import { currentPage } from './routing'
 import Footer from './sections/Footer'
 import Nav from './sections/Nav'
+import QuickSearch from './components/QuickSearch'
+import ServiceFinder from './components/ServiceFinder'
 import { useVariant } from './variant'
 
 export default function App() {
@@ -40,6 +42,8 @@ export default function App() {
         {page.kind === 'notfound' && <NotFoundPage />}
       </main>
       <Footer />
+      <ServiceFinder />
+      <QuickSearch />
     </>
   )
 }

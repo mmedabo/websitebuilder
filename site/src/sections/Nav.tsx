@@ -4,6 +4,7 @@ import { company, locale, ui } from '../content'
 import Glass from '../effects/Glass'
 import type { Variant } from '../variant'
 import { track } from '../analytics'
+import { openSearch } from '../components/QuickSearch'
 import { LANGS, lang } from '../i18n'
 import { currentPage, homeHref, langHref, pageHref, serviceHref } from '../routing'
 
@@ -91,6 +92,13 @@ export default function Nav({ variant, onVariant }: { variant: Variant; onVarian
               </li>
             ))}
           </ul>
+          <button className="nav-search" onClick={openSearch} aria-label={locale.search.open} aria-keyshortcuts="Control+K">
+            <svg viewBox="0 0 24 24" aria-hidden>
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="M15.5 15.5 21 21" />
+            </svg>
+            <kbd>Ctrl K</kbd>
+          </button>
           <a className="btn btn-small nav-cta" href={contactHref()}>
             {ui.requestInspection}
           </a>

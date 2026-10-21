@@ -1,5 +1,6 @@
 import type { PointerEvent as RPointerEvent } from 'react'
-import { services, ui } from '../content'
+import { locale, services, ui } from '../content'
+import { openFinder } from '../components/ServiceFinder'
 import Glass from '../effects/Glass'
 import SectionHead from '../components/SectionHead'
 import { useReveal } from '../hooks'
@@ -54,6 +55,12 @@ export default function Services() {
         <SectionHead n="02" label={ui.servicesLabel} title={ui.servicesTitle}>
           {ui.servicesLead}
         </SectionHead>
+        <button className="finder-cta is-indented" onClick={openFinder}>
+          <span className="finder-cta-dot" aria-hidden>
+            ?
+          </span>
+          {locale.finder.open}
+        </button>
 
         <div className="svc-grid reveal-stagger" ref={grid}>
           {services.map((s, i) => (

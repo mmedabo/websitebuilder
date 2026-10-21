@@ -19,6 +19,7 @@ export default function HomePage({ still, variant, service, setService }: Props)
   return (
     <>
       <Hero still={still} variant={variant} />
+      <Clients />
       <Story />
       <Services />
       <BookingSteps n="03" steps={bookingSteps} title={ui.bookingTitle}>
@@ -29,7 +30,6 @@ export default function HomePage({ still, variant, service, setService }: Props)
       <BoiProcess still={still} n="06" />
       <Expertise n="07" />
       <WhyUs n="08" />
-      <Clients />
       <Documents n="09" />
       <Contact n="10" service={service} setService={setService} />
     </>

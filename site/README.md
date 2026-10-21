@@ -15,9 +15,11 @@ All content comes from the crawl in `../reference/ii-th`.
 | ![Japanese home page, version B](docs/screenshots/07-japanese-version-b.jpg) | ![Thai BOI service page](docs/screenshots/08-thai-boi-page.jpg) |
 | ![BOI guide: sampling calculator](docs/screenshots/09-boi-guide-sampling.jpg) | ![Client portal demo](docs/screenshots/10-portal-demo.jpg) |
 
-## Clients at the top
+## Clients
 
-Clients show at the start of the home page. On screens 1400 px wide and up, two slow vertical rails fill the empty space on the left and right of the page. On narrower screens, one strip runs under the nav. The "Selected clients" section further down shows the same clients as tiles.
+The section directly after the hero shows II's 16 client logos in one straight grid: Sony, DuPont, Walmart, Kimberly-Clark, Dell, Philips, LG, IBM, General Electric, Sharp, Whirlpool, 3M, HP, Honeywell, Dow and Panasonic. These are the logos from the "Our Clients" slideshow on II's current home page, in the same order. The other clients that II names in its text follow as one line.
+
+The saved HTML of the old site has only the first three slides. The full set comes from a live snapshot (`reference/ii-th/live/`: screenshots, and every image the pages load).
 
 ## Two versions for review
 
@@ -172,7 +174,7 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 | Logo | II's original logo file from the old site (`public/img/ii-logo.png`); the nav and favicon use its blue-and-black block (`ii-mark.png`). |
 | BOI four steps | Thai page การตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า, and the BOI scrap conditions PDF (3 working days notice) |
 | What we inspect | `/our-expertise` |
-| Clients | `/machine-and-scrap-inspection`, `/`, Thai BOI page. Sony, Panasonic and DuPont logos from the old site's images. |
+| Clients | Logos: the "Our Clients" slideshow on `/` (live snapshot). Names: `/machine-and-scrap-inspection`, `/`, Thai BOI page. |
 | Documents | The 9 public PDFs. Links go to the original files on ii-th.com. |
 | Contact | `/contact` |
 
@@ -192,7 +194,8 @@ The live site could not be reached from the build environment, so the crawl is t
 
 - A Chinese version. The old site has one BOI page in Chinese; it redirects to the English BOI page.
 - The real II logo. The liquid-metal "II" is a placeholder mark.
-- More client logos. II's old site shows logos for only three clients (Sony, Panasonic, DuPont); the concept uses those three files as they are and shows the other names as text. Add more logos to `CLIENT_LOGOS` in `src/content.ts` when II has files it may use.
+- Logos for the clients that II names only in text (Samsung, Hitachi, Canon and others). Add them to `CLIENT_LOGOS` in `src/content.ts` when II has files it may use.
+- The Philips logo file on the old site carries a small watermark from a free-logo website; the concept crops it off. II should replace it with an official file.
 - Photos of inspectors and factories. Only the hero photo is in this concept.
 - A backend for the form. The form opens the visitor's email app, with a copy fallback.
 - Phase 2 needs input from II: fee model or "from" prices, a sample report and certificate, team photos and bios, case studies, proof of approvals, the list of industrial estates served, and review of the Thai and Japanese translations.

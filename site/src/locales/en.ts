@@ -101,7 +101,9 @@ const en = {
 
     // Clients
     clientsTitle: 'Selected clients',
-    clientsSmall: 'from more than 1,000 manufacturers',
+    clientsHeading: 'Trusted by global manufacturers.',
+    clientsLead: 'More than 1,000 manufacturers trust II. These are some of them.',
+    clientsAlso: 'Other clients include',
 
     // Documents
     docsLabel: 'Documents',

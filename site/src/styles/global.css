@@ -895,7 +895,7 @@ mark {
   margin-top: 2px;
 }
 
-/* Marks: rubber stamps ---------------------------------------------- */
+/* Marks: certification mark cards, in a straight grid ---------------- */
 .stamps {
   list-style: none;
   padding: 0;
@@ -908,15 +908,6 @@ mark {
   display: grid;
 }
 
-/* Cards "press" into place instead of sliding up. */
-.stamps.reveal-stagger > li {
-  transform: scale(1.15);
-}
-
-.stamps.reveal-stagger.is-in > li {
-  transform: none;
-}
-
 /* A certification mark: the image from II's site, the name and the region. */
 .mark-card {
   margin: 0;
@@ -925,12 +916,11 @@ mark {
   border-radius: 6px;
   background: var(--white);
   box-shadow: 0 0 0 1px rgba(18, 19, 26, 0.1), 0 10px 24px -16px rgba(18, 19, 26, 0.45);
-  transform: rotate(var(--tilt));
   transition: transform 0.3s var(--ease);
 }
 
 .mark-card:hover {
-  transform: rotate(0deg) scale(1.04);
+  transform: translateY(-3px);
 }
 
 .mark-img {
@@ -1344,161 +1334,54 @@ mark {
 
 /* Clients: yellow band ---------------------------------------------- */
 .clients {
-  background: var(--yellow);
-  padding: 64px 0 72px;
+  border-top: 1px solid var(--line);
 }
 
-.clients-layout {
-  display: grid;
-  grid-template-columns: var(--label-col) minmax(0, 1fr);
-  gap: var(--col-gap);
+.clients .section-head .label {
+  padding-top: 6px;
 }
 
-.clients-title {
-  font-family: var(--display);
-  font-stretch: 110%;
-  font-weight: 800;
-  font-size: 24px;
-  line-height: 1.15;
-}
-
-.clients-title small {
-  display: block;
-  margin-top: 6px;
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink-2);
-}
-
-.client-list {
+/* Client logos from II's site: one straight grid of equal white tiles. */
+.client-logos {
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 calc(var(--label-col) + var(--col-gap));
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
 }
 
-.client-list .client-tile {
-  height: 72px;
-}
-
-/* A client: the logo from II's site, or the name set as a plain wordmark. */
-.client-tile {
+.client-logos li {
   display: grid;
   place-items: center;
-  height: 64px;
-  padding: 8px 12px;
-  border-radius: 6px;
+  height: 132px;
+  padding: 18px 22px;
+  border-radius: 8px;
   background: var(--white);
-  box-shadow: 0 0 0 1px rgba(18, 19, 26, 0.08), 0 6px 16px -10px rgba(18, 19, 26, 0.35);
-  font-family: var(--display);
-  font-stretch: 108%;
-  font-weight: 800;
-  font-size: 15px;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  text-align: center;
+  box-shadow: 0 0 0 1px var(--line), 0 12px 28px -20px rgba(18, 19, 26, 0.5);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 
-.client-tile img {
+.client-logos li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 1px var(--line-2), 0 18px 32px -20px rgba(18, 19, 26, 0.55);
+}
+
+.client-logos img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 84px;
   object-fit: contain;
 }
 
-/* Hero: client rails in the empty space beside the page, or a strip below. */
-.client-marquee {
-  overflow: hidden;
-  pointer-events: auto;
+.client-others {
+  margin: 26px 0 0 calc(var(--label-col) + var(--col-gap));
+  max-width: 80ch;
+  font-size: 15px;
+  color: var(--ink-2);
 }
 
-.client-track {
-  display: flex;
-  gap: 10px;
-  width: max-content;
-  animation: client-x 90s linear infinite;
-}
-
-.client-marquee:hover .client-track {
-  animation-play-state: paused;
-}
-
-.client-rail {
-  display: none;
-}
-
-/* Below 1400 px there is no side space: one strip directly under the nav. */
-.client-strip {
-  position: absolute;
-  z-index: 2;
-  top: 108px;
-  left: 0;
-  right: 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-.client-strip .client-tile {
-  width: 132px;
-  height: 56px;
-  font-size: 14px;
-}
-
-@keyframes client-x {
-  to {
-    transform: translateX(calc(-50% - 5px));
-  }
-}
-
-@keyframes client-y {
-  to {
-    transform: translateY(calc(-50% - 5px));
-  }
-}
-
-@media (min-width: 961px) and (max-width: 1399px) {
-  .hero {
-    padding-top: 216px;
-  }
-}
-
-/* The side space is wide enough for a rail from 1400 px. */
-@media (min-width: 1400px) {
-  .client-strip {
-    display: none;
-  }
-  .client-rail {
-    display: block;
-    position: absolute;
-    z-index: 2;
-    top: 118px;
-    bottom: 24px;
-    width: min(150px, calc((100vw - 1280px) / 2 + var(--gutter) - 28px));
-    -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
-    mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
-  }
-  .client-rail.is-left {
-    left: 14px;
-  }
-  .client-rail.is-right {
-    right: 14px;
-  }
-  .client-rail .client-track {
-    flex-direction: column;
-    width: 100%;
-    animation: client-y 70s linear infinite;
-  }
-  .client-rail.is-right .client-track {
-    animation-direction: reverse;
-  }
-  .client-rail .client-tile {
-    height: 60px;
-    padding: 8px;
-    font-size: 13.5px;
-  }
+.client-others strong {
+  color: var(--ink);
 }
 
 /* Documents --------------------------------------------------------- */
@@ -2322,8 +2205,8 @@ mark {
   .doc-groups {
     grid-template-columns: 1fr;
   }
-  .client-list {
-    grid-template-columns: repeat(4, 1fr);
+  .client-logos {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -2367,8 +2250,7 @@ mark {
 }
 
 @media (max-width: 960px) {
-  .section-head,
-  .clients-layout {
+  .section-head {
     grid-template-columns: 1fr;
     gap: 14px;
   }
@@ -2379,7 +2261,9 @@ mark {
   .map,
   .stamps,
   .why-list,
-  .doc-groups {
+  .doc-groups,
+  .client-logos,
+  .client-others {
     margin-left: 0;
   }
   .hero {
@@ -2507,8 +2391,16 @@ mark {
   .map-label {
     font-size: 22px;
   }
-  .client-list {
+  .client-logos {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .client-logos li {
+    height: 104px;
+    padding: 14px 16px;
+  }
+  .client-logos img {
+    max-height: 64px;
   }
   .field-row {
     grid-template-columns: 1fr;
@@ -3325,7 +3217,7 @@ html[lang='ja'] body {
 
 html:is([lang='th'], [lang='ja']) :is(.display, .h2, .h3, .page-title, .svc-title, .fold-n, .fold-card h3, .mark-card strong,
     .brand-text strong, .stat dd, .why-list h3, .exp-grid h3, .steps h3, .faq-list summary,
-    .keyfacts li, .clients-title, .os-title, .tl-year, .contact-lines) {
+    .keyfacts li, .os-title, .tl-year, .contact-lines) {
   letter-spacing: 0;
   font-stretch: normal;
 }

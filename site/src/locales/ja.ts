@@ -89,7 +89,9 @@ const ja: Locale = {
       '海外での検査や調達は、見た目ほど簡単ではありません。30年以上にわたりお客様に選ばれてきた理由をご紹介します。',
 
     clientsTitle: '主なお客様',
-    clientsSmall: '1,000社以上のメーカーの一部',
+    clientsHeading: '世界のメーカーに選ばれています。',
+    clientsLead: '1,000社以上のメーカーがIIを信頼しています。その一部をご紹介します。',
+    clientsAlso: 'その他の主なお客様',
 
     docsLabel: '資料',
     docsTitle: '方針と規則。',

@@ -96,17 +96,23 @@ export const whyUs = L.whyUs
 export const timeline = L.timeline
 export const boiSteps = L.boiSteps.map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0') }))
 
-// Client logos: only the three that II's own site shows (Sony, Panasonic,
-// DuPont, from reference/ii-th/images/clients). The others show as names
-// until II supplies logo files it may use; add them to CLIENT_LOGOS.
-const CLIENT_LOGOS: Record<string, string> = { Sony: 'sony.png', Panasonic: 'panasonic.png', DuPont: 'dupont.png' }
+// Client logos, in the order of the "Our Clients" slideshow on II's home
+// page (live snapshot in reference/ii-th/live; files in public/img/clients).
+const CLIENT_LOGOS: [name: string, file: string][] = [
+  ['Sony', 'sony'], ['DuPont', 'dupont'], ['Walmart', 'walmart'], ['Kimberly-Clark', 'kimberly-clark'],
+  ['Dell', 'dell'], ['Philips', 'philips'], ['LG', 'lg'], ['IBM', 'ibm'],
+  ['General Electric', 'ge'], ['Sharp', 'sharp'], ['Whirlpool', 'whirlpool'], ['3M', '3m'],
+  ['HP', 'hp'], ['Honeywell', 'honeywell'], ['Dow', 'dow'], ['Panasonic', 'panasonic'],
+]
+export const clientLogos = CLIENT_LOGOS.map(([name, file]) => ({ name, logo: `${import.meta.env.BASE_URL}img/clients/${file}.png` }))
 
-export const clients = [
+// Other clients that II's pages name in text, without a logo.
+export const otherClients = [
   'Sony', 'Whirlpool', 'Dell', 'Samsung', 'General Electric', 'Honeywell', '3M',
   'Hitachi', 'Minebea', 'Pioneer', 'Sharp', 'Daikin', 'Canon', 'Nikon', 'Casio',
   'Panasonic', 'DuPont', 'Ajinomoto', 'Furukawa', 'Brady', 'Emerson', 'Toshiba',
   'Mitsubishi', 'NEC', 'LG', 'Sumitomo', 'Nidec', 'Yanmar', 'Suzuki', 'Daramic',
-].map((name) => ({ name, logo: CLIENT_LOGOS[name] && `${import.meta.env.BASE_URL}img/clients/${CLIENT_LOGOS[name]}` }))
+].filter((name) => !CLIENT_LOGOS.some(([n]) => n === name))
 
 const PDF = 'https://www.ii-th.com/_files/ugd/'
 const DOCS: { group: keyof Locale['docGroups']; href: string }[] = [

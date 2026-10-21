@@ -89,7 +89,10 @@ test.describe('quick search', () => {
       await expect.poll(async () => (await search(page, 'contact'))[0]).toBe('Contact')
       await page.locator('.search-results [role=option]').first().click()
       await expect.poll(() => openPanels(page)).toEqual(['contact'])
-      await expect(page.locator('#contact')).toBeInViewport()
+      // Smooth scroll is slow on a loaded CI runner; wait for where it ends, not a fixed time.
+      await expect
+        .poll(() => page.evaluate(() => Math.round(document.querySelector('#contact')!.getBoundingClientRect().top)), { timeout: 30_000 })
+        .toBeLessThan(400)
     }
   })
 

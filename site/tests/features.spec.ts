@@ -74,8 +74,9 @@ test.describe('BOI steps', () => {
   test('reduced motion shows the steps without an empty scroll track', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('./#boi')
-    const { section, viewport } = await page.evaluate(() => ({ section: document.querySelector('#boi')!.getBoundingClientRect().height, viewport: innerHeight }))
-    expect(section).toBeLessThan(viewport * 1.6)
+    // Space between the last content and the end of the section: padding only.
+    const gap = await page.evaluate(() => document.querySelector('#boi')!.getBoundingClientRect().bottom - document.querySelector('#boi .boi-foot')!.getBoundingClientRect().bottom)
+    expect(gap).toBeLessThan(200)
     await expect(page.locator('#boi .fold-card').first()).toBeVisible()
   })
 })
@@ -112,8 +113,9 @@ test.describe('presentation', () => {
     await expect(count).toHaveText('01 / 10')
   })
 
-  test('swipe moves on a phone', async ({ page, isMobile }) => {
+  test('swipe moves on a phone', async ({ page, isMobile, browserName }) => {
     test.skip(!isMobile, 'touch only')
+    test.skip(browserName === 'webkit', 'WebKit cannot build synthetic touch events (new Touch is not allowed)')
     await page.goto('th/present/')
     await page.evaluate(() => {
       const deck = document.querySelector('.deck')!

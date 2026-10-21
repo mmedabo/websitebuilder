@@ -45,6 +45,13 @@ test.describe('BOI request form', () => {
   }
 
   test('consent is required; the request is shown to copy', async ({ page }) => {
+    // Headless browsers differ on the clipboard (Firefox never settles), so record what is copied.
+    await page.addInitScript(() => {
+      Object.defineProperty(Navigator.prototype, 'clipboard', {
+        get: () => ({ writeText: async (t: string) => void ((window as unknown as { copied: string }).copied = t) }),
+      })
+    })
+    await page.reload()
     await page.locator('.faq-list summary').first().click()
     await fillBasics(page)
     await field(page, 'boiType').selectOption('Scrap inspection')
@@ -66,6 +73,7 @@ test.describe('BOI request form', () => {
 
     await page.locator('.sent button', { hasText: 'Copy request' }).click()
     await expect(page.locator('.sent button')).toHaveText('Copied')
+    expect(await page.evaluate(() => (window as unknown as { copied: string }).copied)).toBe(await sent.inputValue())
     expect(await events(page)).toEqual(expect.arrayContaining(['faq_open', 'request_submit', 'request_copy']))
   })
 })

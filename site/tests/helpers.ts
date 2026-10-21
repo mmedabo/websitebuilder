@@ -51,7 +51,9 @@ export const test = base.extend<{ errors: string[] }>({
 // Analytics events pushed by the site (window.dataLayer).
 export async function trackEvents(page: Page) {
   await page.addInitScript(() => {
-    ;(window as unknown as { dataLayer: unknown[] }).dataLayer = []
+    // Keep an existing list: WebKit re-runs init scripts when the form hands off to mailto:.
+    const w = window as unknown as { dataLayer?: unknown[] }
+    w.dataLayer = w.dataLayer ?? []
   })
 }
 export const events = (page: Page) =>

@@ -722,6 +722,17 @@ mark {
   border-top-color: rgba(255, 255, 255, 0.85);
 }
 
+/* Keep the grid away from the heading text; the cards below still get it.
+   Layers add up: the right edge, or everything below the heading. */
+.services .blueprint {
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0 75%, #000 95%),
+    linear-gradient(180deg, transparent 0 440px, #000 560px);
+  mask-image:
+    linear-gradient(90deg, transparent 0 75%, #000 95%),
+    linear-gradient(180deg, transparent 0 440px, #000 560px);
+}
+
 .services .label,
 .services .lead {
   color: rgba(255, 255, 255, 0.85);
@@ -791,6 +802,7 @@ mark {
   border: 0;
   color: var(--white);
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   transform: rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform 0.5s var(--ease), opacity 0.7s var(--ease);
@@ -1630,8 +1642,13 @@ mark {
   justify-content: flex-start;
 }
 
-.hero.is-photo .finder-cta {
+.hero.is-photo .finder-cta,
+.services .finder-cta {
   color: var(--white);
+}
+
+.services .finder-cta:hover {
+  color: var(--yellow);
 }
 
 .finder-cta-dot {
@@ -3354,7 +3371,13 @@ html[data-page='present'] body {
   color: var(--ink-2);
 }
 
-/* Service page hero: the blueprint band, drawn fainter so it stays behind the text. */
+/* Service page hero: the blueprint band, drawn fainter so it stays behind the text.
+   The mask clears the text column: grid lines under text read as underlines. */
+.svc-hero .blueprint {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0 50%, #000 85%);
+  mask-image: linear-gradient(90deg, transparent 0 50%, #000 85%);
+}
+
 .svc-hero .bp-lines {
   stroke: rgba(255, 255, 255, 0.2);
 }
@@ -3380,15 +3403,19 @@ html[data-page='present'] body {
   flex-wrap: wrap;
   gap: 8px;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .crumbs a {
   color: inherit;
+  text-decoration: none;
 }
 
-.crumbs a:hover {
+.crumbs a:hover,
+.crumbs a:focus-visible {
   color: var(--yellow);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .page-title {
@@ -3714,6 +3741,14 @@ html[data-page='present'] body {
   }
   .svc-hero {
     padding-top: 130px;
+  }
+  /* The text fills the width here, so no clear column is left for the grid. */
+  .svc-hero .blueprint {
+    display: none;
+  }
+  .services .blueprint {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0 440px, #000 560px);
+    mask-image: linear-gradient(180deg, transparent 0 440px, #000 560px);
   }
   .legal {
     padding-top: 130px;

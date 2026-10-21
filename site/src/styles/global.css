@@ -1659,8 +1659,17 @@ mark {
   color: var(--white);
 }
 
+/* On blue: an outlined pill, not underlined text. */
+.services .finder-cta {
+  padding: 6px 18px 6px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  text-decoration: none;
+}
+
 .services .finder-cta:hover {
   color: var(--yellow);
+  border-color: var(--yellow);
 }
 
 .finder-cta-dot {
@@ -2843,7 +2852,8 @@ html[data-page='present'] body {
 .tabs-glass {
   pointer-events: auto;
   border-radius: 10px;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+  /* Opaque: lines behind the bar must not show through the tab names. */
+  background: linear-gradient(160deg, #ffffff, #f4f4f0);
   box-shadow: 0 0 0 1px var(--line), 0 18px 36px -24px rgba(18, 19, 26, 0.5);
 }
 
@@ -3792,8 +3802,14 @@ html[data-page='present'] body {
   .keyfacts li + li {
     margin-left: 0;
   }
+  /* Stacked, a top rule sits under the line above and reads as an underline. */
   .keyfacts li {
-    padding-bottom: 12px;
+    padding: 2px 0 2px 14px;
+    border-top: 0;
+    border-left: 3px solid var(--yellow);
+  }
+  .keyfacts li + li {
+    margin-top: 16px;
   }
   .other-services ul {
     grid-template-columns: 1fr;

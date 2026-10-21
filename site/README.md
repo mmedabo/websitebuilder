@@ -255,7 +255,6 @@ The live site could not be reached from the build environment, so the crawl is t
 ## Not in this concept (next steps)
 
 - A Chinese version. The old site has one BOI page in Chinese; it redirects to the English BOI page.
-- The real II logo. The liquid-metal "II" is a placeholder mark.
 - Logos for the clients that II names only in text (Samsung, Hitachi, Canon and others). Add them to `CLIENT_LOGOS` in `src/content.ts` when II has files it may use.
 - The Philips logo file on the old site carries a small watermark from a free-logo website; the concept crops it off. II should replace it with an official file.
 - Photos of inspectors and factories. Only the hero photo is in this concept.

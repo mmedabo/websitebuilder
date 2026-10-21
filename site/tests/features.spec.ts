@@ -180,3 +180,28 @@ test.describe('clients', () => {
     expect(await x()).toBe(first)
   })
 })
+
+// Underlined text on the blue background was hard to read; keep it off.
+test.describe('text on blue', () => {
+  for (const path of ['./#services', 'services/commercial-inspection/', 'th/services/boi-machine-scrap-inspection/', 'ja/guides/boi-scrap-write-off/']) {
+    test(`no underlined text on blue: ${path}`, async ({ page }) => {
+      await page.goto(path, { waitUntil: 'networkidle' })
+      const underlined = await page.evaluate(() => {
+        const onBlue = (el: Element | null) => {
+          for (let e = el; e; e = e.parentElement) {
+            const m = getComputedStyle(e).backgroundColor.match(/[\d.]+/g)
+            if (m && (m[3] === undefined || +m[3] > 0.5)) {
+              const [r, g, b] = m.map(Number)
+              return b > 180 && r < 120 && g < 130
+            }
+          }
+          return false
+        }
+        return [...document.querySelectorAll('body *')]
+          .filter((el) => el.checkVisibility() && el.textContent!.trim() && getComputedStyle(el).textDecorationLine.includes('underline') && onBlue(el))
+          .map((el) => el.textContent!.trim().slice(0, 40))
+      })
+      expect(underlined).toEqual([])
+    })
+  }
+})

@@ -74,6 +74,48 @@ Build settings (environment variables):
 | `SITE_URL` | `https://www.ii-th.com` | Used for canonical links, social previews and the sitemap. |
 | `ALLOW_INDEXING` | off | Set to `1` at launch to remove the concept's `noindex` tag. |
 
+## Tests
+
+End-to-end tests with Playwright are in `tests/`. They run against the built site, on the same base path as GitHub Pages.
+
+```bash
+BASE=/websitebuilder/ SITE_URL=https://mmedabo.github.io/websitebuilder npm run build
+npx playwright install    # once, to download the browsers
+npm test
+```
+
+| File | What it checks |
+| --- | --- |
+| `smoke.spec.ts` | Every page in every language: status, one `h1`, `lang`, title, description, canonical, hreflang, `noindex`, structured data, images, no horizontal scroll. |
+| `links.spec.ts` | Every internal link answers 200 and every `#target` exists; old ii-th.com addresses redirect; sitemap; 404 page. |
+| `navigation.spec.ts` | Home tabs (click, address, arrow keys, pager), nav and footer links, phone menu, language switch, hero version switch. |
+| `search.spec.ts` | Quick search results and ranking, same-page targets, FAQ targets, Thai and Japanese. |
+| `finder.spec.ts` | Service finder paths and the prefilled form. |
+| `forms.spec.ts` | Request form: consent, fields per service, English email from Japanese, BOI dates and Thai holidays (date fixed at 21 Oct 2026), analytics events. |
+| `features.spec.ts` | BOI guide, portal demo, inspection day, comparison, presentation, market chips, client logos and strip. |
+| `a11y.spec.ts` | axe-core, WCAG 2.1 A and AA: every page, every home tab, search and finder dialogs, portal, phone menu. |
+| `visual.spec.ts` | Screenshot comparisons of the hero, every home tab and key pages (desktop Chromium). |
+
+Every test also fails on a page error, a console error or a failed request to the site.
+
+Browsers: desktop Chromium, Firefox and WebKit; Pixel 7 (Chromium) and iPhone 14 (WebKit).
+
+In GitHub Actions:
+
+- The **Tests** workflow runs on every branch push, in the official Playwright container.
+- The **Deploy** workflow runs the same tests on the build that will go live. If a test fails, nothing is deployed and the live site stays as it was.
+- The HTML report is attached to each run as `playwright-report`.
+
+Screenshot baselines are in `tests/__screenshots__/chromium`. They come from the CI container, because local browsers render fonts slightly differently. A branch run commits any baseline that does not exist yet. After an intended design change, run the **Tests** workflow by hand on the branch with "update screenshots" ticked.
+
+What the tests do not cover, so check by hand before a release:
+
+- How the design looks to a person: the screenshots catch changes, not ugliness.
+- Real phones and tablets (the tests use emulated screen sizes), and Safari on a Mac.
+- The mail app opening from the request form (the tests check the composed text only).
+- WebGL output: the screenshot tests switch WebGL off and use the static fallback.
+- Machine-translated Thai and Japanese text: a native speaker must review it.
+
 ## Pages and enquiries (Phase 1)
 
 | Address | Page |

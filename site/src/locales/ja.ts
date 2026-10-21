@@ -14,7 +14,6 @@ const ja: Locale = {
     topbarAddress: 'バンコク スクンビット63',
     tel: '電話',
     brandSmall: 'Co., Ltd. · 1989年設立',
-    brandAria: 'International Inspection ホーム',
     navAria: 'メインメニュー',
     tabsAria: 'セクション',
     nav: { about: '会社概要', services: 'サービス', marks: '認証マーク', boi: 'BOI', products: '製品', guide: 'BOIガイド', contact: 'お問い合わせ' },

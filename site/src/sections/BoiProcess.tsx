@@ -31,7 +31,7 @@ export default function BoiProcess({ still, n = '05' }: { still: boolean; n?: st
   ))
 
   return (
-    <section id="boi" className={`boi ${vertical ? 'is-vertical' : ''}`} ref={ref}>
+    <section id="boi" className={`boi ${vertical ? 'is-vertical' : ''} ${still ? 'is-still' : ''}`} ref={ref}>
       <div className="boi-sticky">
         <div className="container section-head boi-head">
           <p className="label">

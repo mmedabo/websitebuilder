@@ -1231,6 +1231,18 @@ mark {
   overflow: hidden;
 }
 
+/* Reduced motion: the panels are already open, so there is nothing to scroll through. */
+.boi.is-still {
+  height: auto;
+  padding: 96px 0 110px;
+}
+
+.boi.is-still .boi-sticky {
+  position: relative;
+  height: auto;
+  padding-top: 0;
+}
+
 .boi-head {
   margin-bottom: 0;
 }
@@ -4212,7 +4224,7 @@ html[data-page='home'][data-variant='photo'] .photo-credit {
 .guide-basis {
   margin-top: 12px;
   font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .rule-tabs,

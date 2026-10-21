@@ -76,7 +76,7 @@ export default function Nav({ variant, onVariant }: { variant: Variant; onVarian
       </div>
       <div className="container">
         <Glass as="nav" className="nav" radius={10} aria-label={ui.navAria}>
-          <a className="brand" href={pageHref('')} aria-label={ui.brandAria}>
+          <a className="brand" href={pageHref('')}>
             <img className="brand-mark" src={`${import.meta.env.BASE_URL}img/ii-mark.png`} alt="" width={44} height={33} />
             <span className="brand-text">
               <strong>International Inspection</strong>
@@ -92,7 +92,7 @@ export default function Nav({ variant, onVariant }: { variant: Variant; onVarian
               </li>
             ))}
           </ul>
-          <button className="nav-search" onClick={openSearch} aria-label={locale.search.open} aria-keyshortcuts="Control+K">
+          <button className="nav-search" onClick={openSearch} aria-label={`${locale.search.open} Ctrl K`} aria-keyshortcuts="Control+K">
             <svg viewBox="0 0 24 24" aria-hidden>
               <circle cx="10.5" cy="10.5" r="6.5" />
               <path d="M15.5 15.5 21 21" />

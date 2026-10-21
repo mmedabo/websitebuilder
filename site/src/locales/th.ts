@@ -15,7 +15,6 @@ const th: Locale = {
     topbarAddress: 'สุขุมวิท 63 กรุงเทพฯ',
     tel: 'โทร',
     brandSmall: 'ก่อตั้ง พ.ศ. 2532',
-    brandAria: 'อินเตอร์เนชั่นแนล อินสเป็คชั่น หน้าแรก',
     navAria: 'เมนูหลัก',
     tabsAria: 'หัวข้อ',
     nav: { about: 'เกี่ยวกับเรา', services: 'บริการ', marks: 'เครื่องหมายรับรอง', boi: 'BOI', products: 'ผลิตภัณฑ์', guide: 'คู่มือ BOI', contact: 'ติดต่อเรา' },

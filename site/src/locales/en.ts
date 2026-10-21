@@ -15,7 +15,6 @@ const en = {
     topbarAddress: 'Sukhumvit 63, Bangkok',
     tel: 'Tel',
     brandSmall: 'Co., Ltd. · Est. 1989',
-    brandAria: 'International Inspection, home',
     navAria: 'Main',
     tabsAria: 'Sections',
     nav: { about: 'About', services: 'Services', marks: 'Marks', boi: 'BOI', products: 'Products', guide: 'BOI guide', contact: 'Contact' },

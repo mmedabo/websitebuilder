@@ -140,7 +140,11 @@ const en = {
     consentAfter: '.',
     submit: 'Send request by email',
     boiHint: (days: number, date: string) =>
-      `BOI inspections need at least ${days} working days notice, so the first date you can pick is ${date}. Thai public holidays are not counted here; we confirm the date with you.`,
+      `BOI inspections need at least ${days} working days notice, so the first date you can pick is ${date}. Weekends and Thai public holidays (Bank of Thailand list) are not counted. We confirm the date with you.`,
+    boiWeekend: 'That date is a weekend. Choose a working day.',
+    boiHoliday: (name: string) => `That date is a Thai public holiday (${name}). Choose a working day.`,
+    boiTooSoon: (date: string) => `That is less than 3 working days away. The first date you can pick is ${date}.`,
+    boiBeyond: 'Thai public holidays for that year are not published yet. We confirm the date with you.',
     sentStrong: 'Your email app should now open with this message.',
     sentBody: 'If it did not, copy the text and send it to',
     sentAttach: 'You can attach drawings or specifications to the email.',
@@ -552,8 +556,56 @@ const en = {
     groups: { page: 'Pages', service: 'Services', faq: 'Questions', mark: 'Marks', doc: 'Documents', guide: 'BOI guide', product: 'Products we inspect' },
     keywords: {
       contact: 'address location office map directions phone call telephone tel email e-mail fax line whatsapp',
-      booking: 'price prices cost costs fee fees quote quotation payment invoice book booking schedule appointment',
+      booking: 'price prices cost costs fee fees quote quotation payment invoice book booking schedule appointment notice holiday holidays working day',
     },
+  },
+
+  // "A day with an II inspector": the booking steps, service scopes and BOI
+  // conditions told as one inspection. No times of day: II does not publish them.
+  day: {
+    label: 'Inspection day',
+    title: 'A day with an II inspector.',
+    lead: 'What happens between your request and your report. Scroll to follow the inspection record.',
+    stages: [
+      { tag: 'Before', title: 'You send the request', body: 'Tell us the product, the factory location and your preferred date, by the form, phone or email. We confirm the scope and send a quotation.' },
+      { tag: 'Before', title: 'An engineer is assigned', body: 'We agree the date and assign one of our degreed engineers. All of them speak Thai and English.' },
+      { tag: 'On site', title: 'Your checklist, not ours', body: 'The inspector follows your requirements or the standard procedure, with integrity. For certification marks, products and raw materials are checked to the requirements of each mark, and several marks can be combined in one visit.' },
+      { tag: 'On site', title: 'Checks at the right stage', body: 'First article, during production, final pre-shipment or container loading, as you ordered. Samples can be collected for external testing.' },
+      { tag: 'BOI', title: 'Counted and photographed', body: 'For BOI scrap, the inspector checks type, quantity, condition and destruction method, samples about 10% of the items against your data, and photographs the destruction as evidence.' },
+      { tag: 'After', title: 'Report within 24 hours', body: 'You receive a detailed report within 24 hours of the inspection. BOI certificates follow in 1–2 weeks. Information from the inspection stays confidential.' },
+    ],
+    sheet: 'Inspection record',
+    rows: ['Request', 'Engineer', 'Checklist', 'Stage', 'Evidence', 'Report'],
+    stamp: 'Reported · 24 h',
+    cta: 'Request an inspection',
+    link: 'Follow an inspection day',
+  },
+
+  // Side-by-side service comparison. Cells use only facts from II's pages.
+  compare: {
+    label: 'Compare',
+    title: 'Compare services side by side.',
+    lead: 'Choose up to three services.',
+    rows: ['Best for', 'Where', 'Booking', 'You receive', 'Includes'],
+    cells: {
+      'follow-up': ['Manufacturers that hold UL, DEMKO or DEKRA marks', 'All ten ASEAN countries', 'Agree the date with us', 'Inspection report within 24 hours', 'Several marks combined in one factory visit'],
+      commercial: ['Importers and brands that buy to their own requirements', 'All ten ASEAN countries', 'Agree the date with us', 'Inspection report within 24 hours', 'First article, during production, pre-shipment, container loading, factory audit'],
+      testing: ['Electrical and electronic products, lighting, communications and medical equipment', 'Accredited laboratories', 'Ask us which laboratory suits your product', 'Test results for certification and market entry', 'Safety, EMC and RF tests to UL, CE, CCC, PSE, FCC and more'],
+      boi: ['BOI-promoted companies with scrap or used imported machinery', 'Thailand', 'At least 3 working days ahead', 'Certificate in 1–2 weeks', 'Quantity check, about 10% sampling, destruction photos'],
+      sourcing: ['Importers, wholesalers and distributors buying Thai products', 'Thai suppliers and manufacturers', 'Send us your specifications', 'Products sourced with quality checks at every stage', 'Price negotiation, first article, pre-shipment and loading checks'],
+    },
+    request: 'Request',
+  },
+
+  // Presentation mode for II's sales meetings.
+  present: {
+    label: 'Presentation mode',
+    fullscreen: 'Full screen',
+    exit: 'Exit',
+    prev: 'Previous slide',
+    next: 'Next slide',
+    hint: '← → or swipe to move · F for full screen',
+    since: 'Since 1989',
   },
 
   // BOI scrap write-off guide. Facts only from BOI Announcements Por. 4/2543

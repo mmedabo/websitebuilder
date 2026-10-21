@@ -1,6 +1,8 @@
 import BookingSteps from '../components/BookingSteps'
 import SectionTabs from '../components/SectionTabs'
-import { bookingSteps, ui } from '../content'
+import ServiceCompare from '../components/ServiceCompare'
+import { bookingSteps, locale, ui } from '../content'
+import { pageHref } from '../routing'
 import BoiProcess from '../sections/BoiProcess'
 import Clients from '../sections/Clients'
 import Contact from '../sections/Contact'
@@ -30,8 +32,12 @@ export default function HomePage({ still, variant, service, setService }: Props)
             node: (
               <>
                 <Services />
+                <ServiceCompare n="02" />
                 <BookingSteps n="02" steps={bookingSteps} title={ui.bookingTitle}>
-                  {ui.bookingHomeLead}
+                  {ui.bookingHomeLead}{' '}
+                  <a className="link" href={pageHref('inspection-day/')}>
+                    {locale.day.link} →
+                  </a>
                 </BookingSteps>
               </>
             ),

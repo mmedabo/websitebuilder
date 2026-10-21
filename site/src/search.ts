@@ -51,7 +51,10 @@ function build(): Entry[] {
     k.contact,
   )
   add('page', ui.footerGuide, g.lead, pageHref(GUIDE))
+  add('page', locale.day.title, locale.day.lead, pageHref('inspection-day/'), locale.day.stages.map((x) => `${x.title} ${x.body}`).join(' '), false, locale.day.label)
+  add('page', locale.compare.title, locale.compare.lead, pageHref('#compare'), Object.values(locale.compare.cells).flat().join(' '), false, locale.compare.label)
   add('page', ui.footerPortal, locale.portal.signLead, pageHref('portal/'))
+  add('page', locale.present.label, locale.present.hint, pageHref('present/'))
   add('page', ui.footerPrivacy, locale.privacy.title, pageHref('privacy/'))
 
   // Services.

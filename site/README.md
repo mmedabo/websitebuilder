@@ -33,6 +33,14 @@ Every section keeps its id, so links such as `#contact` (hero button, nav, foote
 - **Export-market globe** (Marks tab): a dotted 3D globe of the land (Natural Earth data, generated once into `src/data/land-dots.json`). Choose a market and the globe turns to it, draws an arc from Bangkok, and the mark cards for that market come forward. Without WebGL the market buttons and card highlighting still work. `src/effects/MarketGlobe.tsx`.
 - **Quick search** (Ctrl+K / Cmd+K, "/", or the search button in the nav): one box across pages, services, FAQ answers, marks, BOI guide sections and the PDFs, in the visitor's language. FAQ results open the answer itself (`#faq-1`). `src/search.ts`, `src/components/QuickSearch.tsx`.
 
+## More ways to explore
+
+- **A day with an II inspector** (`/inspection-day/`): a scroll story in six stages, from request to report. An "inspection record" beside the text fills in as you scroll: rows tick, a camera flash marks the BOI photo evidence, and a "Reported · 24 h" stamp lands at the end. It uses only II's published steps and conditions; there are no clock times, because II does not publish them. `src/pages/DayPage.tsx`.
+- **Compare services** (Services tab, `#compare`): pick up to three services and see them side by side: who it suits, where, booking, what you receive, what is included. `src/components/ServiceCompare.tsx`.
+- **Presentation mode** (`/present/`, linked in the footer): the site's content as a ten-slide full-screen deck for II's sales meetings. Arrow keys, space, swipe or the buttons move; F toggles full screen. It has no site nav, it follows the page language, and it stays `noindex`. `src/pages/PresentPage.tsx`.
+- **BOI dates know Thai holidays**: the earliest BOI date skips weekends and Thai public holidays, and choosing a holiday, a weekend or a date under 3 working days away shows the reason and blocks sending. Dates after the published list are allowed with a note. The list (`src/data/thai-holidays.ts`) is the Bank of Thailand's financial-institution holidays: 2026 (Notification No. 31/2568, plus the Bangkok-only day in No. 26/2569) and 2027 (No. 37/2569, announced 17 August 2026). Copies of the sources are in `reference/holidays/`. **Each August, add the next year** when the Bank of Thailand announces it.
+- **Not built yet: sample report viewer.** It needs an anonymised real report from II.
+
 ## Two versions for review
 
 The hero comes in two versions. Use the **Review** switch in the top bar to change between them. The rest of the page is the same.
@@ -93,7 +101,7 @@ Each service page has: key facts, what we provide, a service-specific section (m
 
 **Old addresses:** every page of the old Wix site (English, Thai and Chinese) redirects to its new page. On a static host a small redirect page per old address does this; `dist/_redirects` gives the same list as real 301 redirects for Netlify or Cloudflare Pages. This keeps existing Google rankings when the domain moves.
 
-**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open`, `tab_open`, `finder_open`, `finder_need`, `finder_request`, `market_select`, `search_open`, `search_go`, `language_switch`, `guide_print`, `guide_cta`, `portal_open`, `portal_download` and `portal_book_again`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
+**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open`, `tab_open`, `finder_open`, `finder_need`, `finder_request`, `market_select`, `search_open`, `search_go`, `compare_add`, `present_open`, `language_switch`, `guide_print`, `guide_cta`, `portal_open`, `portal_download` and `portal_book_again`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
 
 ## Languages (Phase 2)
 
@@ -103,7 +111,7 @@ Each service page has: key facts, what we provide, a service-specific section (m
 | Thai | `/th/` | `src/locales/th.ts` |
 | Japanese | `/ja/` | `src/locales/ja.ts` |
 
-Every page exists in all three languages (9 pages × 3 = 27 HTML files). The top bar has a language switch. It keeps the page, the hero version and the section.
+Every page exists in all three languages (11 pages × 3 = 33 HTML files). The top bar has a language switch. It keeps the page, the hero version and the section.
 
 - **Machine translation.** The Thai and Japanese text is machine translated and not yet reviewed. Each Thai and Japanese page says so in the top bar (desktop) and the footer. Set `machineTranslated: false` in a locale file when a native speaker has approved it.
 - **Thai wording.** Where II's old Thai pages and PDFs have a term, the Thai version uses it: service names, the BOI terms, the Thai address, the phone format and the PDF titles.

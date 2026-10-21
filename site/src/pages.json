@@ -148,6 +148,35 @@
       }
     },
     {
+      "path": "inspection-day/",
+      "kind": "day",
+      "title": {
+        "en": "A day with an II inspector | International Inspection Co., Ltd.",
+        "th": "หนึ่งวันกับผู้ตรวจสอบของ II | บริษัท อินเตอร์เนชั่นแนล อินสเป็คชั่น จำกัด",
+        "ja": "II検査員の一日 | International Inspection Co., Ltd."
+      },
+      "description": {
+        "en": "Follow one inspection from request to report: the engineer, your checklist, the right stage, BOI evidence, and the report within 24 hours.",
+        "th": "ติดตามการตรวจสอบหนึ่งครั้งตั้งแต่คำขอจนถึงรายงาน: วิศวกร รายการตรวจของท่าน ขั้นตอนที่เหมาะสม หลักฐาน BOI และรายงานภายใน 24 ชั่วโมง",
+        "ja": "ご依頼から報告書まで、1件の検査をたどります：担当エンジニア、お客様のチェックリスト、適切な検査段階、BOIの証拠、24時間以内の報告。"
+      }
+    },
+    {
+      "path": "present/",
+      "kind": "present",
+      "noindex": true,
+      "title": {
+        "en": "Presentation | International Inspection Co., Ltd.",
+        "th": "งานนำเสนอ | บริษัท อินเตอร์เนชั่นแนล อินสเป็คชั่น จำกัด",
+        "ja": "プレゼンテーション | International Inspection Co., Ltd."
+      },
+      "description": {
+        "en": "International Inspection in ten slides.",
+        "th": "อินเตอร์เนชั่นแนล อินสเป็คชั่น ใน 10 สไลด์",
+        "ja": "International Inspectionを10枚のスライドで。"
+      }
+    },
+    {
       "path": "portal/",
       "kind": "portal",
       "noindex": true,

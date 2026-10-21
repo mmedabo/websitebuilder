@@ -1,6 +1,7 @@
 // Shared data, plus the text of the active language merged in.
 // Text lives in src/locales/{en,th,ja}.ts; facts come from II's pages and
 // PDFs in reference/ii-th. Typos are fixed; facts are not changed.
+import { HOLIDAYS_KNOWN_UNTIL, THAI_HOLIDAYS } from './data/thai-holidays'
 import { lang } from './i18n'
 import en, { type Locale } from './locales/en'
 import ja from './locales/ja'
@@ -220,17 +221,30 @@ export function formFields(serviceId: string): Field[] {
 // The English service title, for the request email.
 export const serviceEmailTitle = (id: string) => (isServiceId(id) ? en.services[id].title : en.ui.fGeneral)
 
-// Earliest date allowed for a BOI booking: today plus N working days (Mon–Fri).
-// Thai public holidays are not counted; the form says so.
+// A working day: Monday to Friday and not a Thai public holiday.
+export const isWorkingDay = (d: Date) => d.getDay() !== 0 && d.getDay() !== 6 && !THAI_HOLIDAYS[isoDate(d)]
+
+// Earliest date allowed for a BOI booking: today plus N working days.
 export function earliestBoiDate(from = new Date(), days = BOI_NOTICE_WORKING_DAYS) {
   const d = new Date(from.getFullYear(), from.getMonth(), from.getDate())
   let left = days
   while (left > 0) {
     d.setDate(d.getDate() + 1)
-    const wd = d.getDay()
-    if (wd !== 0 && wd !== 6) left--
+    if (isWorkingDay(d)) left--
   }
   return d
+}
+
+// Why a BOI date cannot be used, or '' if it can. 'beyond': the holiday list
+// does not cover that year yet, so the date is allowed with a note.
+export function checkBoiDate(value: string): 'weekend' | 'holiday' | 'soon' | 'beyond' | '' {
+  if (!value) return ''
+  const [y, m, day] = value.split('-').map(Number)
+  const d = new Date(y, m - 1, day)
+  if (d.getDay() === 0 || d.getDay() === 6) return 'weekend'
+  if (THAI_HOLIDAYS[value]) return 'holiday'
+  if (value < isoDate(earliestBoiDate())) return 'soon'
+  return value > HOLIDAYS_KNOWN_UNTIL ? 'beyond' : ''
 }
 
 export const isoDate = (d: Date) =>

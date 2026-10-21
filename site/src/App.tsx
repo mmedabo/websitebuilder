@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useReducedMotion } from './hooks'
+import DayPage from './pages/DayPage'
 import GuidePage from './pages/GuidePage'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import PortalPage from './pages/PortalPage'
+import PresentPage from './pages/PresentPage'
 import PrivacyPage from './pages/PrivacyPage'
 import ServicePage from './pages/ServicePage'
 import { ui, type ServiceId } from './content'
@@ -27,6 +29,9 @@ export default function App() {
     document.title = page.title
   }, [page.kind, page.title])
 
+  // Presentation mode is a full-screen deck: no site nav or footer.
+  if (page.kind === 'present') return <PresentPage still={still} />
+
   return (
     <>
       <a className="skip" href="#main">
@@ -37,6 +42,7 @@ export default function App() {
         {page.kind === 'home' && <HomePage still={still} variant={variant} service={service} setService={setService} />}
         {page.kind === 'service' && <ServicePage id={page.service as ServiceId} still={still} service={service} setService={setService} />}
         {page.kind === 'guide' && <GuidePage />}
+        {page.kind === 'day' && <DayPage />}
         {page.kind === 'portal' && <PortalPage />}
         {page.kind === 'privacy' && <PrivacyPage />}
         {page.kind === 'notfound' && <NotFoundPage />}

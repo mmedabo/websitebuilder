@@ -5,6 +5,7 @@ import {
   chat,
   company,
   countries,
+  checkBoiDate,
   earliestBoiDate,
   formFields,
   isoDate,
@@ -13,6 +14,7 @@ import {
   ui,
   type Field,
 } from '../content'
+import { THAI_HOLIDAYS } from '../data/thai-holidays'
 import { langInfo } from '../i18n'
 import Glass from '../effects/Glass'
 import { pageHref } from '../routing'
@@ -45,10 +47,45 @@ function FieldInput({ f, service }: { f: Field; service: string }) {
     )
   }
   if (f.type === 'date') {
-    const min = service === 'boi' ? isoDate(earliestBoiDate()) : isoDate(new Date())
-    return <input name={f.name} type="date" min={min} required={f.required} />
+    if (service === 'boi') return <BoiDate f={f} />
+    return <input name={f.name} type="date" min={isoDate(new Date())} required={f.required} />
   }
   return <input name={f.name} type={f.type} placeholder={f.placeholder} required={f.required} />
+}
+
+// BOI date: weekends, Thai public holidays and dates under 3 working days
+// away are refused with a reason; dates past the published holiday list are
+// allowed with a note.
+function BoiDate({ f }: { f: Field }) {
+  const [msg, setMsg] = useState<{ text: string; error: boolean } | null>(null)
+  const first = earliestBoiDate()
+  const firstLabel = first.toLocaleDateString(langInfo.locale, { weekday: 'short', day: 'numeric', month: 'short' })
+  const check = (el: HTMLInputElement) => {
+    const r = checkBoiDate(el.value)
+    const text =
+      r === 'weekend' ? ui.boiWeekend : r === 'holiday' ? ui.boiHoliday(THAI_HOLIDAYS[el.value]) : r === 'soon' ? ui.boiTooSoon(firstLabel) : r === 'beyond' ? ui.boiBeyond : ''
+    const error = r !== '' && r !== 'beyond'
+    el.setCustomValidity(error ? text : '')
+    setMsg(text ? { text, error } : null)
+  }
+  return (
+    <>
+      <input
+        name={f.name}
+        type="date"
+        min={isoDate(first)}
+        required={f.required}
+        onChange={(e) => check(e.currentTarget)}
+        aria-describedby={msg ? `${f.name}-msg` : undefined}
+        aria-invalid={msg?.error || undefined}
+      />
+      {msg && (
+        <span id={`${f.name}-msg`} className={`date-msg ${msg.error ? 'is-error' : ''}`} role="alert">
+          {msg.text}
+        </span>
+      )}
+    </>
+  )
 }
 
 export default function Contact({ n = '09', service, setService }: Props) {

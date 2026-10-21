@@ -17,9 +17,15 @@ All content comes from the crawl in `../reference/ii-th`.
 
 ## Clients
 
-The section directly after the hero shows II's 16 client logos in one straight grid: Sony, DuPont, Walmart, Kimberly-Clark, Dell, Philips, LG, IBM, General Electric, Sharp, Whirlpool, 3M, HP, Honeywell, Dow and Panasonic. These are the logos from the "Our Clients" slideshow on II's current home page, in the same order. The other clients that II names in its text follow as one line.
+The section directly after the hero shows II's 16 client logos in one straight grid: Sony, DuPont, Walmart, Kimberly-Clark, Dell, Philips, LG, IBM, General Electric, Sharp, Whirlpool, 3M, HP, Honeywell, Dow and Panasonic. These are the logos from the "Our Clients" slideshow on II's current home page, in the same order. The other clients that II names only in text follow in a strip that moves left to right in a loop (hover pauses it; with reduced motion it is a still list).
 
 The saved HTML of the old site has only the first three slides. The full set comes from a live snapshot (`reference/ii-th/live/`: screenshots, and every image the pages load).
+
+## Home page tabs
+
+After the hero and the clients, the home page shows one topic at a time instead of one long scroll. A sticky tab bar sits under the nav: About, Services (with "how booking works"), Marks, Coverage, BOI, Products, Why II, Documents, Contact. A yellow highlighter slides to the active tab, each panel fades in, and "previous / next" buttons sit at the bottom of each panel. On phones the tab bar scrolls sideways.
+
+Every section keeps its id, so links such as `#contact` (hero button, nav, footer, shared URLs) open the right tab and scroll to it. Arrow keys move between tabs.
 
 ## Two versions for review
 
@@ -81,7 +87,7 @@ Each service page has: key facts, what we provide, a service-specific section (m
 
 **Old addresses:** every page of the old Wix site (English, Thai and Chinese) redirects to its new page. On a static host a small redirect page per old address does this; `dist/_redirects` gives the same list as real 301 redirects for Netlify or Cloudflare Pages. This keeps existing Google rankings when the domain moves.
 
-**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open`, `language_switch`, `guide_print`, `guide_cta`, `portal_open`, `portal_download` and `portal_book_again`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
+**Analytics:** `src/analytics.ts` records `request_submit`, `request_copy`, `phone_click`, `email_click`, `line_click`, `whatsapp_click`, `faq_open`, `tab_open`, `language_switch`, `guide_print`, `guide_cta`, `portal_open`, `portal_download` and `portal_book_again`. Nothing is sent until an analytics tool (for example Plausible or Google Tag Manager) is added and the privacy notice covers it.
 
 ## Languages (Phase 2)
 

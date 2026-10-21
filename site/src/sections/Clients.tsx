@@ -2,7 +2,8 @@ import { clientLogos, otherClients, ui } from '../content'
 import { useReveal } from '../hooks'
 
 // Client logos from the "Our Clients" slideshow on II's home page, shown
-// together in one grid, then the other clients II names in its text.
+// together in one grid, then the other clients II names in its text, in a
+// strip that moves left to right in a loop.
 export default function Clients() {
   const ref = useReveal<HTMLUListElement>()
   return (
@@ -24,9 +25,19 @@ export default function Clients() {
             </li>
           ))}
         </ul>
-        <p className="client-others">
-          <strong>{ui.clientsAlso}</strong> {otherClients.join(ui.listSep)}
-        </p>
+        <div className="client-more">
+          <p className="client-more-label">{ui.clientsAlso}</p>
+          {/* Two copies so the loop has no gap; the copy is hidden from screen readers. */}
+          <div className="client-marquee">
+            <ul className="client-track">
+              {[...otherClients, ...otherClients].map((name, i) => (
+                <li key={i} aria-hidden={i >= otherClients.length || undefined} className={i >= otherClients.length ? 'is-copy' : ''}>
+                  {name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -1373,15 +1373,243 @@ mark {
   object-fit: contain;
 }
 
-.client-others {
-  margin: 26px 0 0 calc(var(--label-col) + var(--col-gap));
-  max-width: 80ch;
-  font-size: 15px;
+.client-more {
+  margin: 30px 0 0 calc(var(--label-col) + var(--col-gap));
+}
+
+.client-more-label {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--ink-2);
 }
 
-.client-others strong {
+/* Other clients: a strip that moves left to right, in a loop. */
+.client-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.client-track {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 14px;
+  display: flex;
+  width: max-content;
+  animation: client-loop 60s linear infinite;
+}
+
+.client-marquee:hover .client-track {
+  animation-play-state: paused;
+}
+
+.client-track li {
+  display: grid;
+  place-items: center;
+  min-width: 150px;
+  height: 64px;
+  margin-right: 12px;
+  padding: 0 22px;
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 0 0 1px var(--line), 0 10px 22px -18px rgba(18, 19, 26, 0.5);
+  font-family: var(--display);
+  font-stretch: 108%;
+  font-weight: 800;
+  font-size: 17px;
+  white-space: nowrap;
   color: var(--ink);
+}
+
+/* The second copy starts where the first ends, so moving by half loops cleanly. */
+@keyframes client-loop {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .client-track {
+    flex-wrap: wrap;
+    row-gap: 10px;
+    width: auto;
+    animation: none;
+  }
+  .client-track .is-copy {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Home page tabs                                                      */
+/* ------------------------------------------------------------------ */
+.tabs {
+  /* The sticky bar sits just under the fixed nav. */
+  --tabs-top: 74px;
+  position: relative;
+  border-top: 1px solid var(--line);
+}
+
+.tabs-bar {
+  position: sticky;
+  top: var(--tabs-top);
+  z-index: 40;
+  padding: 14px 0;
+  pointer-events: none;
+}
+
+.tabs-glass {
+  pointer-events: auto;
+  border-radius: 10px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+  box-shadow: 0 0 0 1px var(--line), 0 18px 36px -24px rgba(18, 19, 26, 0.5);
+}
+
+.tabs-list {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  padding: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-list button {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+.tabs-list button:hover {
+  color: var(--ink);
+}
+
+.tabs-list button[aria-selected='true'] {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.tab-n {
+  font-family: var(--display);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+/* The highlighter: the same yellow as the hero's "priority." */
+.tabs-mark {
+  position: absolute;
+  z-index: 0;
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  border-radius: 6px;
+  background: var(--yellow);
+  transition: transform 0.45s var(--ease), width 0.45s var(--ease);
+}
+
+.tab-panel:not([hidden]) {
+  animation: panel-in 0.55s var(--ease) backwards;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+.tab-panel > .section:first-child {
+  padding-top: clamp(40px, 5vw, 64px);
+}
+
+.tabs-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 8px;
+  padding-bottom: clamp(56px, 7vw, 96px);
+}
+
+.pager-btn {
+  display: grid;
+  gap: 4px;
+  min-width: 220px;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--display);
+  font-stretch: 108%;
+  font-weight: 800;
+  font-size: clamp(20px, 2.2vw, 28px);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.pager-btn.is-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.pager-btn small {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.pager-btn:hover {
+  color: var(--blue);
+}
+
+@media (max-width: 640px) {
+  .tabs {
+    --tabs-top: 64px;
+  }
+  .tabs-bar {
+    padding: 8px 0;
+  }
+  .tabs-list button {
+    padding: 9px 11px;
+    font-size: 14px;
+  }
+  .tabs-list {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent);
+  }
+  .pager-btn {
+    min-width: 0;
+    font-size: 18px;
+  }
 }
 
 /* Documents --------------------------------------------------------- */
@@ -2263,7 +2491,7 @@ mark {
   .why-list,
   .doc-groups,
   .client-logos,
-  .client-others {
+  .client-more {
     margin-left: 0;
   }
   .hero {

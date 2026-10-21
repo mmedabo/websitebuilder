@@ -1,4 +1,5 @@
 import BookingSteps from '../components/BookingSteps'
+import SectionTabs from '../components/SectionTabs'
 import { bookingSteps, ui } from '../content'
 import BoiProcess from '../sections/BoiProcess'
 import Clients from '../sections/Clients'
@@ -20,18 +21,30 @@ export default function HomePage({ still, variant, service, setService }: Props)
     <>
       <Hero still={still} variant={variant} />
       <Clients />
-      <Story />
-      <Services />
-      <BookingSteps n="03" steps={bookingSteps} title={ui.bookingTitle}>
-        {ui.bookingHomeLead}
-      </BookingSteps>
-      <Marks n="04" />
-      <Coverage n="05" />
-      <BoiProcess still={still} n="06" />
-      <Expertise n="07" />
-      <WhyUs n="08" />
-      <Documents n="09" />
-      <Contact n="10" service={service} setService={setService} />
+      <SectionTabs
+        panels={[
+          { id: 'about', label: ui.nav.about, node: <Story /> },
+          {
+            id: 'services',
+            label: ui.nav.services,
+            node: (
+              <>
+                <Services />
+                <BookingSteps n="02" steps={bookingSteps} title={ui.bookingTitle}>
+                  {ui.bookingHomeLead}
+                </BookingSteps>
+              </>
+            ),
+          },
+          { id: 'marks', label: ui.nav.marks, node: <Marks n="03" /> },
+          { id: 'coverage', label: ui.coverageLabel, node: <Coverage n="04" /> },
+          { id: 'boi', label: ui.nav.boi, node: <BoiProcess still={still} n="05" /> },
+          { id: 'expertise', label: ui.nav.products, node: <Expertise n="06" /> },
+          { id: 'why', label: ui.whyLabel, node: <WhyUs n="07" /> },
+          { id: 'documents', label: ui.docsLabel, node: <Documents n="08" /> },
+          { id: 'contact', label: ui.nav.contact, node: <Contact n="09" service={service} setService={setService} /> },
+        ]}
+      />
     </>
   )
 }

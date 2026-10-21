@@ -17,6 +17,7 @@ const en = {
     brandSmall: 'Co., Ltd. · Est. 1989',
     brandAria: 'International Inspection, home',
     navAria: 'Main',
+    tabsAria: 'Sections',
     nav: { about: 'About', services: 'Services', marks: 'Marks', boi: 'BOI', products: 'Products', guide: 'BOI guide', contact: 'Contact' },
     requestInspection: 'Request inspection',
     menuOpen: 'Open menu',

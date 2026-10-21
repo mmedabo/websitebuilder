@@ -3,6 +3,7 @@ import { locale, MARKETS, marks, ui, type MarketId } from '../content'
 import SectionHead from '../components/SectionHead'
 import { track } from '../analytics'
 import { useInView, useReducedMotion, useReveal, webglSupported } from '../hooks'
+import { markId } from '../search'
 
 const MarketGlobe = lazy(() => import('../effects/MarketGlobe'))
 
@@ -71,7 +72,7 @@ export default function Marks({ n = '03' }: { n?: string }) {
         <ul className="stamps reveal-stagger" ref={ref}>
           {marks.map((m, i) => (
             <li key={m.mark} style={{ ['--i' as string]: i }} className={market && m.market !== market ? 'is-dim' : market ? 'is-match' : ''}>
-              <figure className="mark-card">
+              <figure className="mark-card" id={markId(m.mark)}>
                 <span className="mark-img">
                   {m.img ? <img src={m.img} alt={`${m.mark} mark`} loading="lazy" decoding="async" /> : <span className="mark-text">{m.mark}</span>}
                 </span>

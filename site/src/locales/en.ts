@@ -549,7 +549,11 @@ const en = {
     placeholder: 'Search services, questions, marks, documents…',
     empty: 'No results. Try another word, or contact us.',
     hint: '↑ ↓ to move · Enter to open · Esc to close',
-    groups: { page: 'Pages', service: 'Services', faq: 'Questions', mark: 'Marks', doc: 'Documents', guide: 'BOI guide' },
+    groups: { page: 'Pages', service: 'Services', faq: 'Questions', mark: 'Marks', doc: 'Documents', guide: 'BOI guide', product: 'Products we inspect' },
+    keywords: {
+      contact: 'address location office map directions phone call telephone tel email e-mail fax line whatsapp',
+      booking: 'price prices cost costs fee fees quote quotation payment invoice book booking schedule appointment',
+    },
   },
 
   // BOI scrap write-off guide. Facts only from BOI Announcements Por. 4/2543

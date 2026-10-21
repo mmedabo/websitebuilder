@@ -29,8 +29,16 @@ export default function SectionTabs({ panels }: { panels: Panel[] }) {
     const el = document.getElementById(target)
     const first = panels.some((p) => p.id === target)
     const offset = (parseFloat(getComputedStyle(root).getPropertyValue('--tabs-top')) || 76) + 8
-    const top = (first || !el ? root : el).getBoundingClientRect().top + window.scrollY - offset
+    const deep = el && !first && !el.matches('section')
+    const top = (first || !el ? root : el).getBoundingClientRect().top + window.scrollY - offset - (deep ? 80 : 0)
     if (force || window.scrollY > top) window.scrollTo({ top, behavior: 'smooth' })
+    // A single card (e.g. one mark from search) flashes so the eye finds it.
+    if (deep) {
+      el.classList.remove('is-target')
+      void el.offsetWidth
+      el.classList.add('is-target')
+      window.setTimeout(() => el.classList.remove('is-target'), 2000)
+    }
   }
 
   const open = (id: string, target = id, force = false) => {

@@ -524,7 +524,11 @@ const ja: Locale = {
     placeholder: 'サービス、質問、マーク、資料を検索…',
     empty: '該当する結果がありません。別の言葉で検索するか、お問い合わせください。',
     hint: '↑ ↓ 移動 · Enter 開く · Esc 閉じる',
-    groups: { page: 'ページ', service: 'サービス', faq: 'よくある質問', mark: 'マーク', doc: '資料', guide: 'BOIガイド' },
+    groups: { page: 'ページ', service: 'サービス', faq: 'よくある質問', mark: 'マーク', doc: '資料', guide: 'BOIガイド', product: '検査対象の製品' },
+    keywords: {
+      contact: '住所 所在地 地図 アクセス 事務所 電話 電話番号 メール ファックス FAX address phone email',
+      booking: '料金 価格 費用 見積 見積もり 支払い 予約 日程 price cost quote',
+    },
   },
 
   guide: {

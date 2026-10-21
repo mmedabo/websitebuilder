@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent } from 'react'
 import { locale } from '../content'
 import { track } from '../analytics'
 import { search, suggestions, type Entry } from '../search'
@@ -73,9 +73,21 @@ export default function QuickSearch() {
     }
   }
 
-  const go = (r: Entry) => {
+  // Links to another page navigate as usual. Links on this page would be a
+  // no-op when the hash is already in the URL, so handle them here: update
+  // the URL, let the tabs and FAQ react, and scroll to anything outside tabs.
+  const go = (e: MouseEvent<HTMLAnchorElement>, r: Entry) => {
     track('search_go', { group: r.group, query: q.slice(0, 40) })
     ref.current?.close()
+    if (r.external) return
+    const url = new URL(r.href, window.location.href)
+    if (url.pathname !== window.location.pathname) return
+    e.preventDefault()
+    history.pushState(null, '', url.pathname + window.location.search + url.hash)
+    window.dispatchEvent(new HashChangeEvent('hashchange'))
+    const el = url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null
+    if (!url.hash) window.scrollTo({ top: 0, behavior: 'smooth' })
+    else if (el && !el.closest('[data-panel]')) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   // Group results under headings, keeping the ranked order of groups.
@@ -123,7 +135,7 @@ export default function QuickSearch() {
                     href={r.href}
                     target={r.external ? '_blank' : undefined}
                     rel={r.external ? 'noreferrer' : undefined}
-                    onClick={() => go(r)}
+                    onClick={(e) => go(e, r)}
                   >
                     <strong>
                       <Highlight text={r.title} q={q.trim()} />

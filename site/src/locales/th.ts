@@ -511,7 +511,11 @@ const th: Locale = {
     placeholder: 'ค้นหาบริการ คำถาม เครื่องหมาย เอกสาร…',
     empty: 'ไม่พบผลลัพธ์ ลองคำอื่น หรือติดต่อเรา',
     hint: '↑ ↓ เลื่อน · Enter เปิด · Esc ปิด',
-    groups: { page: 'หน้า', service: 'บริการ', faq: 'คำถาม', mark: 'เครื่องหมาย', doc: 'เอกสาร', guide: 'คู่มือ BOI' },
+    groups: { page: 'หน้า', service: 'บริการ', faq: 'คำถาม', mark: 'เครื่องหมาย', doc: 'เอกสาร', guide: 'คู่มือ BOI', product: 'ผลิตภัณฑ์ที่เราตรวจสอบ' },
+    keywords: {
+      contact: 'ที่อยู่ สถานที่ แผนที่ สำนักงาน โทรศัพท์ เบอร์โทร อีเมล แฟกซ์ ไลน์ address phone email',
+      booking: 'ราคา ค่าบริการ ค่าใช้จ่าย ใบเสนอราคา ชำระเงิน จอง นัดหมาย price cost quote',
+    },
   },
 
   guide: {

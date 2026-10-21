@@ -3114,7 +3114,7 @@ html[data-page='home'][data-variant='photo'] .photo-credit {
   display: inline-block;
   padding: 1px 8px;
   border-radius: 3px;
-  background: var(--orange);
+  background: var(--orange-ink);
   color: var(--white);
   font-size: 12px;
   font-weight: 700;

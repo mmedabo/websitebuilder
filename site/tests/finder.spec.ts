@@ -5,6 +5,19 @@ const step = (page: Page) => page.locator('dialog.finder .finder-step')
 const pick = (page: Page, text: string) => page.locator('dialog.finder .finder-options button', { hasText: text }).click()
 
 test.describe('service finder', () => {
+  // CI's desktop WebKit has no GPU: the frosted-glass blur drops it to under one frame
+  // a second, so clicks never settle. Real Safari draws the blur on the GPU.
+  test.beforeEach(async ({ page, browserName, isMobile }) => {
+    if (browserName !== 'webkit' || isMobile) return
+    await page.addInitScript(() =>
+      document.addEventListener('DOMContentLoaded', () => {
+        const s = document.createElement('style')
+        s.textContent = '.glass{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}'
+        document.head.append(s)
+      }),
+    )
+  })
+
   test('commercial path: 3 steps, then the form arrives filled in', async ({ page }) => {
     await page.goto('./?v=shader')
     await page.locator('.hero .finder-cta').click()

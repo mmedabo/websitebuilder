@@ -81,6 +81,17 @@ test.describe('BOI steps', () => {
   })
 })
 
+test.describe('reduced motion', () => {
+  test('all content shows at once, without scrolling to it', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    for (const path of ['./#services', './#about', 'services/sourcing/']) {
+      await page.goto(path)
+      const hidden = await page.evaluate(() => [...document.querySelectorAll('.reveal, .reveal-stagger > *')].filter((e) => getComputedStyle(e).opacity === '0').length)
+      expect(hidden, path).toBe(0)
+    }
+  })
+})
+
 test.describe('service comparison', () => {
   test('picks up to 3 services; a 4th replaces the oldest', async ({ page }) => {
     await page.goto('./#compare')

@@ -4953,4 +4953,10 @@ html:is([lang='th'], [lang='ja']) .display mark {
   .map-pulse {
     display: none;
   }
+  /* Without motion there is nothing to reveal: show content at once, not when scrolled to. */
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
 }

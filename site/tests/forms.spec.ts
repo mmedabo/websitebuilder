@@ -47,9 +47,12 @@ test.describe('BOI request form', () => {
   test('consent is required; the request is shown to copy', async ({ page }) => {
     // Headless browsers differ on the clipboard (Firefox never settles), so record what is copied.
     await page.addInitScript(() => {
-      Object.defineProperty(Navigator.prototype, 'clipboard', {
-        get: () => ({ writeText: async (t: string) => void ((window as unknown as { copied: string }).copied = t) }),
-      })
+      const record = async (t: string) => void ((window as unknown as { copied: string }).copied = t)
+      try {
+        Object.defineProperty(navigator, 'clipboard', { value: { writeText: record }, configurable: true })
+      } catch {
+        navigator.clipboard.writeText = record
+      }
     })
     await page.reload()
     await page.locator('.faq-list summary').first().click()

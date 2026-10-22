@@ -20,6 +20,11 @@ async function ready(page: Page, path: string) {
   })
   await page.clock.setFixedTime(new Date('2026-10-21T10:00:00+07:00'))
   await page.goto(path, { waitUntil: 'networkidle' })
+  // Load lazy images now, so a shot never catches one still loading.
+  await page.evaluate(async () => {
+    for (const i of document.images) i.loading = 'eager'
+    await Promise.all([...document.images].map((i) => i.decode().catch(() => {})))
+  })
   await page.evaluate(() => document.fonts.ready)
 }
 

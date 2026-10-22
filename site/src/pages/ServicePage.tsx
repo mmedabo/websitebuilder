@@ -8,6 +8,7 @@ import Contact from '../sections/Contact'
 import Documents from '../sections/Documents'
 import Expertise from '../sections/Expertise'
 import Marks from '../sections/Marks'
+import ServiceDiagram from '../components/ServiceDiagram'
 import { Blueprint } from '../sections/Services'
 
 type Props = { id: ServiceId; still: boolean; service: string; setService: (id: string) => void }
@@ -45,6 +46,7 @@ export default function ServicePage({ id, still, service, setService }: Props) {
               {ui.call} {company.phones[0].label.split(/ (?:–|ถึง) /)[0]}, {ui.ext} {s.ext}
             </a>
           </div>
+          <ServiceDiagram id={id} />
           <ul className="keyfacts">
             {s.keyFacts.map((f) => (
               <li key={f}>{f}</li>

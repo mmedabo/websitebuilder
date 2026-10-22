@@ -106,7 +106,26 @@ export const marks = MARKS.map((m, i) => ({
   img: m.img && `${import.meta.env.BASE_URL}img/marks/${m.img}.png`,
 }))
 
-export const expertise = L.expertise
+// Photos from II's "Our Expertise" page, in the order of the product list.
+// null: the old site has no photo for that category.
+const EXPERTISE_PHOTOS = [
+  'appliances',
+  'lighting',
+  'wire-cable',
+  'plumbing',
+  'plastics',
+  'high-tech',
+  'textiles',
+  'toys',
+  'life-safety',
+  'energy',
+  'building-materials',
+  null,
+]
+export const expertise = L.expertise.map((x, i) => ({
+  ...x,
+  photo: EXPERTISE_PHOTOS[i] ? `${import.meta.env.BASE_URL}img/products/${EXPERTISE_PHOTOS[i]}.jpg` : null,
+}))
 export const whyUs = L.whyUs
 export const timeline = L.timeline
 export const boiSteps = L.boiSteps.map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0') }))

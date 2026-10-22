@@ -235,7 +235,8 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 | Marks | `/follow-up-inspection-services`: names, regions, and the 13 mark images under "Certification Marks We Currently Represent", in the same order (`public/img/marks/`). BR-UL has no image there, so it shows as text. |
 | Logo | II's original logo file from the old site (`public/img/ii-logo.png`); the nav and favicon use its blue-and-black block (`ii-mark.png`). |
 | BOI four steps | Thai page การตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า, and the BOI scrap conditions PDF (3 working days notice) |
-| What we inspect | `/our-expertise` |
+| What we inspect | `/our-expertise`. Photos: the 11 category photos on that page, full size (`reference/ii-th/images/products/`, web copies in `public/img/products/`), shown in one blue print colour. "Premium & Licensed Goods" has no photo there, so it has a line icon. |
+| Service diagrams | Drawn for the concept. Every label is text the site already has: request-form choices, key facts and "What we provide" items; the follow-up diagram uses the mark images. |
 | Clients | Logos: the "Our Clients" slideshow on `/` (live snapshot). Names: `/machine-and-scrap-inspection`, `/`, Thai BOI page. |
 | Documents | The 9 public PDFs. Links go to the original files on ii-th.com. |
 | Contact | `/contact` |

@@ -218,3 +218,42 @@ test.describe('text on blue', () => {
     })
   }
 })
+
+test.describe('pictures', () => {
+  test('products: 11 original photos load, the 12th card has its icon', async ({ page }) => {
+    await page.goto('./#expertise')
+    const photos = page.locator('#panel-expertise .exp-photo img')
+    await expect(photos).toHaveCount(11)
+    for (const img of await photos.all()) {
+      await img.scrollIntoViewIfNeeded()
+      await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true)
+    }
+    await expect(page.locator('#panel-expertise .exp-photo .exp-icon')).toHaveCount(1)
+  })
+
+  // Each service page shows its diagram; labels are the site's own words.
+  const diagrams: [string, string, number][] = [
+    ['services/follow-up-inspection/', '.sd-logo img', 8],
+    ['services/commercial-inspection/', '.sd-step', 4],
+    ['services/product-testing/', '.sd-chip', 8],
+    ['services/boi-machine-scrap-inspection/', '.sd-step', 3],
+    ['services/sourcing/', '.sd-step', 6],
+  ]
+  for (const [path, item, count] of diagrams) {
+    test(`service diagram on /${path}`, async ({ page }) => {
+      await page.goto(path)
+      const fig = page.locator('.svc-hero .service-diagram')
+      await expect(fig).toBeVisible()
+      await expect(fig.locator(item)).toHaveCount(count)
+      const box = await fig.boundingBox()
+      expect(box!.x + box!.width).toBeLessThanOrEqual(page.viewportSize()!.width)
+    })
+  }
+
+  test('commercial diagram uses the request form wording', async ({ page }) => {
+    await page.goto('services/commercial-inspection/')
+    const labels = await page.locator('.service-diagram .sd-label').allTextContents()
+    const options = await page.locator('#contact select[name=inspectionType] option').allTextContents()
+    for (const l of labels) expect(options).toContain(l)
+  })
+})

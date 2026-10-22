@@ -155,3 +155,70 @@ export default function ServiceDiagram({ id }: { id: ServiceId }) {
   }
   return art && <figure className={`service-diagram is-${id}`}>{art}</figure>
 }
+
+// Small emblem of each diagram, for the service cards on the home page. 64 x 64.
+const hubDots = (n: number, r: number, el: (x: number, y: number, k: number) => ReactNode) =>
+  Array.from({ length: n }, (_, k) => {
+    const a = (k / n) * Math.PI * 2 - Math.PI / 2
+    return el(32 + Math.cos(a) * r, 32 + Math.sin(a) * r, k)
+  })
+
+const flow = (n: number) => {
+  const gap = 44 / (n - 1)
+  return (
+    <>
+      <path d={`M14 10V${10 + gap * (n - 1)}`} />
+      {Array.from({ length: n }, (_, k) => (
+        <g key={k}>
+          <circle cx="14" cy={10 + gap * k} r={n > 4 ? 3.5 : 5} className={k === n - 1 ? 'is-end' : undefined} />
+          <path d={`M26 ${10 + gap * k}h${k % 2 ? 20 : 28}`} />
+        </g>
+      ))}
+    </>
+  )
+}
+
+const GLYPHS: Record<ServiceId, ReactNode> = {
+  'follow-up': (
+    <>
+      <circle cx="32" cy="32" r="22" className="is-dashed" />
+      {hubDots(6, 22, (x, y, k) => (
+        <g key={k}>
+          <path d={`M32 32L${x} ${y}`} />
+          <circle cx={x} cy={y} r="4.5" className="is-fill" />
+        </g>
+      ))}
+      <circle cx="32" cy="32" r="9" className="is-end" />
+    </>
+  ),
+  testing: (
+    <>
+      <circle cx="32" cy="32" r="22" className="is-dashed" />
+      {hubDots(8, 22, (x, y, k) => (
+        <g key={k}>
+          <path d={`M32 32L${x} ${y}`} />
+          <rect x={x - 5} y={y - 3} width="10" height="6" rx="3" className="is-fill" />
+        </g>
+      ))}
+      <circle cx="32" cy="32" r="9" className="is-end" />
+    </>
+  ),
+  commercial: flow(4),
+  sourcing: flow(6),
+  boi: (
+    <>
+      <circle cx="16" cy="14" r="6" />
+      <circle cx="48" cy="14" r="6" />
+      <path d="M16 24v6a6 6 0 0 0 6 6h20a6 6 0 0 0 6-6v-6M32 36v6" />
+      <circle cx="32" cy="50" r="7" className="is-end" />
+    </>
+  ),
+}
+
+export function ServiceGlyph({ id }: { id: ServiceId }) {
+  return (
+    <svg viewBox="0 0 64 64" className="svc-glyph" aria-hidden>
+      {GLYPHS[id]}
+    </svg>
+  )
+}

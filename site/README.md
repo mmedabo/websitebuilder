@@ -236,7 +236,8 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 | Logo | II's original logo file from the old site (`public/img/ii-logo.png`); the nav and favicon use its blue-and-black block (`ii-mark.png`). |
 | BOI four steps | Thai page การตรวจสอบส่วนสูญเสียและเครื่องจักรเก่า, and the BOI scrap conditions PDF (3 working days notice) |
 | What we inspect | `/our-expertise`. Photos: the 11 category photos on that page, full size (`reference/ii-th/images/products/`, web copies in `public/img/products/`), shown in one blue print colour. "Premium & Licensed Goods" has no photo there, so it has a line icon. |
-| Service diagrams | Drawn for the concept. Every label is text the site already has: request-form choices, key facts and "What we provide" items; the follow-up diagram uses the mark images. |
+| Service diagrams | Drawn for the concept. Every label is text the site already has: request-form choices, key facts and "What we provide" items; the follow-up diagram uses the mark images. The home-page service cards show a small emblem of each diagram. |
+| Why II icons | Line icons drawn for the concept, one per point. The old site's clip art (quality badge, medal, scissors) is not used. |
 | Clients | Logos: the "Our Clients" slideshow on `/` (live snapshot). Names: `/machine-and-scrap-inspection`, `/`, Thai BOI page. |
 | Documents | The 9 public PDFs. Links go to the original files on ii-th.com. |
 | Contact | `/contact` |

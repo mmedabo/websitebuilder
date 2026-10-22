@@ -250,6 +250,24 @@ test.describe('pictures', () => {
     })
   }
 
+  test('home: every service card has its emblem; every Why II point its icon', async ({ page }) => {
+    await page.goto('./#services')
+    await expect(page.locator('#services .svc-card')).toHaveCount(5)
+    await expect(page.locator('#services .svc-card .svc-glyph')).toHaveCount(5)
+    await page.goto('./#why')
+    const items = await page.locator('#why .why-list li').count()
+    await expect(page.locator('#why .why-list li .why-icon')).toHaveCount(items)
+    // The icon sits in its own column, clear of the text.
+    const overlap = await page.evaluate(() =>
+      [...document.querySelectorAll('#why .why-list li')].some((li) => {
+        const i = li.querySelector('.why-icon')!.getBoundingClientRect()
+        const p = li.querySelector('p')!.getBoundingClientRect()
+        return i.left < p.right
+      }),
+    )
+    expect(overlap).toBe(false)
+  })
+
   test('commercial diagram uses the request form wording', async ({ page }) => {
     await page.goto('services/commercial-inspection/')
     const labels = await page.locator('.service-diagram .sd-label').allTextContents()

@@ -1,6 +1,7 @@
 import type { PointerEvent as RPointerEvent } from 'react'
 import { locale, services, ui } from '../content'
 import { openFinder } from '../components/ServiceFinder'
+import { ServiceGlyph } from '../components/ServiceDiagram'
 import Glass from '../effects/Glass'
 import SectionHead from '../components/SectionHead'
 import { useReveal } from '../hooks'
@@ -76,6 +77,7 @@ export default function Services() {
               onPointerLeave={untilt}
             >
               <span className="svc-index">{s.index}</span>
+              <ServiceGlyph id={s.id} />
               <span className="svc-title">{s.title}</span>
               <span className="svc-short">{s.short}</span>
               <span className="svc-more">

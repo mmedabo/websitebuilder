@@ -122,3 +122,35 @@ test('phone link records an event', async ({ page }) => {
   await page.locator('.svc-actions a[href^="tel:"]').click()
   expect(await events(page)).toContain('phone_click')
 })
+
+test.describe('form feedback', () => {
+  test.use({ timezoneId: 'Asia/Bangkok' })
+
+  test('tick on a filled required field, orange line on a wrong one', async ({ page }) => {
+    await page.goto('services/boi-machine-scrap-inspection/')
+    await field(page, 'name').fill('Somchai Test')
+    await field(page, 'email').fill('not-an-email')
+    await field(page, 'company').click() // leave both fields
+    expect(await field(page, 'name').evaluate((i) => getComputedStyle(i).backgroundImage)).toContain('svg')
+    expect(await field(page, 'email').evaluate((i) => i.matches(':user-invalid'))).toBe(true)
+  })
+
+  test('a refused BOI date shakes the field', async ({ page }) => {
+    await page.clock.setFixedTime(TODAY)
+    await page.goto('services/boi-machine-scrap-inspection/')
+    await field(page, 'date').fill('2027-04-13')
+    await expect(field(page, 'date')).toHaveClass(/is-shake/)
+  })
+
+  test('the ready request shows a check mark', async ({ page }) => {
+    await page.clock.setFixedTime(TODAY)
+    await page.goto('services/boi-machine-scrap-inspection/')
+    await fillBasics(page)
+    await field(page, 'boiType').selectOption('Both')
+    await field(page, 'site').fill('Rayong')
+    await field(page, 'date').fill('2026-10-27')
+    await field(page, 'consent').check()
+    await page.locator(`${form} button[type=submit]`).click()
+    await expect(page.locator('.sent .sent-check')).toBeVisible()
+  })
+})

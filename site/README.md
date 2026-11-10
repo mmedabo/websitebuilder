@@ -206,6 +206,9 @@ The design avoids the usual "AI template" look (gradient text, serif italic acce
 - **Grid:** Swiss-style. Each section has a numbered label in a left column and a full-width rule above.
 - **Devices from inspection work:** a yellow highlighter stroke on the hero tagline, rubber-stamp badges for the certification marks, a blueprint grid behind the services, and report-style stat rows.
 - **Copy:** plain company language, with II's own tagline "Quality is our priority."
+- **Type scale:** every fixed text size is one step of `--fs-12` … `--fs-56` (12, 13, 14, 15, 16, 17, 18, 20, 22, 24, 28, 34, 40, 56 px). Display text, headings and intros use seven fluid sizes: `--fs-display`, `--fs-title`, `--fs-h2`, `--fs-h3`, `--fs-h4`, `--fs-lead`, `--fs-stat`. The presentation keeps its own larger projector sizes.
+- **Spacing:** single-value margins, gaps and paddings use a 4 px grid, `--s4` … `--s56` (4, 6, 8, 12, 16, 20, 24, 28, 32, 40, 48, 56 px). 1 and 2 px hairlines stay literal. Use these variables for new styles.
+- **Micro-interactions:** the stats count up when they come into view; required form fields show a tick when they are right and an orange line when they are wrong (after the visitor leaves the field); a refused BOI date shakes; a check mark draws when the request is ready; buttons give press feedback. All of them stop for visitors who ask for reduced motion.
 
 ## Design references and where they are used
 

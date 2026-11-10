@@ -67,6 +67,12 @@ function BoiDate({ f }: { f: Field }) {
     const error = r !== '' && r !== 'beyond'
     el.setCustomValidity(error ? text : '')
     setMsg(text ? { text, error } : null)
+    // A short shake says "not this date" before the eye reaches the message.
+    if (error) {
+      el.classList.remove('is-shake')
+      void el.offsetWidth
+      el.classList.add('is-shake')
+    }
   }
   return (
     <>
@@ -292,6 +298,10 @@ export default function Contact({ n = '09', service, setService }: Props) {
 
           {sent && (
             <div className="sent" role="status">
+              <svg viewBox="0 0 40 40" className="sent-check" aria-hidden>
+                <circle cx="20" cy="20" r="17" />
+                <path d="M12 20.5l5.5 5.5L28.5 14" />
+              </svg>
               <p>
                 <strong>{ui.sentStrong}</strong> {ui.sentBody} <a href={`mailto:${company.email}`}>{company.email}</a>.{' '}
                 {ui.sentAttach}
